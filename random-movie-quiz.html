@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Случайный кинотест</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fff6ea;
+      --paper: #fffdf7;
+      --paper-2: #fff1dc;
+      --ink: #4b2d1f;
+      --muted: #8f6147;
+      --accent: #f48a2a;
+      --accent-dark: #db6c12;
+      --accent-soft: #ffd19d;
+      --line: #6b4028;
+      --success: #ffb45f;
+      --shadow: 0 10px 0 rgba(107, 64, 40, 0.12);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      font-family: 'Nunito', system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(244, 138, 42, 0.18), transparent 18%),
+        radial-gradient(circle at 85% 20%, rgba(255, 179, 95, 0.22), transparent 18%),
+        linear-gradient(180deg, #fff7ec 0%, #ffe8c9 100%);
+      padding: 18px 14px 28px;
+    }
+
+    .app {
+      max-width: 430px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card, .back-btn, .cta, .bottom-btn {
+      border: 3px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .scribble::after {
+      content: "";
+      position: absolute;
+      inset: 7px;
+      border: 2px dashed rgba(107, 64, 40, 0.18);
+      border-radius: calc(var(--radius) - 8px);
+      pointer-events: none;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: max(4px, env(safe-area-inset-top));
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      font-weight: 800;
+      color: var(--ink);
+      background: var(--paper-2);
+      cursor: pointer;
+    }
+
+    .back-btn:active, .cta:active, .bottom-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 6px 0 rgba(107, 64, 40, 0.12);
+    }
+
+    .hero {
+      padding: 22px 20px 18px;
+      overflow: hidden;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--accent-soft);
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.05;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .subtitle {
+      margin: 12px 0 0;
+      font-size: 16px;
+      line-height: 1.45;
+      color: var(--muted);
+      max-width: 28ch;
+    }
+
+    .doodle {
+      margin-top: 16px;
+      padding: 14px;
+      background: #fff7ef;
+      border: 2px solid rgba(107,64,40,0.55);
+      border-radius: 20px;
+    }
+
+    .doodle svg { width: 100%; height: auto; }
+
+    .section-title {
+      margin: 0 0 10px;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .form-card {
+      padding: 18px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .field:last-child { margin-bottom: 0; }
+
+    label {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--ink);
+      padding-left: 6px;
+    }
+
+    .input-like {
+      min-height: 58px;
+      padding: 14px 16px;
+      background: #fffaf2;
+      border: 2px solid var(--line);
+      border-radius: 18px;
+      font-size: 17px;
+      line-height: 1.35;
+    }
+
+    .input-like.small {
+      min-height: 92px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .cta {
+      width: 100%;
+      padding: 18px 20px;
+      background: var(--accent);
+      color: #fffaf5;
+      font-size: 20px;
+      font-weight: 800;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .cta-wrap {
+      padding: 2px;
+    }
+
+    .bottom-box {
+      margin-top: 8px;
+      padding-bottom: max(8px, env(safe-area-inset-bottom));
+    }
+
+    .bottom-btn {
+      width: 100%;
+      padding: 16px 18px;
+      background: var(--paper-2);
+      color: var(--ink);
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .hand-note {
+      font-family: 'Caveat', cursive;
+      font-size: 27px;
+      color: var(--accent-dark);
+      margin: 0;
+      transform: rotate(-2deg);
+    }
+
+    .meta-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .meta-pill {
+      padding: 8px 12px;
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      background: #fff7ef;
+      font-size: 13px;
+      font-weight: 800;
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <div class="topbar">
+      <button class="back-btn scribble" id="backButton" type="button" aria-label="Вернуться">
+        <span>←</span>
+        <span>Вернуться</span>
+      </button>
+    </div>
+
+    <section class="card hero scribble">
+      <div class="badge">🍿 Случайный кинотест</div>
+      <h1>Кинотест, будто нарисованный от руки</h1>
+      <p class="subtitle">Оранжевый экран для быстрого старта: сначала название и описание теста, потом — одна большая кнопка запуска.</p>
+      <div class="meta-row">
+        <div class="meta-pill">Актеры и актрисы</div>
+        <div class="meta-pill">Telegram Mini App</div>
+      </div>
+      <div class="doodle">
+        <svg viewBox="0 0 320 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M20 77C51 41 89 35 122 57C151 76 177 81 206 64C226 53 242 44 271 47C286 49 299 56 306 63" stroke="#6B4028" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 10"/>
+          <rect x="22" y="25" width="74" height="52" rx="14" fill="#FFD19D" stroke="#6B4028" stroke-width="4"/>
+          <path d="M46 35V68" stroke="#6B4028" stroke-width="4" stroke-linecap="round"/>
+          <path d="M72 35V68" stroke="#6B4028" stroke-width="4" stroke-linecap="round"/>
+          <path d="M22 44H96" stroke="#6B4028" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="216" cy="42" r="23" fill="#FFF7EF" stroke="#6B4028" stroke-width="4"/>
+          <path d="M208 30C214 38 220 46 225 54" stroke="#F48A2A" stroke-width="4" stroke-linecap="round"/>
+          <path d="M227 31C221 39 215 46 209 54" stroke="#F48A2A" stroke-width="4" stroke-linecap="round"/>
+          <path d="M136 95C165 103 201 101 232 91" stroke="#6B4028" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </section>
+
+    <section class="card form-card scribble">
+      <p class="hand-note">Твой случайный тест</p>
+      <div class="field">
+        <label for="quizTitle">Заголовок кинотеста</label>
+        <div class="input-like" id="quizTitle">Тест по актрисам Франции</div>
+      </div>
+      <div class="field">
+        <label for="quizDescription">Описание</label>
+        <div class="input-like small" id="quizDescription">Угадай известных актрис, связанных с французским кино, и проверь, насколько хорошо ты ориентируешься в европейском экране.</div>
+      </div>
+    </section>
+
+    <div class="cta-wrap">
+      <button class="cta scribble" id="startButton" type="button">Начать</button>
+    </div>
+
+    <div class="bottom-box">
+      <button class="bottom-btn scribble" id="randomButton" type="button">🎲 Случайный кинотест</button>
+    </div>
+  </main>
+
+  <script>
+    const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
+
+    if (tg) {
+      tg.ready();
+      tg.expand();
+      tg.BackButton.show();
+      tg.BackButton.onClick(() => {
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          tg.close();
+        }
+      });
+    }
+
+    const state = {
+      title: 'Тест по актрисам Франции',
+      description: 'Угадай известных актрис, связанных с французским кино, и проверь, насколько хорошо ты ориентируешься в европейском экране.'
+    };
+
+    const titleEl = document.getElementById('quizTitle');
+    const descriptionEl = document.getElementById('quizDescription');
+    const randomButton = document.getElementById('randomButton');
+    const startButton = document.getElementById('startButton');
+    const backButton = document.getElementById('backButton');
+
+    function render() {
+      titleEl.textContent = state.title;
+      descriptionEl.textContent = state.description;
+      if (tg) {
+        tg.MainButton.setText('Начать тест');
+        tg.MainButton.color = '#f48a2a';
+        tg.MainButton.textColor = '#fffaf5';
+        tg.MainButton.show();
+      }
+    }
+
+    function getRandomLocalQuiz() {
+      const variants = [
+        {
+          title: 'Тест по актерам США',
+          description: 'Проверь, насколько хорошо ты узнаешь главных звезд Голливуда по фильмам, эпохам и ролям.'
+        },
+        {
+          title: 'Тест по актрисам России',
+          description: 'Вспомни ярких актрис российского кино и узнай, насколько хорошо ты чувствуешь отечественный экран.'
+        },
+        {
+          title: 'Тест по актерам Скандинавии',
+          description: 'Холодный север, мощная фактура и узнаваемые лица — попробуй пройти этот короткий кинотест без ошибок.'
+        },
+        {
+          title: 'Тест по актрисам Франции',
+          description: 'Угадай известных актрис, связанных с французским кино, и проверь, насколько хорошо ты ориентируешься в европейском экране.'
+        }
+      ];
+      return variants[Math.floor(Math.random() * variants.length)];
+    }
+
+    randomButton.addEventListener('click', () => {
+      Object.assign(state, getRandomLocalQuiz());
+      render();
+      if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+    });
+
+    function startQuiz() {
+      if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+      if (tg) {
+        tg.sendData(JSON.stringify({ action: 'start_random_quiz', title: state.title }));
+      } else {
+        alert('Старт теста: ' + state.title);
+      }
+    }
+
+    startButton.addEventListener('click', startQuiz);
+    if (tg) tg.MainButton.onClick(startQuiz);
+
+    backButton.addEventListener('click', () => {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else if (tg) {
+        tg.close();
+      }
+    });
+
+    render();
+  </script>
+</body>
+</html>
