@@ -195,93 +195,92 @@
     </div>
   </main>
 
-  <script>
-    const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
+ <script>
+  const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
 
-    if (tg) {
-      tg.ready();
-      tg.expand();
-      tg.BackButton.show();
-      tg.BackButton.onClick(() => {
-        if (window.history.length > 1) {
-          window.history.back();
-        } else {
-          tg.close();
-        }
-      });
-    }
+  if (tg) {
+    tg.ready();
+    tg.expand();
+    tg.BackButton.show();
+    tg.MainButton.hide();
 
-    const state = {
-      title: 'Увлекательный тест по актрисам Франции',
-      description: 'Угадай известных актрис, связанных с французским кино, и проверь, насколько хорошо ты ориентируешься в европейском экране.'
-    };
-
-    const titleEl = document.getElementById('quizTitle');
-    const descriptionEl = document.getElementById('quizDescription');
-    const randomButton = document.getElementById('randomButton');
-    const startButton = document.getElementById('startButton');
-    const backButton = document.getElementById('backButton');
-
-    function render() {
-      titleEl.textContent = state.title;
-      descriptionEl.textContent = state.description;
-      if (tg) {
-        tg.MainButton.setText('Начать тест');
-        tg.MainButton.color = '#f48a2a';
-        tg.MainButton.textColor = '#fffaf5';
-        tg.MainButton.show();
-      }
-    }
-
-    function getRandomLocalQuiz() {
-      const variants = [
-        {
-          title: 'Увлекательный тест по актерам США',
-          description: 'Проверь, насколько хорошо ты узнаешь главных звезд Голливуда по фильмам, эпохам и ролям.'
-        },
-        {
-          title: 'Увлекательный тест по актрисам России',
-          description: 'Вспомни ярких актрис российского кино и узнай, насколько хорошо ты чувствуешь отечественный экран.'
-        },
-        {
-          title: 'Увлекательный тест по актерам Скандинавии',
-          description: 'Холодный север, мощная фактура и узнаваемые лица — попробуй пройти этот короткий кинотест без ошибок.'
-        },
-        {
-          title: 'Увлекательный тест по актрисам Франции',
-          description: 'Угадай известных актрис, связанных с французским кино, и проверь, насколько хорошо ты ориентируешься в европейском экране.'
-        }
-      ];
-      return variants[Math.floor(Math.random() * variants.length)];
-    }
-
-    randomButton.addEventListener('click', () => {
-      Object.assign(state, getRandomLocalQuiz());
-      render();
-      if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-    });
-
-    function startQuiz() {
-      if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-      if (tg) {
-        tg.sendData(JSON.stringify({ action: 'start_random_quiz', title: state.title }));
-      } else {
-        alert('Старт теста: ' + state.title);
-      }
-    }
-
-    startButton.addEventListener('click', startQuiz);
-    if (tg) tg.MainButton.onClick(startQuiz);
-
-    backButton.addEventListener('click', () => {
+    tg.BackButton.onClick(() => {
       if (window.history.length > 1) {
         window.history.back();
-      } else if (tg) {
+      } else {
         tg.close();
       }
     });
+  }
 
+  const state = {
+    title: 'Увлекательный тест по актрисам Франции',
+    description: 'Угадай известных актрис, связанных с французским кино, и проверь, насколько хорошо ты ориентируешься в европейском экране.'
+  };
+
+  const titleEl = document.getElementById('quizTitle');
+  const descriptionEl = document.getElementById('quizDescription');
+  const randomButton = document.getElementById('randomButton');
+  const startButton = document.getElementById('startButton');
+  const backButton = document.getElementById('backButton');
+
+  function render() {
+    titleEl.textContent = state.title;
+    descriptionEl.textContent = state.description;
+
+    if (tg) {
+      tg.MainButton.hide();
+    }
+  }
+
+  function getRandomLocalQuiz() {
+    const variants = [
+      {
+        title: 'Увлекательный тест по актерам США',
+        description: 'Проверь, насколько хорошо ты узнаешь главных звезд Голливуда по фильмам, эпохам и ролям.'
+      },
+      {
+        title: 'Увлекательный тест по актрисам России',
+        description: 'Вспомни ярких актрис российского кино и узнай, насколько хорошо ты чувствуешь отечественный экран.'
+      },
+      {
+        title: 'Увлекательный тест по актерам Скандинавии',
+        description: 'Холодный север, мощная фактура и узнаваемые лица — попробуй пройти этот короткий кинотест без ошибок.'
+      },
+      {
+        title: 'Увлекательный тест по актрисам Франции',
+        description: 'Угадай известных актрис, связанных с французским кино, и проверь, насколько хорошо ты ориентируешься в европейском экране.'
+      }
+    ];
+    return variants[Math.floor(Math.random() * variants.length)];
+  }
+
+  randomButton.addEventListener('click', () => {
+    Object.assign(state, getRandomLocalQuiz());
     render();
-  </script>
+    if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+  });
+
+  function startQuiz() {
+    if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+    if (tg) {
+      tg.sendData(JSON.stringify({ action: 'start_random_quiz', title: state.title }));
+    } else {
+      alert('Старт теста: ' + state.title);
+    }
+  }
+
+  startButton.addEventListener('click', startQuiz);
+
+  backButton.addEventListener('click', () => {
+    if (window.history.length > 1) {
+      window.history.back();
+    } else if (tg) {
+      tg.close();
+    }
+  });
+
+  render();
+</script>
 </body>
 </html>
