@@ -107,7 +107,7 @@
     }
 
     .tv-card {
-      padding: 16px 16px 26px;
+      padding: 16px 16px 18px;
       background: linear-gradient(180deg, var(--paper-tv) 0%, var(--paper-tv-dark) 100%);
       border-radius: 34px;
       box-shadow:
@@ -194,9 +194,14 @@
       text-justify: auto;
     }
 
-    /* Контейнер контента главного экрана – чуть поднимаем всё внутри ТВ */
+    /* делаем текст результата крупнее */
+    .result-text {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
     .home-inner {
-      margin-top: -8px;
+      margin-top: -4px;
     }
 
     .home-description {
@@ -265,10 +270,9 @@
       margin-right: auto;
     }
 
-    /* На главной рамка ещё чуть компактнее, чтобы фото выше относительно низа ТВ */
     .home-doodle {
-      margin-top: 2px;
-      max-width: 280px;
+      margin-top: 2px;  /* подняли фото на главном экране */
+      max-width: 220px;
     }
 
     .scene-photo {
@@ -304,7 +308,7 @@
       border-radius: 16px;
       padding: 10px 12px;
       background: linear-gradient(180deg, #fff9ee 0%, #f6e2bd 100%);
-      color: #4b2d1f;
+      color: var(--ink);
       font-size: 14px;
       font-weight: 800;
       line-height: 1.2;
@@ -387,7 +391,7 @@
       gap: 12px;
       align-items: center;
       padding: 14px 16px;
-      border: 3px solid var(--line);
+      border: 3px солид var(--line);
       border-radius: 22px;
       background: linear-gradient(180deg, #f4dfbf 0%, #e8c99a 100%);
       box-shadow: inset 0 2px 0 rgba(255,255,255,0.3);
@@ -540,7 +544,7 @@
       screen: 'home',
       loading: false,
       title: 'Твой случайный кинотест',
-      description: '🤖 Подбираю для тебя случайный кинотест. Когда он загрузится, ты увидишь его заголовок и описание!',
+      description: 'Подбираем для тебя случайный кинотест. Когда он загрузится, ты увидишь его заголовок и описание и сможешь начать или выбрать другой.',
       previewImage: FALLBACK_SCENE,
       quiz: null,
       currentQuestion: 0,
@@ -626,7 +630,7 @@
         }
 
         if (error.name === 'SyntaxError') {
-          throw new Error('Произошла ошибка, повторите опытку!');
+          throw new Error('Ошибка парсинга JSON');
         }
 
         throw error;
@@ -636,7 +640,7 @@
     function setPreviewFromQuiz(quiz) {
       state.quiz = quiz;
       state.title = quiz.title || 'Твой случайный кинотест';
-      state.description = quiz.description || 'Готово — тест подобран! Можно начинать!';
+      state.description = quiz.description || 'Готово — тест подобран. Можно начинать.';
       state.previewImage = quiz.questions?.[0]?.image || FALLBACK_SCENE;
       state.error = '';
     }
@@ -745,9 +749,15 @@
       render();
     }
 
-    async function handleRestart() {
-      state.quiz = null;
-      await handleStart();
+    function handleRestart() {
+      if (!state.quiz) {
+        // подстраховка: если почему-то квиза нет — загружаем заново
+        handleStart();
+        return;
+      }
+      resetRun();
+      state.screen = 'quiz';
+      render();
     }
 
     function goHome() {
@@ -775,7 +785,7 @@
         tvScreen.innerHTML = `
           <div class="loading-wrap">
             <p class="hand-note">Твой случайный кинотест</p>
-            <p class="loading-text">🤖 Подбираю кинотест и загружаю данные...</p>
+            <p class="loading-text">Подбираем для тебя кинотест и загружаем его описание...</p>
             <div class="spinner" aria-hidden="true"></div>
             ${errorBlock}
           </div>
@@ -850,15 +860,13 @@
       const percent = Math.round((state.score / total) * 100);
       let phrase = 'Хорошая попытка — следующий кинотест точно покорится тебе.';
 
-      if (percent === 100) phrase = 'Идеально! Кинотест пройден без единой ошибки!';
-      else if (percent >= 70) phrase = 'Хороший результат! Ты отлично разбираешься в кинометографии!';
-      else if (percent >= 40) phrase = 'Неплохо! Но ты делаешь много ошибок, попробуй еще раз!';
-      else if (percent >= 20) phrase = 'Кинотест провален! Думаю, что тебе стоит попробовать еще раз!';
+      if (percent === 100) phrase = 'Идеально! Ты прошла этот кинотест без единой ошибки.';
+      else if (percent >= 70) phrase = 'Очень сильный результат — ты отлично узнаёшь лица кино.';
+      else if (percent >= 40) phrase = 'Неплохо! Ты уже хорошо ориентируешься, но можно ещё усилить результат.';
 
       tvScreen.innerHTML = `
         <div class="result-wrap">
           <p class="hand-note">Финал кинотеста</p>
-          <h1 class="quiz-title">Результат</h1>
           <p class="result-text">${escapeHtml(phrase)}</p>
 
           <div class="result-stats">
