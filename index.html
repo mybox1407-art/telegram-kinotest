@@ -41,7 +41,7 @@
         radial-gradient(circle at 15% 10%, rgba(244, 138, 42, 0.18), transparent 18%),
         radial-gradient(circle at 85% 20%, rgba(255, 179, 95, 0.22), transparent 18%),
         linear-gradient(180deg, #fff7ec 0%, #ffe8c9 100%);
-      padding: 8px 14px 26px; /* меньше сверху и снизу */
+      padding: 8px 14px 26px;
     }
 
     .app {
@@ -49,7 +49,7 @@
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 10px; /* меньше расстояние между кнопкой и ТВ */
+      gap: 10px;
     }
 
     .card, .back-btn {
@@ -64,7 +64,7 @@
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      padding-top: max(0px, env(safe-area-inset-top)); /* максимально вверх */
+      padding-top: max(0px, env(safe-area-inset-top));
     }
 
     .back-btn {
@@ -148,8 +148,8 @@
       box-shadow:
         inset 0 0 0 3px rgba(255,255,255,0.35),
         0 8px 0 rgba(107, 64, 40, 0.08);
-      padding: 24px 16px 18px;
-      min-height: 380px;
+      padding: 18px 14px 12px; /* было 24/16/18 – меньше отступы */
+      min-height: 0;
     }
 
     .hand-note {
@@ -167,7 +167,7 @@
     .quiz-title {
       position: relative;
       z-index: 1;
-      margin: 0;
+      margin: 4px 0 0; /* чуть ближе к прогрессу */
       font-size: 24px;
       line-height: 1.1;
       color: var(--ink);
@@ -206,8 +206,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 14px;
+      gap: 8px;          /* было 10px */
+      margin-bottom: 8px;/* было 14px – ближе к верху */
     }
 
     .progress-badge {
@@ -240,7 +240,7 @@
     .doodle {
       position: relative;
       z-index: 1;
-      margin-top: 18px;
+      margin-top: 10px;   /* было 18px – ближе к заголовку */
       border: 6px solid var(--paper-tv-dark);
       border-radius: 24px;
       box-shadow:
@@ -249,7 +249,7 @@
       overflow: hidden;
       background: #d9d1c5;
       aspect-ratio: 3 / 4;
-      max-width: 280px;
+      max-width: 260px;   /* было 280px – чуть компактнее по высоте */
       margin-left: auto;
       margin-right: auto;
     }
@@ -276,8 +276,8 @@
 
     .question-options {
       display: grid;
-      gap: 10px;
-      margin-top: 16px;
+      gap: 8px;          /* было 10px */
+      margin-top: 10px;  /* было 16px – ближе к фото */
     }
 
     .option-btn,
@@ -285,7 +285,7 @@
       width: 100%;
       border: 3px solid var(--line);
       border-radius: 18px;
-      padding: 14px 14px;
+      padding: 12px 12px; /* было 14px – чуть ниже по высоте строки */
       background: linear-gradient(180deg, #fff9ee 0%, #f6e2bd 100%);
       color: var(--ink);
       font-size: 15px;
@@ -311,7 +311,7 @@
 
     .result-chip {
       padding: 12px 14px;
-      border: 2px солид var(--line);
+      border: 2px solid var(--line);
       border-radius: 18px;
       background: var(--paper-2);
       text-align: center;
@@ -463,10 +463,10 @@
 
     @media (max-width: 480px) {
       .app { max-width: 100%; }
-      .tv-screen { padding: 22px 14px 16px; }
+      .tv-screen { padding: 16px 10px 10px; }
       .doodle { max-width: 240px; }
       .tv-controls {
-        grid-template-columns: minmax(0, 1fr) 52px авто;
+        grid-template-columns: minmax(0, 1fr) 52px auto;
         gap: 10px;
         padding: 12px 14px;
       }
