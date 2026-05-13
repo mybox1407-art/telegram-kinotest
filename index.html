@@ -197,6 +197,7 @@
     .result-text {
       font-size: 16px;
       line-height: 1.5;
+      font-weight: 800;
     }
 
     .home-inner {
@@ -477,7 +478,7 @@
       top: 3px;
     }
 
-    /* Увеличенный рисунок пути с фоном как у result-chip */
+    /* Рисунок пути: увеличенный, с модификаторами по настроению */
     .path-visual {
       margin-top: 14px;
       display: flex;
@@ -486,21 +487,26 @@
 
     .path-card {
       position: relative;
-      width: 260px;   /* шире */
-      height: 110px;  /* выше */
+      width: 280px;
+      height: 120px;
       border-radius: 18px;
       background: var(--paper-2);
       border: 2px solid var(--line);
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.7);
       overflow: hidden;
+      transition: transform 160ms ease-out;
+    }
+
+    .path-card--super {
+      transform: translateY(-2px);
     }
 
     .path-start {
       position: absolute;
       left: 26px;
-      top: 32px;
-      width: 60px;
-      height: 38px;
+      top: 34px;
+      width: 64px;
+      height: 40px;
       border-radius: 14px;
       background: #f4c28f;
       border: 3px solid #6b4028;
@@ -534,8 +540,8 @@
       position: absolute;
       right: 32px;
       top: 26px;
-      width: 50px;
-      height: 50px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
       background: #fff7ee;
       border: 3px solid #6b4028;
@@ -576,7 +582,7 @@
       position: absolute;
       left: 80px;
       right: 90px;
-      top: 46px;
+      top: 48px;
       height: 40px;
       pointer-events: none;
     }
@@ -597,15 +603,61 @@
     .path-dots span:nth-child(5) { left: 72%;  top: 16px; }
     .path-dots span:nth-child(6) { left: 90%;  top: 22px; }
 
+    /* Базовая улыбка (чуть позитивная) */
     .path-smile {
       position: absolute;
       left: 50%;
-      bottom: 18px;
-      width: 110px;
-      height: 26px;
-      border-radius: 0 0 70px 70px;
+      bottom: 20px;
+      width: 120px;
+      height: 28px;
+      border-radius: 0 0 80px 80px;
       border-bottom: 3px solid #6b4028;
       transform: translateX(-50%);
+    }
+
+    /* Супер улыбка: шире и глубже */
+    .path-card--super .path-smile {
+      width: 140px;
+      height: 34px;
+      bottom: 18px;
+      border-radius: 0 0 90px 90px;
+    }
+
+    /* Чуть менее улыбка (70–99): почти базовая */
+    .path-card--good .path-smile {
+      width: 125px;
+      height: 26px;
+      bottom: 20px;
+    }
+
+    /* Нейтрально (40–69): почти прямая линия */
+    .path-card--ok .path-smile {
+      width: 110px;
+      height: 10px;
+      bottom: 24px;
+      border-radius: 0 0 40px 40px;
+    }
+
+    /* Грусть (20–39): перевёрнутая дуга */
+    .path-card--sad .path-smile {
+      top: 74px;
+      bottom: auto;
+      width: 110px;
+      height: 20px;
+      border-radius: 80px 80px 0 0;
+      border-bottom: none;
+      border-top: 3px solid #6b4028;
+    }
+
+    /* Сильная грусть (<20): глубже */
+    .path-card--fail .path-smile {
+      top: 72px;
+      bottom: auto;
+      width: 130px;
+      height: 26px;
+      border-radius: 90px 90px 0 0;
+      border-bottom: none;
+      border-top: 3px solid #6b4028;
     }
 
     @keyframes spin {
@@ -991,17 +1043,23 @@
       const percent = Math.round((state.score / total) * 100);
 
       let phrase = 'Хорошая попытка — следующий кинотест точно покорится тебе.';
+      let moodClass = 'path-card--ok';
 
       if (percent === 100) {
-        phrase = 'Идеально! Кинотест пройден без единой ошибки!';
+        phrase    = 'Идеально! Кинотест пройден без единой ошибки!';
+        moodClass = 'path-card--super';
       } else if (percent >= 70) {
-        phrase = 'Хороший результат! Ты отлично разбираешься в кинематографе!';
+        phrase    = 'Хороший результат! Ты отлично разбираешься в кинематографе!';
+        moodClass = 'path-card--good';
       } else if (percent >= 40) {
-        phrase = 'Неплохо! Но ты делаешь много ошибок, попробуй еще раз!';
+        phrase    = 'Неплохо! Но ты делаешь много ошибок, попробуй еще раз!';
+        moodClass = 'path-card--ok';
       } else if (percent >= 20) {
-        phrase = 'Кинотест провален. Думаю, что тебе стоит попробовать ещё раз!';
+        phrase    = 'Кинотест провален. Думаю, что тебе стоит попробовать ещё раз!';
+        moodClass = 'path-card--sad';
       } else {
-        phrase = 'Почти всё мимо, но в этом и кайф — давай попробуем ещё раз!';
+        phrase    = 'Почти всё мимо, но в этом и кайф — давай попробуем ещё раз!';
+        moodClass = 'path-card--fail';
       }
 
       tvScreen.innerHTML = `
@@ -1010,7 +1068,7 @@
           <p class="result-text">${escapeHtml(phrase)}</p>
 
           <div class="path-visual">
-            <div class="path-card">
+            <div class="path-card ${moodClass}">
               <div class="path-start">
                 <div class="path-start-line"></div>
               </div>
