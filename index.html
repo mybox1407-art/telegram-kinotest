@@ -256,8 +256,10 @@
         0 3px 0 rgba(107, 64, 40, 0.10);
       overflow: hidden;
       background: #d9d1c5;
-      aspect-ratio: 16 / 9;
-      min-height: 180px;
+      aspect-ratio: 3 / 4;
+      max-width: 280px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .scene-photo {
@@ -267,7 +269,6 @@
       object-fit: cover;
       object-position: 50% 50%;
       filter: grayscale(1) contrast(1.04);
-      transform: scale(1.02);
     }
 
     .doodle::after {
@@ -471,8 +472,7 @@
     @media (max-width: 480px) {
       .app { max-width: 100%; }
       .tv-screen { padding: 22px 14px 16px; }
-      .doodle { min-height: 170px; }
-      .scene-photo { object-position: 48% 50%; }
+      .doodle { max-width: 240px; }
       .tv-controls {
         grid-template-columns: minmax(0, 1fr) 52px auto;
         gap: 10px;
@@ -814,7 +814,6 @@
           </div>
         </div>
 
-        <p class="quiz-meta">${escapeHtml(state.quiz.title || 'Кинотест')}</p>
         <h2 class="quiz-title">${escapeHtml(question.question || 'Кто изображён на фото?')}</h2>
 
         <div class="doodle">
@@ -859,7 +858,6 @@
           <div class="result-stats">
             <div class="result-chip">Правильных ответов: ${state.score} из ${total}</div>
             <div class="result-chip">Точность: ${percent}%</div>
-            <div class="result-chip">Тест: ${escapeHtml(state.quiz.title || 'Случайный кинотест')}</div>
           </div>
 
           <button class="result-btn" id="restartButton" type="button">Пройти еще раз</button>
