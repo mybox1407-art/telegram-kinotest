@@ -41,7 +41,7 @@
         radial-gradient(circle at 15% 10%, rgba(244, 138, 42, 0.18), transparent 18%),
         radial-gradient(circle at 85% 20%, rgba(255, 179, 95, 0.22), transparent 18%),
         linear-gradient(180deg, #fff7ec 0%, #ffe8c9 100%);
-      padding: 18px 14px 34px;
+      padding: 8px 14px 26px; /* меньше сверху и снизу */
     }
 
     .app {
@@ -49,7 +49,7 @@
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      gap: 10px; /* меньше расстояние между кнопкой и ТВ */
     }
 
     .card, .back-btn {
@@ -64,7 +64,7 @@
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      padding-top: max(4px, env(safe-area-inset-top));
+      padding-top: max(0px, env(safe-area-inset-top)); /* максимально вверх */
     }
 
     .back-btn {
@@ -156,7 +156,7 @@
       position: relative;
       z-index: 1;
       font-family: 'Caveat', cursive;
-      font-size: 32px; /* уменьшили */
+      font-size: 32px;
       line-height: 1;
       color: var(--accent-dark);
       margin: 0 0 18px;
@@ -168,7 +168,7 @@
       position: relative;
       z-index: 1;
       margin: 0;
-      font-size: 24px; /* уменьшили */
+      font-size: 24px;
       line-height: 1.1;
       color: var(--ink);
       font-weight: 800;
@@ -188,7 +188,7 @@
       line-height: 1.45;
       color: var(--ink);
       font-weight: 500;
-      text-align: center;  /* было justify */
+      text-align: center;
       text-justify: auto;
     }
 
@@ -237,7 +237,6 @@
       transition: width 220ms ease;
     }
 
-    /* Рамка – портрет для всех экранов */
     .doodle {
       position: relative;
       z-index: 1;
@@ -312,7 +311,7 @@
 
     .result-chip {
       padding: 12px 14px;
-      border: 2px solid var(--line);
+      border: 2px солид var(--line);
       border-radius: 18px;
       background: var(--paper-2);
       text-align: center;
@@ -467,7 +466,7 @@
       .tv-screen { padding: 22px 14px 16px; }
       .doodle { max-width: 240px; }
       .tv-controls {
-        grid-template-columns: minmax(0, 1fr) 52px auto;
+        grid-template-columns: minmax(0, 1fr) 52px авто;
         gap: 10px;
         padding: 12px 14px;
       }
