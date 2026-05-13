@@ -13,6 +13,9 @@
       --bg: #fff6ea;
       --paper: #fffdf7;
       --paper-2: #fff1dc;
+      --paper-tv: #f2dec0;
+      --paper-tv-dark: #e3c597;
+      --screen: #fffaf4;
       --ink: #4b2d1f;
       --muted: #8f6147;
       --accent: #f48a2a;
@@ -34,7 +37,7 @@
         radial-gradient(circle at 15% 10%, rgba(244, 138, 42, 0.18), transparent 18%),
         radial-gradient(circle at 85% 20%, rgba(255, 179, 95, 0.22), transparent 18%),
         linear-gradient(180deg, #fff7ec 0%, #ffe8c9 100%);
-      padding: 18px 14px 28px;
+      padding: 18px 14px 34px;
     }
 
     .app {
@@ -87,11 +90,64 @@
       box-shadow: 0 6px 0 rgba(107, 64, 40, 0.12);
     }
 
-    .form-card {
+    .tv-card {
+      padding: 16px 16px 18px;
+      background: linear-gradient(180deg, var(--paper-tv) 0%, var(--paper-tv-dark) 100%);
+      border-radius: 34px;
+      box-shadow:
+        0 12px 0 rgba(107, 64, 40, 0.14),
+        0 22px 28px rgba(107, 64, 40, 0.08);
+      position: relative;
+      overflow: visible;
+    }
+
+    .tv-card::before,
+    .tv-card::after {
+      content: "";
+      position: absolute;
+      bottom: -14px;
+      width: 58px;
+      height: 10px;
+      background: var(--line);
+      border-radius: 999px;
+      z-index: -1;
+      opacity: 0.9;
+    }
+
+    .tv-card::before {
+      left: 78px;
+      transform: rotate(22deg);
+    }
+
+    .tv-card::after {
+      right: 78px;
+      transform: rotate(-22deg);
+    }
+
+    .tv-screen {
+      position: relative;
+      border: 3px solid var(--line);
+      border-radius: 30px;
+      background: var(--screen);
+      box-shadow:
+        inset 0 0 0 3px rgba(255,255,255,0.35),
+        0 8px 0 rgba(107, 64, 40, 0.08);
       padding: 24px 16px 18px;
+      min-height: 380px;
+    }
+
+    .tv-screen::before {
+      content: "";
+      position: absolute;
+      inset: 9px;
+      border: 2px dashed rgba(107, 64, 40, 0.18);
+      border-radius: 22px;
+      pointer-events: none;
     }
 
     .hand-note {
+      position: relative;
+      z-index: 1;
       font-family: 'Caveat', cursive;
       font-size: 36px;
       line-height: 1;
@@ -102,6 +158,8 @@
     }
 
     .quiz-title {
+      position: relative;
+      z-index: 1;
       margin: 0;
       font-size: 28px;
       line-height: 1.05;
@@ -112,6 +170,8 @@
     }
 
     .quiz-description {
+      position: relative;
+      z-index: 1;
       margin: 12px 0 0;
       font-size: 14px;
       line-height: 1.45;
@@ -122,16 +182,80 @@
     }
 
     .doodle {
+      position: relative;
+      z-index: 1;
       margin-top: 18px;
       padding: 14px;
-      background: #fff7ef;
-      border: 2px solid rgba(107, 64, 40, 0.55);
-      border-radius: 20px;
+      background: #f7eee5;
+      border: 3px solid rgba(107, 64, 40, 0.45);
+      border-radius: 24px;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.25);
     }
 
     .doodle svg {
       width: 100%;
       height: auto;
+    }
+
+    .tv-controls {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 14px;
+      align-items: center;
+      padding: 14px 16px;
+      border: 3px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(180deg, #f4dfbf 0%, #e8c99a 100%);
+      box-shadow: inset 0 2px 0 rgba(255,255,255,0.3);
+    }
+
+    .speaker {
+      height: 44px;
+      border-radius: 16px;
+      border: 2px solid rgba(107, 64, 40, 0.28);
+      background:
+        radial-gradient(circle, rgba(107,64,40,0.35) 18%, transparent 19%) 0 0 / 8px 8px,
+        #edd8b5;
+    }
+
+    .knobs {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .knob {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 3px solid var(--line);
+      background: linear-gradient(180deg, #ffd79f 0%, #f0b05d 100%);
+      box-shadow: inset 0 2px 0 rgba(255,255,255,0.38);
+      position: relative;
+      flex: 0 0 auto;
+    }
+
+    .knob.small {
+      width: 24px;
+      height: 24px;
+    }
+
+    .knob::after {
+      content: "";
+      position: absolute;
+      width: 3px;
+      height: 11px;
+      border-radius: 999px;
+      background: var(--line);
+      top: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .knob.small::after {
+      height: 8px;
+      top: 3px;
     }
 
     .cta {
@@ -174,23 +298,33 @@
       </button>
     </div>
 
-    <section class="card form-card scribble">
-      <p class="hand-note">Твой случайный кинотест</p>
-      <h1 class="quiz-title" id="quizTitle">Увлекательный тест по актрисам Франции</h1>
-      <p class="quiz-description" id="quizDescription">Угадай известных актрис, связанных с французским кино, и проверь, насколько хорошо ты ориентируешься в европейском экране.</p>
+    <section class="card tv-card" aria-label="Карточка кинотеста">
+      <div class="tv-screen">
+        <p class="hand-note">Твой случайный кинотест</p>
+        <h1 class="quiz-title" id="quizTitle">Увлекательный тест по актрисам Франции</h1>
+        <p class="quiz-description" id="quizDescription">Угадай известных актрис, связанных с французским кино, и проверь, насколько хорошо ты ориентируешься в европейском экране.</p>
 
-      <div class="doodle">
-        <svg viewBox="0 0 320 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M20 77C51 41 89 35 122 57C151 76 177 81 206 64C226 53 242 44 271 47C286 49 299 56 306 63" stroke="#6B4028" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 10"/>
-          <rect x="22" y="25" width="74" height="52" rx="14" fill="#FFD19D" stroke="#6B4028" stroke-width="4"/>
-          <path d="M46 35V68" stroke="#6B4028" stroke-width="4" stroke-linecap="round"/>
-          <path d="M72 35V68" stroke="#6B4028" stroke-width="4" stroke-linecap="round"/>
-          <path d="M22 44H96" stroke="#6B4028" stroke-width="4" stroke-linecap="round"/>
-          <circle cx="216" cy="42" r="23" fill="#FFF7EF" stroke="#6B4028" stroke-width="4"/>
-          <path d="M208 30C214 38 220 46 225 54" stroke="#F48A2A" stroke-width="4" stroke-linecap="round"/>
-          <path d="M227 31C221 39 215 46 209 54" stroke="#F48A2A" stroke-width="4" stroke-linecap="round"/>
-          <path d="M136 95C165 103 201 101 232 91" stroke="#6B4028" stroke-width="4" stroke-linecap="round"/>
-        </svg>
+        <div class="doodle">
+          <svg viewBox="0 0 320 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M20 77C51 41 89 35 122 57C151 76 177 81 206 64C226 53 242 44 271 47C286 49 299 56 306 63" stroke="#6B4028" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 10"/>
+            <rect x="22" y="25" width="74" height="52" rx="14" fill="#FFD19D" stroke="#6B4028" stroke-width="4"/>
+            <path d="M46 35V68" stroke="#6B4028" stroke-width="4" stroke-linecap="round"/>
+            <path d="M72 35V68" stroke="#6B4028" stroke-width="4" stroke-linecap="round"/>
+            <path d="M22 44H96" stroke="#6B4028" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="216" cy="42" r="23" fill="#FFF7EF" stroke="#6B4028" stroke-width="4"/>
+            <path d="M208 30C214 38 220 46 225 54" stroke="#F48A2A" stroke-width="4" stroke-linecap="round"/>
+            <path d="M227 31C221 39 215 46 209 54" stroke="#F48A2A" stroke-width="4" stroke-linecap="round"/>
+            <path d="M136 95C165 103 201 101 232 91" stroke="#6B4028" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="tv-controls" aria-hidden="true">
+        <div class="speaker"></div>
+        <div class="knobs">
+          <span class="knob"></span>
+          <span class="knob small"></span>
+        </div>
       </div>
     </section>
 
