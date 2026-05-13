@@ -23,9 +23,6 @@
       --line: #6b4028;
       --shadow: 0 10px 0 rgba(107, 64, 40, 0.12);
       --radius: 24px;
-      --silhouette: #111111;
-      --scene-bg-top: #f1ece5;
-      --scene-bg-bottom: #ddd4c9;
     }
 
     * { box-sizing: border-box; }
@@ -187,18 +184,34 @@
       position: relative;
       z-index: 1;
       margin-top: 18px;
-      padding: 0;
-      background: linear-gradient(180deg, var(--scene-bg-top) 0%, var(--scene-bg-bottom) 100%);
       border: 3px solid rgba(107, 64, 40, 0.45);
       border-radius: 24px;
       box-shadow: inset 0 0 0 2px rgba(255,255,255,0.25);
       overflow: hidden;
+      background: #d9d1c5;
+      aspect-ratio: 16 / 9;
+      min-height: 180px;
     }
 
-    .doodle svg {
+    .scene-photo {
       width: 100%;
-      height: auto;
+      height: 100%;
       display: block;
+      object-fit: cover;
+      object-position: center;
+      filter: grayscale(1) contrast(1.04);
+      transform: scale(1.02);
+    }
+
+    .doodle::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.16), rgba(0,0,0,0.06)),
+        radial-gradient(circle at center, transparent 45%, rgba(0,0,0,0.08) 100%);
+      mix-blend-mode: multiply;
     }
 
     .tv-controls {
@@ -309,52 +322,13 @@
         <p class="quiz-description" id="quizDescription">Угадай известных актрис, связанных с французским кино, и проверь, насколько хорошо ты ориентируешься в европейском экране.</p>
 
         <div class="doodle">
-          <svg viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <rect x="0" y="0" width="360" height="200" fill="#e7e0d6"/>
-            <rect x="0" y="150" width="360" height="50" fill="#d4c9bc"/>
-
-            <rect x="234" y="10" width="3" height="140" fill="#9d9388"/>
-            <rect x="249" y="10" width="2" height="140" fill="#b3a89b"/>
-            <rect x="234" y="26" width="17" height="2.5" fill="#9d9388"/>
-            <rect x="234" y="49" width="17" height="2.5" fill="#9d9388"/>
-            <rect x="234" y="72" width="17" height="2.5" fill="#9d9388"/>
-            <rect x="234" y="95" width="17" height="2.5" fill="#9d9388"/>
-            <rect x="234" y="118" width="17" height="2.5" fill="#9d9388"/>
-
-            <path d="M286 97H356" stroke="#b9aea2" stroke-width="5" stroke-linecap="round"/>
-            <path d="M292 114H356" stroke="#c9beb2" stroke-width="4" stroke-linecap="round"/>
-
-            <g transform="translate(10 14)">
-              <path d="M26 41C26 28 35 17 48 14C61 11 72 18 75 31C76 39 73 46 69 52L70 60L39 61L40 50C31 47 26 45 26 41Z" fill="#111111"/>
-              <path d="M38 61C43 57 51 56 58 58C68 61 75 68 79 77L93 114L78 115L67 88L60 86L62 156L48 156L46 96L42 117L28 148L17 143L31 108L36 78C37 71 38 66 38 61Z" fill="#111111"/>
-              <path d="M50 156L43 184L31 184L39 156Z" fill="#111111"/>
-              <path d="M62 156L73 184L61 184L54 156Z" fill="#111111"/>
-
-              <g transform="translate(70 40)">
-                <circle cx="38" cy="18" r="15" fill="#111111"/>
-                <circle cx="61" cy="22" r="19" fill="#111111"/>
-                <rect x="27" y="28" width="56" height="28" rx="4" fill="#111111"/>
-                <path d="M83 35L108 31V55L83 50Z" fill="#111111"/>
-                <rect x="19" y="48" width="10" height="23" rx="4" fill="#111111"/>
-                <path d="M48 56V100" stroke="#111111" stroke-width="5" stroke-linecap="round"/>
-                <path d="M48 100L27 150" stroke="#111111" stroke-width="5" stroke-linecap="round"/>
-                <path d="M48 100L49 154" stroke="#111111" stroke-width="5" stroke-linecap="round"/>
-                <path d="M48 100L70 149" stroke="#111111" stroke-width="5" stroke-linecap="round"/>
-              </g>
-            </g>
-
-            <g transform="translate(263 20)">
-              <path d="M24 37C24 23 33 13 46 10C58 7 67 13 71 25C73 33 72 43 65 49L67 56L37 56L38 49C29 47 24 43 24 37Z" fill="#111111"/>
-              <path d="M41 56C53 55 61 59 67 68C72 75 75 87 76 102L84 145L72 147L61 116L58 166L44 166L41 120L28 165L16 163L25 121L28 97C29 84 32 73 36 66C38 62 39 59 41 56Z" fill="#111111"/>
-              <path d="M44 166L39 190L28 190L35 166Z" fill="#111111"/>
-              <path d="M58 166L66 190L55 190L50 166Z" fill="#111111"/>
-
-              <path d="M0 94C9 89 14 86 18 84L21 98C14 101 9 103 2 107Z" fill="#111111"/>
-              <path d="M18 84C24 84 28 86 32 90" stroke="#111111" stroke-width="3" stroke-linecap="round"/>
-            </g>
-
-            <path d="M0 170C68 160 128 156 180 156C243 156 303 163 360 178" stroke="#b2a79b" stroke-width="10" stroke-linecap="round" opacity="0.7"/>
-          </svg>
+          <img
+            id="scenePhoto"
+            class="scene-photo"
+            src="./movie_still.jpg"
+            alt="Сцена из старого фильма"
+            loading="eager"
+          />
         </div>
       </div>
 
@@ -404,6 +378,12 @@
     const randomButton = document.getElementById('randomButton');
     const startButton = document.getElementById('startButton');
     const backButton = document.getElementById('backButton');
+    const scenePhoto = document.getElementById('scenePhoto');
+
+    scenePhoto.addEventListener('error', () => {
+      scenePhoto.alt = 'Не удалось загрузить кадр фильма';
+      scenePhoto.style.opacity = '0.35';
+    });
 
     function render() {
       titleEl.textContent = state.title;
@@ -445,7 +425,11 @@
     function startQuiz() {
       if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
       if (tg) {
-        tg.sendData(JSON.stringify({ action: 'start_random_quiz', title: state.title }));
+        tg.sendData(JSON.stringify({
+          action: 'start_random_quiz',
+          title: state.title,
+          scene: './movie_still.jpg'
+        }));
       } else {
         alert('Старт теста: ' + state.title);
       }
