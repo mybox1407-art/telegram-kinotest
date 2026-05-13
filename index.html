@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Случайный кинотест</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+  //fonts.googleapis.com">
+  //fonts.gstatic.com" crossorigin>
+  //fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #fff6ea;
@@ -47,7 +47,7 @@
       gap: 18px;
     }
 
-    .card, .back-btn, .cta, .bottom-btn {
+    .card, .back-btn, .bottom-btn {
       border: 3px solid var(--line);
       border-radius: var(--radius);
       background: var(--paper);
@@ -83,7 +83,7 @@
     }
 
     .back-btn:active,
-    .cta:active,
+    .tv-start-btn:active,
     .bottom-btn:active {
       transform: translateY(2px);
       box-shadow: 0 6px 0 rgba(107, 64, 40, 0.12);
@@ -184,9 +184,11 @@
       position: relative;
       z-index: 1;
       margin-top: 18px;
-      border: 3px solid rgba(107, 64, 40, 0.45);
+      border: 6px solid var(--paper-tv-dark);
       border-radius: 24px;
-      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.25);
+      box-shadow:
+        inset 0 0 0 2px rgba(255,255,255,0.18),
+        0 3px 0 rgba(107, 64, 40, 0.10);
       overflow: hidden;
       background: #d9d1c5;
       aspect-ratio: 16 / 9;
@@ -217,9 +219,9 @@
     .tv-controls {
       margin-top: 14px;
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: minmax(0, 1fr) auto;
       gap: 14px;
-      align-items: center;
+      align-items: stretch;
       padding: 14px 16px;
       border: 3px solid var(--line);
       border-radius: 22px;
@@ -227,13 +229,19 @@
       box-shadow: inset 0 2px 0 rgba(255,255,255,0.3);
     }
 
-    .speaker {
-      height: 44px;
+    .tv-start-btn {
+      width: 100%;
+      min-height: 44px;
+      padding: 0 18px;
+      border: 3px solid var(--line);
       border-radius: 16px;
-      border: 2px solid rgba(107, 64, 40, 0.28);
-      background:
-        radial-gradient(circle, rgba(107,64,40,0.35) 18%, transparent 19%) 0 0 / 8px 8px,
-        #edd8b5;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+      color: #fffaf5;
+      font-size: 18px;
+      font-weight: 800;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: inset 0 2px 0 rgba(255,255,255,0.18);
     }
 
     .knobs {
@@ -273,21 +281,6 @@
     .knob.small::after {
       height: 8px;
       top: 3px;
-    }
-
-    .cta {
-      width: 100%;
-      padding: 18px 20px;
-      background: var(--accent);
-      color: #fffaf5;
-      font-size: 20px;
-      font-weight: 800;
-      text-align: center;
-      cursor: pointer;
-    }
-
-    .cta-wrap {
-      padding: 2px;
     }
 
     .bottom-box {
@@ -332,18 +325,15 @@
         </div>
       </div>
 
-      <div class="tv-controls" aria-hidden="true">
-        <div class="speaker"></div>
-        <div class="knobs">
+      <div class="tv-controls" aria-hidden="false">
+        <button class="tv-start-btn" id="startButton" type="button">Начать</button>
+
+        <div class="knobs" aria-hidden="true">
           <span class="knob"></span>
           <span class="knob small"></span>
         </div>
       </div>
     </section>
-
-    <div class="cta-wrap">
-      <button class="cta scribble" id="startButton" type="button">Начать</button>
-    </div>
 
     <div class="bottom-box">
       <button class="bottom-btn scribble" id="randomButton" type="button">🎲 Случайный кинотест</button>
