@@ -20,10 +20,12 @@
       --muted: #8f6147;
       --accent: #f48a2a;
       --accent-dark: #db6c12;
-      --accent-soft: #ffd19d;
       --line: #6b4028;
       --shadow: 0 10px 0 rgba(107, 64, 40, 0.12);
       --radius: 24px;
+      --silhouette: #111111;
+      --scene-bg-top: #f1ece5;
+      --scene-bg-bottom: #ddd4c9;
     }
 
     * { box-sizing: border-box; }
@@ -186,7 +188,7 @@
       z-index: 1;
       margin-top: 18px;
       padding: 0;
-      background: linear-gradient(180deg, #f3ece3 0%, #e5d8c8 100%);
+      background: linear-gradient(180deg, var(--scene-bg-top) 0%, var(--scene-bg-bottom) 100%);
       border: 3px solid rgba(107, 64, 40, 0.45);
       border-radius: 24px;
       box-shadow: inset 0 0 0 2px rgba(255,255,255,0.25);
@@ -197,7 +199,6 @@
       width: 100%;
       height: auto;
       display: block;
-      filter: grayscale(1) contrast(1.05);
     }
 
     .tv-controls {
@@ -307,64 +308,52 @@
         <h1 class="quiz-title" id="quizTitle">Увлекательный тест по актрисам Франции</h1>
         <p class="quiz-description" id="quizDescription">Угадай известных актрис, связанных с французским кино, и проверь, насколько хорошо ты ориентируешься в европейском экране.</p>
 
-        <div class="doodle cinema-scene">
-          <svg viewBox="0 0 360 190" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs>
-              <linearGradient id="bgFade" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#f6f1ea"/>
-                <stop offset="100%" stop-color="#ddd3c6"/>
-              </linearGradient>
-              <linearGradient id="dressFade" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#fbfaf7"/>
-                <stop offset="100%" stop-color="#c9c1b6"/>
-              </linearGradient>
-            </defs>
+        <div class="doodle">
+          <svg viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="0" y="0" width="360" height="200" fill="#e7e0d6"/>
+            <rect x="0" y="150" width="360" height="50" fill="#d4c9bc"/>
 
-            <rect x="0" y="0" width="360" height="190" rx="22" fill="url(#bgFade)"/>
+            <rect x="234" y="10" width="3" height="140" fill="#9d9388"/>
+            <rect x="249" y="10" width="2" height="140" fill="#b3a89b"/>
+            <rect x="234" y="26" width="17" height="2.5" fill="#9d9388"/>
+            <rect x="234" y="49" width="17" height="2.5" fill="#9d9388"/>
+            <rect x="234" y="72" width="17" height="2.5" fill="#9d9388"/>
+            <rect x="234" y="95" width="17" height="2.5" fill="#9d9388"/>
+            <rect x="234" y="118" width="17" height="2.5" fill="#9d9388"/>
 
-            <path d="M0 150L360 150" stroke="#6B4028" stroke-width="3"/>
-            <path d="M0 166C72 158 121 154 180 154C244 154 298 160 360 172" stroke="#6B4028" stroke-opacity="0.22" stroke-width="12" stroke-linecap="round"/>
+            <path d="M286 97H356" stroke="#b9aea2" stroke-width="5" stroke-linecap="round"/>
+            <path d="M292 114H356" stroke="#c9beb2" stroke-width="4" stroke-linecap="round"/>
 
-            <path d="M236 0V150" stroke="#6B4028" stroke-opacity="0.18" stroke-width="4"/>
-            <path d="M252 0V150" stroke="#6B4028" stroke-opacity="0.08" stroke-width="3"/>
-            <path d="M236 18H252M236 44H252M236 70H252M236 96H252M236 122H252" stroke="#6B4028" stroke-opacity="0.2" stroke-width="3"/>
+            <g transform="translate(10 14)">
+              <path d="M26 41C26 28 35 17 48 14C61 11 72 18 75 31C76 39 73 46 69 52L70 60L39 61L40 50C31 47 26 45 26 41Z" fill="#111111"/>
+              <path d="M38 61C43 57 51 56 58 58C68 61 75 68 79 77L93 114L78 115L67 88L60 86L62 156L48 156L46 96L42 117L28 148L17 143L31 108L36 78C37 71 38 66 38 61Z" fill="#111111"/>
+              <path d="M50 156L43 184L31 184L39 156Z" fill="#111111"/>
+              <path d="M62 156L73 184L61 184L54 156Z" fill="#111111"/>
 
-            <path d="M18 30C34 18 57 14 79 24C96 31 112 48 118 69" stroke="#6B4028" stroke-opacity="0.14" stroke-width="18" stroke-linecap="round"/>
-
-            <g transform="translate(18 34)">
-              <ellipse cx="62" cy="40" rx="30" ry="22" fill="#e9e2d9"/>
-              <path d="M53 18C64 6 81 7 90 19C97 28 98 42 90 53C83 63 69 69 55 65C43 61 34 51 33 39C32 31 36 24 44 20Z" fill="#d8d0c6"/>
-              <path d="M42 82C50 64 66 58 83 62C98 66 110 78 115 97L128 140H16L27 101C30 90 35 85 42 82Z" fill="#efebe4"/>
-              <path d="M77 69L83 122" stroke="#6B4028" stroke-width="5" stroke-linecap="round"/>
-              <path d="M69 98L31 126" stroke="#6B4028" stroke-width="5" stroke-linecap="round"/>
-              <path d="M88 101L124 116" stroke="#6B4028" stroke-width="5" stroke-linecap="round"/>
-
-              <g transform="translate(100 48)">
-                <circle cx="24" cy="14" r="12" fill="#3d332d"/>
-                <circle cx="44" cy="18" r="16" fill="#3d332d"/>
-                <rect x="16" y="24" width="46" height="24" rx="4" fill="#3d332d"/>
-                <path d="M62 30L84 26V46L62 42Z" fill="#3d332d"/>
-                <rect x="8" y="42" width="10" height="20" rx="4" fill="#3d332d"/>
-                <path d="M34 48V90" stroke="#3d332d" stroke-width="4" stroke-linecap="round"/>
-                <path d="M34 90L14 136" stroke="#3d332d" stroke-width="4" stroke-linecap="round"/>
-                <path d="M34 90L36 138" stroke="#3d332d" stroke-width="4" stroke-linecap="round"/>
-                <path d="M34 90L56 136" stroke="#3d332d" stroke-width="4" stroke-linecap="round"/>
+              <g transform="translate(70 40)">
+                <circle cx="38" cy="18" r="15" fill="#111111"/>
+                <circle cx="61" cy="22" r="19" fill="#111111"/>
+                <rect x="27" y="28" width="56" height="28" rx="4" fill="#111111"/>
+                <path d="M83 35L108 31V55L83 50Z" fill="#111111"/>
+                <rect x="19" y="48" width="10" height="23" rx="4" fill="#111111"/>
+                <path d="M48 56V100" stroke="#111111" stroke-width="5" stroke-linecap="round"/>
+                <path d="M48 100L27 150" stroke="#111111" stroke-width="5" stroke-linecap="round"/>
+                <path d="M48 100L49 154" stroke="#111111" stroke-width="5" stroke-linecap="round"/>
+                <path d="M48 100L70 149" stroke="#111111" stroke-width="5" stroke-linecap="round"/>
               </g>
             </g>
 
-            <g transform="translate(250 30)">
-              <ellipse cx="42" cy="32" rx="18" ry="20" fill="#e7ddd3"/>
-              <path d="M24 30C26 14 38 6 53 12C65 18 69 31 64 43C59 56 45 62 31 58C22 55 18 44 24 30Z" fill="#efe7dc"/>
-              <path d="M40 53C57 55 67 65 71 84C73 95 73 110 74 136H12C13 112 14 97 18 84C23 67 31 57 40 53Z" fill="url(#dressFade)"/>
-              <path d="M18 78C7 96 4 110 2 138" stroke="#f1ece4" stroke-width="10" stroke-linecap="round"/>
-              <path d="M66 79C79 95 85 112 88 140" stroke="#f1ece4" stroke-width="10" stroke-linecap="round"/>
-              <path d="M40 53V138" stroke="#b9aea0" stroke-opacity="0.5" stroke-width="2"/>
-              <path d="M29 138L23 150" stroke="#6B4028" stroke-opacity="0.45" stroke-width="3" stroke-linecap="round"/>
-              <path d="M58 138L64 150" stroke="#6B4028" stroke-opacity="0.45" stroke-width="3" stroke-linecap="round"/>
+            <g transform="translate(263 20)">
+              <path d="M24 37C24 23 33 13 46 10C58 7 67 13 71 25C73 33 72 43 65 49L67 56L37 56L38 49C29 47 24 43 24 37Z" fill="#111111"/>
+              <path d="M41 56C53 55 61 59 67 68C72 75 75 87 76 102L84 145L72 147L61 116L58 166L44 166L41 120L28 165L16 163L25 121L28 97C29 84 32 73 36 66C38 62 39 59 41 56Z" fill="#111111"/>
+              <path d="M44 166L39 190L28 190L35 166Z" fill="#111111"/>
+              <path d="M58 166L66 190L55 190L50 166Z" fill="#111111"/>
+
+              <path d="M0 94C9 89 14 86 18 84L21 98C14 101 9 103 2 107Z" fill="#111111"/>
+              <path d="M18 84C24 84 28 86 32 90" stroke="#111111" stroke-width="3" stroke-linecap="round"/>
             </g>
 
-            <path d="M302 80H352" stroke="#6B4028" stroke-opacity="0.22" stroke-width="5" stroke-linecap="round"/>
-            <path d="M306 95H350" stroke="#6B4028" stroke-opacity="0.16" stroke-width="4" stroke-linecap="round"/>
+            <path d="M0 170C68 160 128 156 180 156C243 156 303 163 360 178" stroke="#b2a79b" stroke-width="10" stroke-linecap="round" opacity="0.7"/>
           </svg>
         </div>
       </div>
