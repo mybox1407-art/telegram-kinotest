@@ -24,6 +24,8 @@
       --accent: #f48a2a;
       --accent-dark: #db6c12;
       --line: #6b4028;
+      --success: #3d8a43;
+      --danger: #b24a2a;
       --shadow: 0 10px 0 rgba(107, 64, 40, 0.12);
       --radius: 24px;
     }
@@ -97,7 +99,9 @@
 
     .back-btn:active,
     .tv-start-btn:active,
-    .tv-random-btn:active {
+    .tv-random-btn:active,
+    .option-btn:active,
+    .result-btn:active {
       transform: translateY(2px);
       box-shadow: 0 6px 0 rgba(107, 64, 40, 0.12);
     }
@@ -172,7 +176,11 @@
       text-align: center;
     }
 
-    .quiz-description {
+    .quiz-description,
+    .question-text,
+    .result-text,
+    .loading-text,
+    .error-text {
       position: relative;
       z-index: 1;
       margin: 12px 0 0;
@@ -182,6 +190,59 @@
       font-weight: 500;
       text-align: justify;
       text-justify: inter-word;
+    }
+
+    .question-text,
+    .result-text,
+    .loading-text,
+    .error-text {
+      text-align: center;
+      text-wrap: balance;
+    }
+
+    .quiz-meta {
+      margin: 0 0 10px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .progress-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .progress-badge {
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 2px solid var(--line);
+      background: var(--paper-2);
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .progress-bar {
+      flex: 1;
+      height: 12px;
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      background: #f7e6cc;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+      transition: width 220ms ease;
     }
 
     .doodle {
@@ -219,6 +280,72 @@
         radial-gradient(circle at center, transparent 45%, rgba(0,0,0,0.08) 100%);
       mix-blend-mode: multiply;
     }
+
+    .question-options {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .option-btn,
+    .result-btn {
+      width: 100%;
+      border: 3px solid var(--line);
+      border-radius: 18px;
+      padding: 14px 14px;
+      background: linear-gradient(180deg, #fff9ee 0%, #f6e2bd 100%);
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.25;
+      text-align: left;
+      box-shadow: inset 0 2px 0 rgba(255,255,255,0.5);
+      cursor: pointer;
+    }
+
+    .result-btn {
+      margin-top: 16px;
+      text-align: center;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+      color: #fffaf5;
+    }
+
+    .result-stats {
+      margin-top: 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .result-chip {
+      padding: 12px 14px;
+      border: 2px solid var(--line);
+      border-radius: 18px;
+      background: var(--paper-2);
+      text-align: center;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .loading-wrap,
+    .error-wrap,
+    .result-wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 100%;
+    }
+
+    .spinner {
+      width: 48px;
+      height: 48px;
+      margin: 14px auto 0;
+      border-radius: 50%;
+      border: 4px solid rgba(107, 64, 40, 0.15);
+      border-top-color: var(--accent-dark);
+      animation: spin 0.9s linear infinite;
+    }
+
+    .error-text { color: var(--danger); }
 
     .tv-controls {
       margin-top: 14px;
@@ -265,6 +392,14 @@
       padding: 0;
     }
 
+    .tv-start-btn[disabled],
+    .tv-random-btn[disabled],
+    .option-btn[disabled],
+    .result-btn[disabled] {
+      opacity: 0.65;
+      cursor: wait;
+    }
+
     .knobs {
       display: flex;
       align-items: center;
@@ -305,54 +440,33 @@
       top: 3px;
     }
 
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
     @media (max-width: 480px) {
-      .app {
-        max-width: 100%;
-      }
-
-      .tv-screen {
-        padding: 22px 14px 16px;
-      }
-
-      .doodle {
-        min-height: 170px;
-      }
-
-      .scene-photo {
-        object-position: 48% 50%;
-      }
-
+      .app { max-width: 100%; }
+      .tv-screen { padding: 22px 14px 16px; }
+      .doodle { min-height: 170px; }
+      .scene-photo { object-position: 48% 50%; }
       .tv-controls {
         grid-template-columns: minmax(0, 1fr) 52px auto;
         gap: 10px;
         padding: 12px 14px;
       }
-
       .tv-start-btn {
         min-height: 42px;
         font-size: 17px;
         padding: 0 14px;
       }
-
       .tv-random-btn {
         width: 52px;
         height: 42px;
         font-size: 20px;
       }
-
-      .knobs {
-        gap: 8px;
-      }
-
-      .knob {
-        width: 30px;
-        height: 30px;
-      }
-
-      .knob.small {
-        width: 22px;
-        height: 22px;
-      }
+      .knobs { gap: 8px; }
+      .knob { width: 30px; height: 30px; }
+      .knob.small { width: 22px; height: 22px; }
     }
   </style>
 </head>
@@ -369,27 +483,11 @@
     </div>
 
     <section class="card tv-card" aria-label="Карточка кинотеста">
-      <div class="tv-screen">
-        <p class="hand-note">Твой случайный кинотест</p>
-        <h1 class="quiz-title" id="quizTitle">Увлекательный тест по актрисам Франции</h1>
-        <p class="quiz-description" id="quizDescription">Угадай известных актрис, связанных с французским кино, и проверь, насколько хорошо ты ориентируешься в европейском экране.</p>
+      <div class="tv-screen" id="tvScreen"></div>
 
-        <div class="doodle">
-          <img
-            id="scenePhoto"
-            class="scene-photo"
-            src="./movie_still.jpg"
-            alt="Сцена из старого фильма"
-            loading="eager"
-          />
-        </div>
-      </div>
-
-      <div class="tv-controls">
+      <div class="tv-controls" id="tvControls">
         <button class="tv-start-btn" id="startButton" type="button">Начать</button>
-
         <button class="tv-random-btn" id="randomButton" type="button" aria-label="Случайный кинотест" title="Случайный кинотест">🎲</button>
-
         <div class="knobs" aria-hidden="true">
           <span class="knob"></span>
           <span class="knob small"></span>
@@ -399,7 +497,23 @@
   </main>
 
   <script>
+    const QUIZ_API = 'https://n8n.kino-test.ru/webhook/random_quiz';
+    const FALLBACK_SCENE = './movie_still.jpg';
+
     const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
+
+    const state = {
+      screen: 'home',
+      loading: false,
+      title: 'Твой случайный кинотест',
+      description: 'Подбираем для тебя случайный кинотест. Когда он загрузится, ты увидишь его заголовок и описание и сможешь начать или выбрать другой.',
+      previewImage: FALLBACK_SCENE,
+      quiz: null,
+      currentQuestion: 0,
+      answers: [],
+      score: 0,
+      error: ''
+    };
 
     if (tg) {
       tg.ready();
@@ -408,6 +522,10 @@
       tg.MainButton.hide();
 
       tg.BackButton.onClick(() => {
+        if (state.screen === 'quiz' || state.screen === 'result') {
+          goHome();
+          return;
+        }
         if (window.history.length > 1) {
           window.history.back();
         } else {
@@ -416,76 +534,295 @@
       });
     }
 
-    const state = {
-      title: 'Увлекательный тест по актрисам Франции',
-      description: 'Угадай известных актрис, связанных с французским кино, и проверь, насколько хорошо ты ориентируешься в европейском экране.'
-    };
-
-    const titleEl = document.getElementById('quizTitle');
-    const descriptionEl = document.getElementById('quizDescription');
+    const tvScreen = document.getElementById('tvScreen');
+    const tvControls = document.getElementById('tvControls');
     const randomButton = document.getElementById('randomButton');
     const startButton = document.getElementById('startButton');
     const backButton = document.getElementById('backButton');
-    const scenePhoto = document.getElementById('scenePhoto');
 
-    scenePhoto.addEventListener('error', () => {
-      scenePhoto.alt = 'Не удалось загрузить кадр фильма';
-      scenePhoto.style.opacity = '0.35';
-    });
+    function safeHaptic(type, level) {
+      if (!tg || !tg.HapticFeedback) return;
+      try {
+        if (type === 'impact') tg.HapticFeedback.impactOccurred(level);
+        if (type === 'notification') tg.HapticFeedback.notificationOccurred(level);
+      } catch (e) {}
+    }
+
+    async function fetchQuiz() {
+      const response = await fetch(QUIZ_API, {
+        method: 'GET',
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (!response.ok) {
+        throw new Error('Не удалось загрузить кинотест');
+      }
+
+      const data = await response.json();
+      if (!data || !Array.isArray(data.questions) || !data.questions.length) {
+        throw new Error('Webhook вернул пустой кинотест');
+      }
+      return data;
+    }
+
+    function setPreviewFromQuiz(quiz) {
+      state.quiz = quiz;
+      state.title = quiz.title || 'Случайный кинотест';
+      state.description = quiz.description || 'Готово — тест подобран. Можно начинать.';
+      state.previewImage = quiz.questions?.[0]?.image || FALLBACK_SCENE;
+      state.error = '';
+    }
+
+    function resetRun() {
+      state.currentQuestion = 0;
+      state.answers = [];
+      state.score = 0;
+    }
+
+    async function preloadQuiz() {
+      if (state.loading) return;
+      state.loading = true;
+      state.error = '';
+      render();
+
+      try {
+        const quiz = await fetchQuiz();
+        setPreviewFromQuiz(quiz);
+      } catch (error) {
+        state.error = error.message || 'Ошибка загрузки кинотеста';
+        safeHaptic('notification', 'error');
+      } finally {
+        state.loading = false;
+        render();
+      }
+    }
+
+    async function handleRandomQuiz() {
+      if (state.loading) return;
+      state.loading = true;
+      state.error = '';
+      render();
+
+      try {
+        const quiz = await fetchQuiz();
+        setPreviewFromQuiz(quiz);
+        state.screen = 'home';
+        safeHaptic('impact', 'light');
+      } catch (error) {
+        state.error = error.message || 'Ошибка загрузки кинотеста';
+        safeHaptic('notification', 'error');
+      } finally {
+        state.loading = false;
+        render();
+      }
+    }
+
+    async function handleStart() {
+      if (state.loading) return;
+      state.loading = true;
+      state.error = '';
+      render();
+
+      try {
+        if (!state.quiz) {
+          const quiz = await fetchQuiz();
+          setPreviewFromQuiz(quiz);
+        }
+
+        resetRun();
+        state.screen = 'quiz';
+        safeHaptic('notification', 'success');
+      } catch (error) {
+        state.error = error.message || 'Не удалось начать кинотест';
+        safeHaptic('notification', 'error');
+      } finally {
+        state.loading = false;
+        render();
+      }
+    }
+
+    function handleAnswer(index) {
+      if (state.loading || state.screen !== 'quiz') return;
+
+      const question = state.quiz.questions[state.currentQuestion];
+      const selected = question.options[index];
+      const isCorrect = !!selected.correct;
+
+      state.answers.push({
+        questionId: question.id,
+        selectedIndex: index,
+        selectedText: selected.text,
+        correct: isCorrect
+      });
+
+      if (isCorrect) {
+        state.score += 1;
+        safeHaptic('notification', 'success');
+      } else {
+        safeHaptic('impact', 'medium');
+      }
+
+      const isLastQuestion = state.currentQuestion >= state.quiz.questions.length - 1;
+      if (isLastQuestion) {
+        state.screen = 'result';
+        render();
+        return;
+      }
+
+      state.currentQuestion += 1;
+      render();
+    }
+
+    async function handleRestart() {
+      state.quiz = null;
+      await handleStart();
+    }
+
+    function goHome() {
+      state.screen = 'home';
+      state.error = '';
+      state.loading = false;
+      render();
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function renderHome() {
+      const errorBlock = state.error ? `<p class="error-text">${escapeHtml(state.error)}</p>` : '';
+
+      if (state.loading) {
+        tvScreen.innerHTML = `
+          <div class="loading-wrap">
+            <p class="hand-note">Твой случайный кинотест</p>
+            <p class="loading-text">Подбираем для тебя кинотест и загружаем его описание...</p>
+            <div class="spinner" aria-hidden="true"></div>
+            ${errorBlock}
+          </div>
+        `;
+      } else {
+        tvScreen.innerHTML = `
+          <p class="hand-note">Твой случайный кинотест</p>
+          <h1 class="quiz-title">${escapeHtml(state.title)}</h1>
+          <p class="quiz-description">${escapeHtml(state.description)}</p>
+
+          <div class="doodle">
+            <img
+              class="scene-photo"
+              src="${escapeHtml(state.previewImage)}"
+              alt="Превью кинотеста"
+              loading="eager"
+              onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'"
+            />
+          </div>
+          ${errorBlock}
+        `;
+      }
+
+      startButton.textContent = 'Начать';
+      startButton.disabled = state.loading;
+      randomButton.disabled = state.loading;
+      tvControls.style.display = 'grid';
+    }
+
+    function renderQuiz() {
+      const question = state.quiz.questions[state.currentQuestion];
+      const progress = ((state.currentQuestion + 1) / state.quiz.questions.length) * 100;
+
+      tvScreen.innerHTML = `
+        <div class="progress-row">
+          <div class="progress-badge">Вопрос ${state.currentQuestion + 1} из ${state.quiz.questions.length}</div>
+          <div class="progress-bar" aria-hidden="true">
+            <div class="progress-bar-fill" style="width:${progress}%"></div>
+          </div>
+        </div>
+
+        <p class="quiz-meta">${escapeHtml(state.quiz.title || 'Кинотест')}</p>
+        <h2 class="quiz-title">${escapeHtml(question.question || 'Кто изображён на фото?')}</h2>
+
+        <div class="doodle">
+          <img
+            class="scene-photo"
+            src="${escapeHtml(question.image || FALLBACK_SCENE)}"
+            alt="Вопрос ${state.currentQuestion + 1}"
+            loading="eager"
+            onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'"
+          />
+        </div>
+
+        <div class="question-options">
+          ${question.options.map((option, index) => `
+            <button class="option-btn" type="button" data-option-index="${index}">${escapeHtml(option.text)}</button>
+          `).join('')}
+        </div>
+      `;
+
+      tvScreen.querySelectorAll('[data-option-index]').forEach((button) => {
+        button.addEventListener('click', () => handleAnswer(Number(button.dataset.optionIndex)));
+      });
+
+      tvControls.style.display = 'none';
+    }
+
+    function renderResult() {
+      const total = state.quiz.questions.length;
+      const percent = Math.round((state.score / total) * 100);
+      let phrase = 'Хорошая попытка — следующий кинотест точно покорится тебе.';
+
+      if (percent === 100) phrase = 'Идеально! Ты прошла этот кинотест без единой ошибки.';
+      else if (percent >= 70) phrase = 'Очень сильный результат — ты отлично узнаёшь лица кино.';
+      else if (percent >= 40) phrase = 'Неплохо! Ты уже хорошо ориентируешься, но можно ещё усилить результат.';
+
+      tvScreen.innerHTML = `
+        <div class="result-wrap">
+          <p class="hand-note">Финал кинотеста</p>
+          <h1 class="quiz-title">Результат</h1>
+          <p class="result-text">${escapeHtml(phrase)}</p>
+
+          <div class="result-stats">
+            <div class="result-chip">Правильных ответов: ${state.score} из ${total}</div>
+            <div class="result-chip">Точность: ${percent}%</div>
+            <div class="result-chip">Тест: ${escapeHtml(state.quiz.title || 'Случайный кинотест')}</div>
+          </div>
+
+          <button class="result-btn" id="restartButton" type="button">Пройти еще раз</button>
+        </div>
+      `;
+
+      document.getElementById('restartButton').addEventListener('click', handleRestart);
+      tvControls.style.display = 'none';
+    }
 
     function render() {
-      titleEl.textContent = state.title;
-      descriptionEl.textContent = state.description;
-
-      if (tg) {
-        tg.MainButton.hide();
+      if (state.screen === 'home') {
+        renderHome();
+        return;
       }
-    }
-
-    function getRandomLocalQuiz() {
-      const variants = [
-        {
-          title: 'Увлекательный тест по актерам США',
-          description: 'Проверь, насколько хорошо ты узнаешь главных звезд Голливуда по фильмам, эпохам и ролям.'
-        },
-        {
-          title: 'Увлекательный тест по актрисам России',
-          description: 'Вспомни ярких актрис российского кино и узнай, насколько хорошо ты чувствуешь отечественный экран.'
-        },
-        {
-          title: 'Увлекательный тест по актерам Скандинавии',
-          description: 'Холодный север, мощная фактура и узнаваемые лица — попробуй пройти этот короткий кинотест без ошибок.'
-        },
-        {
-          title: 'Увлекательный тест по актрисам Франции',
-          description: 'Угадай известных актрис, связанных с французским кино, и проверь, насколько хорошо ты ориентируешься в европейском экране.'
-        }
-      ];
-      return variants[Math.floor(Math.random() * variants.length)];
-    }
-
-    randomButton.addEventListener('click', () => {
-      Object.assign(state, getRandomLocalQuiz());
-      render();
-      if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-    });
-
-    function startQuiz() {
-      if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-      if (tg) {
-        tg.sendData(JSON.stringify({
-          action: 'start_random_quiz',
-          title: state.title,
-          scene: './movie_still.jpg'
-        }));
-      } else {
-        alert('Старт теста: ' + state.title);
+      if (state.screen === 'quiz' && state.quiz) {
+        renderQuiz();
+        return;
       }
+      if (state.screen === 'result' && state.quiz) {
+        renderResult();
+        return;
+      }
+      goHome();
     }
 
-    startButton.addEventListener('click', startQuiz);
+    randomButton.addEventListener('click', handleRandomQuiz);
+    startButton.addEventListener('click', handleStart);
 
     backButton.addEventListener('click', () => {
+      if (state.screen === 'quiz' || state.screen === 'result') {
+        goHome();
+        return;
+      }
       if (window.history.length > 1) {
         window.history.back();
       } else if (tg) {
@@ -494,6 +831,7 @@
     });
 
     render();
+    preloadQuiz();
   </script>
 </body>
 </html>
