@@ -245,6 +245,7 @@
       transition: width 220ms ease;
     }
 
+    /* Общий вид рамки */
     .doodle {
       position: relative;
       z-index: 1;
@@ -256,10 +257,11 @@
         0 3px 0 rgba(107, 64, 40, 0.10);
       overflow: hidden;
       background: #d9d1c5;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 16 / 9;      /* горизонталь по умолчанию (главный экран) */
       min-height: 180px;
     }
 
+    /* Портретный вариант в квизе */
     .doodle.portrait {
       aspect-ratio: 3 / 4;
       max-width: 280px;
@@ -273,13 +275,8 @@
       height: 100%;
       display: block;
       object-fit: cover;
-      object-position: 50% 50%;
+      object-position: center center; /* центр кадра */
       filter: grayscale(1) contrast(1.04);
-      transform: scale(1.02);
-    }
-
-    .doodle.portrait .scene-photo {
-      transform: scale(1);
     }
 
     .doodle::after {
@@ -589,10 +586,7 @@
 
     async function fetchQuiz() {
       let response;
-      
       try {
-        console.log('Fetching quiz from:', QUIZ_API);
-        
         response = await fetch(QUIZ_API, {
           method: 'POST',
           headers: { 
@@ -602,9 +596,6 @@
           mode: 'cors',
           body: JSON.stringify({})
         });
-
-        console.log('Response status:', response.status);
-        console.log('Response ok:', response.ok);
 
         if (!response.ok) {
           const errorText = await response.text().catch(() => 'Неизвестная ошибка');
@@ -620,7 +611,6 @@
         }
 
         const data = await response.json();
-        console.log('Received quiz data:', data);
 
         if (!data || !Array.isArray(data.questions) || !data.questions.length) {
           throw new Error('Webhook вернул пустой кинотест');
@@ -645,7 +635,7 @@
 
     function setPreviewFromQuiz(quiz) {
       state.quiz = quiz;
-      state.title = quiz.title || 'Случайный кинотест';
+      state.title = quiz.title || 'Твой случайный кинотест';
       state.description = quiz.description || 'Готово — тест подобран. Можно начинать.';
       state.previewImage = quiz.questions?.[0]?.image || FALLBACK_SCENE;
       state.error = '';
