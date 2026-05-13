@@ -581,13 +581,13 @@
         console.log('Fetching quiz from:', QUIZ_API);
         
         response = await fetch(QUIZ_API, {
-          method: 'GET',
+          method: 'POST',
           headers: { 
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
           mode: 'cors',
-          cache: 'no-cache'
+          body: JSON.stringify({})
         });
 
         console.log('Response status:', response.status);
@@ -596,21 +596,21 @@
         if (!response.ok) {
           const errorText = await response.text().catch(() => 'Неизвестная ошибка');
           console.error('Server error response:', errorText);
-          throw new Error(`Сервер вернул ошибку (HTTP ${response.status}). Проверьте webhook в n8n.`);
+          throw new Error(`Сервер вернул ошибку (HTTP ${response.status})`);
         }
 
         const contentType = response.headers.get('content-type');
         if (!contentType || !contentType.includes('application/json')) {
           const text = await response.text();
           console.error('Non-JSON response:', text);
-          throw new Error('Webhook вернул не JSON. Проверьте настройки "Respond" в n8n.');
+          throw new Error('Webhook вернул не JSON');
         }
 
         const data = await response.json();
         console.log('Received quiz data:', data);
 
         if (!data || !Array.isArray(data.questions) || !data.questions.length) {
-          throw new Error('Webhook вернул пустой или некорректный кинотест. Проверьте структуру данных.');
+          throw new Error('Webhook вернул пустой кинотест');
         }
 
         return data;
@@ -619,11 +619,11 @@
         console.error('Fetch error details:', error);
 
         if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
-          throw new Error('Не удалось подключиться к серверу. Проверьте:\n• CORS включен в n8n webhook\n• Сервер доступен по HTTPS\n• URL webhook правильный');
+          throw new Error('CORS ошибка. В n8n добавьте Response Headers:\nAccess-Control-Allow-Origin: *');
         }
 
         if (error.name === 'SyntaxError') {
-          throw new Error('Ошибка парсинга JSON. Webhook вернул некорректные данные.');
+          throw new Error('Ошибка парсинга JSON');
         }
 
         throw error;
