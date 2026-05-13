@@ -156,7 +156,7 @@
       position: relative;
       z-index: 1;
       font-family: 'Caveat', cursive;
-      font-size: 32px; /* было 36px – чуть меньше */
+      font-size: 32px; /* уменьшили */
       line-height: 1;
       color: var(--accent-dark);
       margin: 0 0 18px;
@@ -168,8 +168,8 @@
       position: relative;
       z-index: 1;
       margin: 0;
-      font-size: 24px;
-      line-height: 1.05;
+      font-size: 24px; /* уменьшили */
+      line-height: 1.1;
       color: var(--ink);
       font-weight: 800;
       letter-spacing: -0.03em;
@@ -188,16 +188,8 @@
       line-height: 1.45;
       color: var(--ink);
       font-weight: 500;
-      text-align: justify;
-      text-justify: inter-word;
-    }
-
-    .question-text,
-    .result-text,
-    .loading-text,
-    .error-text {
-      text-align: center;
-      text-wrap: balance;
+      text-align: center;  /* было justify */
+      text-justify: auto;
     }
 
     .quiz-meta {
@@ -245,7 +237,7 @@
       transition: width 220ms ease;
     }
 
-    /* Рамка – теперь везде портрет */
+    /* Рамка – портрет для всех экранов */
     .doodle {
       position: relative;
       z-index: 1;
