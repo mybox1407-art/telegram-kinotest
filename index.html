@@ -245,7 +245,7 @@
       transition: width 220ms ease;
     }
 
-    /* Общий вид рамки */
+    /* Рамка по умолчанию — главный экран (горизонталь) */
     .doodle {
       position: relative;
       z-index: 1;
@@ -257,11 +257,11 @@
         0 3px 0 rgba(107, 64, 40, 0.10);
       overflow: hidden;
       background: #d9d1c5;
-      aspect-ratio: 16 / 9;      /* горизонталь по умолчанию (главный экран) */
+      aspect-ratio: 16 / 9;
       min-height: 180px;
     }
 
-    /* Портретный вариант в квизе */
+    /* Портретная рамка внутри квиза */
     .doodle.portrait {
       aspect-ratio: 3 / 4;
       max-width: 280px;
@@ -270,13 +270,20 @@
       min-height: unset;
     }
 
+    /* Базовый вид картинки (будет переопределён ниже для главного экрана) */
     .scene-photo {
       width: 100%;
       height: 100%;
       display: block;
       object-fit: cover;
-      object-position: center center; /* центр кадра */
+      object-position: center center;
       filter: grayscale(1) contrast(1.04);
+    }
+
+    /* ГЛАВНЫЙ ЭКРАН: берём верхние ~60% фото и чуть зумим */
+    .doodle:not(.portrait) .scene-photo {
+      object-position: center 35%; /* смещение фокуса вверх */
+      transform: scale(1.08);     /* лёгкий зум внутрь рамки */
     }
 
     .doodle::after {
@@ -482,7 +489,6 @@
       .tv-screen { padding: 22px 14px 16px; }
       .doodle { min-height: 170px; }
       .doodle.portrait { max-width: 240px; }
-      .scene-photo { object-position: 48% 50%; }
       .tv-controls {
         grid-template-columns: minmax(0, 1fr) 52px auto;
         gap: 10px;
