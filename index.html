@@ -345,7 +345,30 @@
       animation: spin 0.9s linear infinite;
     }
 
-    .error-text { color: var(--danger); }
+    .error-text { 
+      color: var(--danger);
+      font-size: 13px;
+      background: rgba(178, 74, 42, 0.1);
+      padding: 10px;
+      border-radius: 12px;
+      margin-top: 12px;
+    }
+
+    .retry-btn {
+      margin-top: 12px;
+      padding: 10px 16px;
+      border: 2px solid var(--line);
+      border-radius: 14px;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+      color: #fffaf5;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .retry-btn:active {
+      transform: translateY(1px);
+    }
 
     .tv-controls {
       margin-top: 14px;
@@ -395,7 +418,8 @@
     .tv-start-btn[disabled],
     .tv-random-btn[disabled],
     .option-btn[disabled],
-    .result-btn[disabled] {
+    .result-btn[disabled],
+    .retry-btn[disabled] {
       opacity: 0.65;
       cursor: wait;
     }
@@ -545,24 +569,65 @@
       try {
         if (type === 'impact') tg.HapticFeedback.impactOccurred(level);
         if (type === 'notification') tg.HapticFeedback.notificationOccurred(level);
-      } catch (e) {}
+      } catch (e) {
+        console.warn('Haptic feedback failed:', e);
+      }
     }
 
     async function fetchQuiz() {
-      const response = await fetch(QUIZ_API, {
-        method: 'GET',
-        headers: { 'Accept': 'application/json' }
-      });
+      let response;
+      
+      try {
+        console.log('Fetching quiz from:', QUIZ_API);
+        
+        response = await fetch(QUIZ_API, {
+          method: 'GET',
+          headers: { 
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          mode: 'cors',
+          cache: 'no-cache'
+        });
 
-      if (!response.ok) {
-        throw new Error('Не удалось загрузить кинотест');
-      }
+        console.log('Response status:', response.status);
+        console.log('Response ok:', response.ok);
 
-      const data = await response.json();
-      if (!data || !Array.isArray(data.questions) || !data.questions.length) {
-        throw new Error('Webhook вернул пустой кинотест');
+        if (!response.ok) {
+          const errorText = await response.text().catch(() => 'Неизвестная ошибка');
+          console.error('Server error response:', errorText);
+          throw new Error(`Сервер вернул ошибку (HTTP ${response.status}). Проверьте webhook в n8n.`);
+        }
+
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          const text = await response.text();
+          console.error('Non-JSON response:', text);
+          throw new Error('Webhook вернул не JSON. Проверьте настройки "Respond" в n8n.');
+        }
+
+        const data = await response.json();
+        console.log('Received quiz data:', data);
+
+        if (!data || !Array.isArray(data.questions) || !data.questions.length) {
+          throw new Error('Webhook вернул пустой или некорректный кинотест. Проверьте структуру данных.');
+        }
+
+        return data;
+
+      } catch (error) {
+        console.error('Fetch error details:', error);
+
+        if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+          throw new Error('Не удалось подключиться к серверу. Проверьте:\n• CORS включен в n8n webhook\n• Сервер доступен по HTTPS\n• URL webhook правильный');
+        }
+
+        if (error.name === 'SyntaxError') {
+          throw new Error('Ошибка парсинга JSON. Webhook вернул некорректные данные.');
+        }
+
+        throw error;
       }
-      return data;
     }
 
     function setPreviewFromQuiz(quiz) {
@@ -588,8 +653,10 @@
       try {
         const quiz = await fetchQuiz();
         setPreviewFromQuiz(quiz);
+        safeHaptic('notification', 'success');
       } catch (error) {
         state.error = error.message || 'Ошибка загрузки кинотеста';
+        console.error('Preload error:', error);
         safeHaptic('notification', 'error');
       } finally {
         state.loading = false;
@@ -610,6 +677,7 @@
         safeHaptic('impact', 'light');
       } catch (error) {
         state.error = error.message || 'Ошибка загрузки кинотеста';
+        console.error('Random quiz error:', error);
         safeHaptic('notification', 'error');
       } finally {
         state.loading = false;
@@ -634,6 +702,7 @@
         safeHaptic('notification', 'success');
       } catch (error) {
         state.error = error.message || 'Не удалось начать кинотест';
+        console.error('Start error:', error);
         safeHaptic('notification', 'error');
       } finally {
         state.loading = false;
@@ -695,7 +764,9 @@
     }
 
     function renderHome() {
-      const errorBlock = state.error ? `<p class="error-text">${escapeHtml(state.error)}</p>` : '';
+      const errorBlock = state.error 
+        ? `<p class="error-text">${escapeHtml(state.error)}</p><button class="retry-btn" onclick="preloadQuiz()">Повторить попытку</button>` 
+        : '';
 
       if (state.loading) {
         tvScreen.innerHTML = `
@@ -726,7 +797,7 @@
       }
 
       startButton.textContent = 'Начать';
-      startButton.disabled = state.loading;
+      startButton.disabled = state.loading || !state.quiz;
       randomButton.disabled = state.loading;
       tvControls.style.display = 'grid';
     }
