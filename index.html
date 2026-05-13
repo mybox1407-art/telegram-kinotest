@@ -156,7 +156,7 @@
       position: relative;
       z-index: 1;
       font-family: 'Caveat', cursive;
-      font-size: 36px;
+      font-size: 32px; /* было 36px – чуть меньше */
       line-height: 1;
       color: var(--accent-dark);
       margin: 0 0 18px;
@@ -245,7 +245,7 @@
       transition: width 220ms ease;
     }
 
-    /* Рамка по умолчанию — главный экран (горизонталь) */
+    /* Рамка – теперь везде портрет */
     .doodle {
       position: relative;
       z-index: 1;
@@ -257,20 +257,12 @@
         0 3px 0 rgba(107, 64, 40, 0.10);
       overflow: hidden;
       background: #d9d1c5;
-      aspect-ratio: 16 / 9;
-      min-height: 180px;
-    }
-
-    /* Портретная рамка внутри квиза */
-    .doodle.portrait {
       aspect-ratio: 3 / 4;
       max-width: 280px;
       margin-left: auto;
       margin-right: auto;
-      min-height: unset;
     }
 
-    /* Базовый вид картинки (будет переопределён ниже для главного экрана) */
     .scene-photo {
       width: 100%;
       height: 100%;
@@ -278,12 +270,6 @@
       object-fit: cover;
       object-position: center center;
       filter: grayscale(1) contrast(1.04);
-    }
-
-    /* ГЛАВНЫЙ ЭКРАН: берём верхние ~60% фото и чуть зумим */
-    .doodle:not(.portrait) .scene-photo {
-      object-position: center 35%; /* смещение фокуса вверх */
-      transform: scale(1.08);     /* лёгкий зум внутрь рамки */
     }
 
     .doodle::after {
@@ -487,8 +473,7 @@
     @media (max-width: 480px) {
       .app { max-width: 100%; }
       .tv-screen { padding: 22px 14px 16px; }
-      .doodle { min-height: 170px; }
-      .doodle.portrait { max-width: 240px; }
+      .doodle { max-width: 240px; }
       .tv-controls {
         grid-template-columns: minmax(0, 1fr) 52px auto;
         gap: 10px;
@@ -825,7 +810,7 @@
 
         <h2 class="quiz-title">${escapeHtml(question.question || 'Кто изображён на фото?')}</h2>
 
-        <div class="doodle portrait">
+        <div class="doodle">
           <img
             class="scene-photo"
             src="${escapeHtml(question.image || FALLBACK_SCENE)}"
