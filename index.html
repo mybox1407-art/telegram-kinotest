@@ -50,7 +50,7 @@
       gap: 18px;
     }
 
-    .card, .back-btn, .bottom-btn {
+    .card, .back-btn {
       border: 3px solid var(--line);
       border-radius: var(--radius);
       background: var(--paper);
@@ -87,7 +87,7 @@
 
     .back-btn:active,
     .tv-start-btn:active,
-    .bottom-btn:active {
+    .tv-random-btn:active {
       transform: translateY(2px);
       box-shadow: 0 6px 0 rgba(107, 64, 40, 0.12);
     }
@@ -222,9 +222,9 @@
     .tv-controls {
       margin-top: 14px;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 14px;
-      align-items: stretch;
+      grid-template-columns: minmax(0, 1fr) 56px auto;
+      gap: 12px;
+      align-items: center;
       padding: 14px 16px;
       border: 3px solid var(--line);
       border-radius: 22px;
@@ -232,25 +232,43 @@
       box-shadow: inset 0 2px 0 rgba(255,255,255,0.3);
     }
 
+    .tv-start-btn,
+    .tv-random-btn {
+      border: 3px solid var(--line);
+      color: #fffaf5;
+      cursor: pointer;
+      box-shadow: inset 0 2px 0 rgba(255,255,255,0.18);
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+    }
+
     .tv-start-btn {
       width: 100%;
       min-height: 44px;
-      padding: 0 18px;
-      border: 3px solid var(--line);
+      padding: 0 16px;
       border-radius: 16px;
-      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
-      color: #fffaf5;
       font-size: 18px;
       font-weight: 800;
       text-align: center;
-      cursor: pointer;
-      box-shadow: inset 0 2px 0 rgba(255,255,255,0.18);
+    }
+
+    .tv-random-btn {
+      width: 56px;
+      height: 44px;
+      border-radius: 14px;
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
     }
 
     .knobs {
       display: flex;
       align-items: center;
       gap: 10px;
+      justify-self: end;
     }
 
     .knob {
@@ -285,21 +303,6 @@
       height: 8px;
       top: 3px;
     }
-
-    .bottom-box {
-      margin-top: 4px;
-      padding-bottom: max(8px, env(safe-area-inset-bottom));
-    }
-
-    .bottom-btn {
-      width: 100%;
-      padding: 16px 18px;
-      background: var(--paper-2);
-      color: var(--ink);
-      font-size: 17px;
-      font-weight: 800;
-      cursor: pointer;
-    }
   </style>
 </head>
 <body>
@@ -331,16 +334,14 @@
       <div class="tv-controls">
         <button class="tv-start-btn" id="startButton" type="button">Начать</button>
 
+        <button class="tv-random-btn" id="randomButton" type="button" aria-label="Случайный кинотест" title="Случайный кинотест">🎲</button>
+
         <div class="knobs" aria-hidden="true">
           <span class="knob"></span>
           <span class="knob small"></span>
         </div>
       </div>
     </section>
-
-    <div class="bottom-box">
-      <button class="bottom-btn scribble" id="randomButton" type="button">🎲 Случайный кинотест</button>
-    </div>
   </main>
 
   <script>
