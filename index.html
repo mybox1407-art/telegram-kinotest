@@ -148,7 +148,7 @@
       box-shadow:
         inset 0 0 0 3px rgba(255,255,255,0.35),
         0 8px 0 rgba(107, 64, 40, 0.08);
-      padding: 14px 12px 8px; /* поджали сверху и снизу */
+      padding: 14px 12px 8px;
       min-height: 0;
     }
 
@@ -167,7 +167,7 @@
     .quiz-title {
       position: relative;
       z-index: 1;
-      margin: 2px 0 0;  /* ближе к прогрессу */
+      margin: 2px 0 0;
       font-size: 24px;
       line-height: 1.1;
       color: var(--ink);
@@ -206,7 +206,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 6px;          /* меньше ширина и отступы */
+      gap: 6px;
       margin-bottom: 6px;
     }
 
@@ -224,7 +224,7 @@
     .progress-bar {
       flex: 1;
       height: 12px;
-      border: 2px солид var(--line);
+      border: 2px solid var(--line);
       border-radius: 999px;
       background: #f7e6cc;
       overflow: hidden;
@@ -237,10 +237,11 @@
       transition: width 220ms ease;
     }
 
+    /* Рамка фото: одна и та же и на главной, и в тесте */
     .doodle {
       position: relative;
       z-index: 1;
-      margin-top: 8px;       /* ближе к заголовку */
+      margin-top: 8px;       /* было 18px – фото чуть выше внутри ТВ */
       border: 6px solid var(--paper-tv-dark);
       border-radius: 24px;
       box-shadow:
@@ -249,7 +250,7 @@
       overflow: hidden;
       background: #d9d1c5;
       aspect-ratio: 3 / 4;
-      max-width: 240px;      /* меньше высота рамки */
+      max-width: 240px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -276,8 +277,8 @@
 
     .question-options {
       display: grid;
-      gap: 6px;          /* меньше расстояние между кнопками */
-      margin-top: 8px;   /* ближе к фото */
+      gap: 6px;
+      margin-top: 8px;
     }
 
     .option-btn,
@@ -464,7 +465,7 @@
     @media (max-width: 480px) {
       .app { max-width: 100%; }
       .tv-screen { padding: 12px 10px 6px; }
-      .doodle { max-width: 220px; } /* ещё чуть меньше на очень маленьких экранах */
+      .doodle { max-width: 220px; }
       .tv-controls {
         grid-template-columns: minmax(0, 1fr) 52px auto;
         gap: 10px;
