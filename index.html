@@ -317,6 +317,31 @@
       cursor: pointer;
     }
 
+    .option-btn--image {
+      padding: 0;
+      overflow: hidden;
+      justify-content: center;
+      align-items: center;
+      min-height: 96px;
+      display: flex;
+    }
+
+    .option-image {
+      width: 100%;
+      height: 100%;
+      max-height: 120px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .question-options--images {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .question-options--images .option-btn--image {
+      min-height: 110px;
+    }
+
     .result-btn {
       margin-top: 16px;
       text-align: center;
@@ -478,7 +503,6 @@
       top: 3px;
     }
 
-    /* Рисунок пути: увеличенный, с модификаторами по настроению */
     .path-visual {
       margin-top: 14px;
       display: flex;
@@ -497,9 +521,7 @@
       transition: transform 160ms ease-out;
     }
 
-    .path-card--super {
-      transform: translateY(-2px);
-    }
+    .path-card--super { transform: translateY(-2px); }
 
     .path-start {
       position: absolute;
@@ -570,13 +592,8 @@
       transform-origin: center;
     }
 
-    .path-target-x::before {
-      transform: translate(-50%, -50%) rotate(45deg);
-    }
-
-    .path-target-x::after {
-      transform: translate(-50%, -50%) rotate(-45deg);
-    }
+    .path-target-x::before { transform: translate(-50%, -50%) rotate(45deg); }
+    .path-target-x::after  { transform: translate(-50%, -50%) rotate(-45deg); }
 
     .path-dots {
       position: absolute;
@@ -603,7 +620,6 @@
     .path-dots span:nth-child(5) { left: 72%;  top: 16px; }
     .path-dots span:nth-child(6) { left: 90%;  top: 22px; }
 
-    /* Базовая улыбка (чуть позитивная) */
     .path-smile {
       position: absolute;
       left: 50%;
@@ -615,7 +631,6 @@
       transform: translateX(-50%);
     }
 
-    /* Супер улыбка: шире и глубже */
     .path-card--super .path-smile {
       width: 140px;
       height: 34px;
@@ -623,14 +638,12 @@
       border-radius: 0 0 90px 90px;
     }
 
-    /* Чуть менее улыбка (70–99): почти базовая */
     .path-card--good .path-smile {
       width: 125px;
       height: 26px;
       bottom: 20px;
     }
 
-    /* Нейтрально (40–69): почти прямая линия */
     .path-card--ok .path-smile {
       width: 110px;
       height: 10px;
@@ -638,7 +651,6 @@
       border-radius: 0 0 40px 40px;
     }
 
-    /* Грусть (20–39): перевёрнутая дуга */
     .path-card--sad .path-smile {
       top: 74px;
       bottom: auto;
@@ -649,7 +661,6 @@
       border-top: 3px solid #6b4028;
     }
 
-    /* Сильная грусть (<20): глубже */
     .path-card--fail .path-smile {
       top: 72px;
       bottom: auto;
@@ -687,6 +698,9 @@
       .knobs { gap: 8px; }
       .knob { width: 30px; height: 30px; }
       .knob.small { width: 22px; height: 22px; }
+      .question-options--images {
+        grid-template-columns: 1fr 1fr;
+      }
     }
   </style>
 </head>
@@ -785,14 +799,11 @@
 
         if (!response.ok) {
           const errorText = await response.text().catch(() => 'Неизвестная ошибка');
-          console.error('Server error response:', errorText);
           throw new Error(`Сервер вернул ошибку (HTTP ${response.status})`);
         }
 
         const contentType = response.headers.get('content-type');
         if (!contentType || !contentType.includes('application/json')) {
-          const text = await response.text();
-          console.error('Non-JSON response:', text);
           throw new Error('Webhook вернул не JSON');
         }
 
@@ -803,18 +814,13 @@
         }
 
         return data;
-
       } catch (error) {
-        console.error('Fetch error details:', error);
-
         if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
-          throw new Error('CORS ошибка. В n8n добавьте Response Headers:\nAccess-Control-Allow-Origin: *');
+          throw new Error('CORS ошибка. В n8n добавьте Response Headers:\\nAccess-Control-Allow-Origin: *');
         }
-
         if (error.name === 'SyntaxError') {
           throw new Error('Ошибка парсинга JSON');
         }
-
         throw error;
       }
     }
@@ -845,7 +851,6 @@
         safeHaptic('notification', 'success');
       } catch (error) {
         state.error = error.message || 'Ошибка загрузки кинотеста';
-        console.error('Preload error:', error);
         safeHaptic('notification', 'error');
       } finally {
         state.loading = false;
@@ -866,7 +871,6 @@
         safeHaptic('impact', 'light');
       } catch (error) {
         state.error = error.message || 'Ошибка загрузки кинотеста';
-        console.error('Random quiz error:', error);
         safeHaptic('notification', 'error');
       } finally {
         state.loading = false;
@@ -891,7 +895,6 @@
         safeHaptic('notification', 'success');
       } catch (error) {
         state.error = error.message || 'Не удалось начать кинотест';
-        console.error('Start error:', error);
         safeHaptic('notification', 'error');
       } finally {
         state.loading = false;
@@ -1003,6 +1006,25 @@
     function renderQuiz() {
       const question = state.quiz.questions[state.currentQuestion];
       const progress = ((state.currentQuestion + 1) / state.quiz.questions.length) * 100;
+      const quizType = Number(state.quiz.type);
+
+      const optionsHtml = quizType === 2
+        ? question.options.map((option, index) => `
+            <button class="option-btn option-btn--image" type="button" data-option-index="${index}">
+              <img
+                src="${escapeHtml(option.text)}"
+                alt="Вариант ${index + 1}"
+                class="option-image"
+                loading="eager"
+                onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'"
+              />
+            </button>
+          `).join('')
+        : question.options.map((option, index) => `
+            <button class="option-btn" type="button" data-option-index="${index}">
+              ${escapeHtml(option.text)}
+            </button>
+          `).join('');
 
       tvScreen.innerHTML = `
         <div class="progress-row">
@@ -1012,27 +1034,27 @@
           </div>
         </div>
 
-        <h2 class="quiz-title">${escapeHtml(question.question || 'Кто изображён на фото?')}</h2>
+        <h2 class="quiz-title">${escapeHtml(question.question || 'Вопрос')}</h2>
 
-        <div class="doodle">
-          <img
-            class="scene-photo"
-            src="${escapeHtml(question.image || FALLBACK_SCENE)}"
-            alt="Вопрос ${state.currentQuestion + 1}"
-            loading="eager"
-            onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'"
-          />
-        </div>
+        ${quizType === 1 ? `
+          <div class="doodle">
+            <img
+              class="scene-photo"
+              src="${escapeHtml(question.image || FALLBACK_SCENE)}"
+              alt="Вопрос ${state.currentQuestion + 1}"
+              loading="eager"
+              onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'"
+            />
+          </div>
+        ` : ''}
 
-        <div class="question-options">
-          ${question.options.map((option, index) => `
-            <button class="option-btn" type="button" data-option-index="${index}">${escapeHtml(option.text)}</button>
-          `).join('')}
+        <div class="question-options ${quizType === 2 ? 'question-options--images' : ''}">
+          ${optionsHtml}
         </div>
       `;
 
       tvScreen.querySelectorAll('[data-option-index]').forEach((button) => {
-        button.addEventListener('click', () => handleAnswer(Number(button.dataset.optionIndex)));
+        button.addEventListener('click', () => handleAnswer(Number(button.dataset.option-index)));
       });
 
       tvControls.style.display = 'none';
@@ -1046,19 +1068,19 @@
       let moodClass = 'path-card--ok';
 
       if (percent === 100) {
-        phrase    = 'Идеально! Кинотест пройден без единой ошибки!';
+        phrase = 'Идеально! Кинотест пройден без единой ошибки!';
         moodClass = 'path-card--super';
       } else if (percent >= 70) {
-        phrase    = 'Хороший результат! Ты отлично разбираешься в кинематографе!';
+        phrase = 'Хороший результат! Ты отлично разбираешься в кинематографе!';
         moodClass = 'path-card--good';
       } else if (percent >= 40) {
-        phrase    = 'Неплохо! Но ты делаешь много ошибок, попробуй еще раз!';
+        phrase = 'Неплохо! Но ты делаешь много ошибок, попробуй еще раз!';
         moodClass = 'path-card--ok';
       } else if (percent >= 20) {
-        phrase    = 'Кинотест провален. Думаю, что тебе стоит попробовать ещё раз!';
+        phrase = 'Кинотест провален. Думаю, что тебе стоит попробовать ещё раз!';
         moodClass = 'path-card--sad';
       } else {
-        phrase    = 'Почти всё мимо, но в этом и кайф — давай попробуем ещё раз!';
+        phrase = 'Почти всё мимо, но в этом и кайф — давай попробуем ещё раз!';
         moodClass = 'path-card--fail';
       }
 
