@@ -320,26 +320,27 @@
     .option-btn--image {
       padding: 0;
       overflow: hidden;
-      justify-content: center;
-      align-items: center;
-      min-height: 96px;
-      display: flex;
+      display: block;
+      min-height: 110px;
     }
 
     .option-image {
       width: 100%;
       height: 100%;
-      max-height: 120px;
-      object-fit: cover;
       display: block;
+      object-fit: cover;
+      object-position: center top;
+      aspect-ratio: 3 / 4;
+      filter: grayscale(1) contrast(1.04);
     }
 
     .question-options--images {
       grid-template-columns: 1fr 1fr;
+      gap: 8px;
     }
 
     .question-options--images .option-btn--image {
-      min-height: 110px;
+      min-height: 128px;
     }
 
     .result-btn {
@@ -785,44 +786,32 @@
     }
 
     async function fetchQuiz() {
-      let response;
-      try {
-        response = await fetch(QUIZ_API, {
-          method: 'POST',
-          headers: { 
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          mode: 'cors',
-          body: JSON.stringify({})
-        });
+      const response = await fetch(QUIZ_API, {
+        method: 'POST',
+        headers: { 
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        mode: 'cors',
+        body: JSON.stringify({})
+      });
 
-        if (!response.ok) {
-          const errorText = await response.text().catch(() => 'Неизвестная ошибка');
-          throw new Error(`Сервер вернул ошибку (HTTP ${response.status})`);
-        }
-
-        const contentType = response.headers.get('content-type');
-        if (!contentType || !contentType.includes('application/json')) {
-          throw new Error('Webhook вернул не JSON');
-        }
-
-        const data = await response.json();
-
-        if (!data || !Array.isArray(data.questions) || !data.questions.length) {
-          throw new Error('Webhook вернул пустой кинотест');
-        }
-
-        return data;
-      } catch (error) {
-        if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
-          throw new Error('CORS ошибка. В n8n добавьте Response Headers:\\nAccess-Control-Allow-Origin: *');
-        }
-        if (error.name === 'SyntaxError') {
-          throw new Error('Ошибка парсинга JSON');
-        }
-        throw error;
+      if (!response.ok) {
+        throw new Error(`Сервер вернул ошибку (HTTP ${response.status})`);
       }
+
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error('Webhook вернул не JSON');
+      }
+
+      const data = await response.json();
+
+      if (!data || !Array.isArray(data.questions) || !data.questions.length) {
+        throw new Error('Webhook вернул пустой кинотест');
+      }
+
+      return data;
     }
 
     function setPreviewFromQuiz(quiz) {
@@ -1054,7 +1043,7 @@
       `;
 
       tvScreen.querySelectorAll('[data-option-index]').forEach((button) => {
-        button.addEventListener('click', () => handleAnswer(Number(button.dataset.option-index)));
+        button.addEventListener('click', () => handleAnswer(Number(button.dataset.optionIndex)));
       });
 
       tvControls.style.display = 'none';
