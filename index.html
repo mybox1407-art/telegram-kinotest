@@ -950,11 +950,6 @@
         .replace(/'/g, '&#39;');
     }
 
-    function makeQuestionTitle(text) {
-      const base = String(text || 'Вопрос').trim();
-      return base.endsWith('?') ? base : `${base}?`;
-    }
-
     function renderHome() {
       const errorBlock = state.error 
         ? `<p class="error-text">${escapeHtml(state.error)}</p><button class="retry-btn" onclick="preloadQuiz()">Повторить попытку</button>` 
@@ -1001,7 +996,6 @@
       const question = state.quiz.questions[state.currentQuestion];
       const progress = ((state.currentQuestion + 1) / state.quiz.questions.length) * 100;
       const quizType = Number(state.quiz.type);
-      const questionTitle = makeQuestionTitle(question.question);
 
       const optionsHtml = quizType === 2
         ? question.options.map((option, index) => `
@@ -1029,7 +1023,7 @@
           </div>
         </div>
 
-        <h2 class="quiz-title">${escapeHtml(questionTitle)}</h2>
+        <h2 class="quiz-title">${escapeHtml(question.question || 'Вопрос')}</h2>
 
         ${quizType === 1 ? `
           <div class="doodle">
@@ -1049,7 +1043,7 @@
       `;
 
       tvScreen.querySelectorAll('[data-option-index]').forEach((button) => {
-        button.addEventListener('click', () => handleAnswer(Number(button.dataset.option-index)));
+        button.addEventListener('click', () => handleAnswer(Number(button.dataset.optionIndex)));
       });
 
       tvControls.style.display = 'none';
