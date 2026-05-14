@@ -332,6 +332,7 @@
       object-position: center top;
       aspect-ratio: 3 / 4;
       filter: grayscale(1) contrast(1.04);
+      pointer-events: none;
     }
 
     .question-options--images {
@@ -997,6 +998,10 @@
       const progress = ((state.currentQuestion + 1) / state.quiz.questions.length) * 100;
       const quizType = Number(state.quiz.type);
 
+      const questionTitle = quizType === 2
+        ? `${question.question || 'Вопрос'}?`
+        : (question.question || 'Вопрос');
+
       const optionsHtml = quizType === 2
         ? question.options.map((option, index) => `
             <button class="option-btn option-btn--image" type="button" data-option-index="${index}">
@@ -1023,7 +1028,7 @@
           </div>
         </div>
 
-        <h2 class="quiz-title">${escapeHtml(question.question || 'Вопрос')}</h2>
+        <h2 class="quiz-title">${escapeHtml(questionTitle)}</h2>
 
         ${quizType === 1 ? `
           <div class="doodle">
