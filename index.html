@@ -833,7 +833,7 @@
       state.quiz = quiz;
       state.title = quiz.title || 'Твой случайный кинотест';
       state.description = quiz.description || 'Готово — тест подобран. Можно начинать.';
-      state.previewImage = quiz.questions?.[0]?.image || FALLBACK_SCENE;
+      state.previewImage = quiz.image || quiz.questions?.[0]?.image || quiz.questions?.[0]?.frame_url || FALLBACK_SCENE;
       state.error = '';
     }
 
@@ -967,7 +967,7 @@
 
     function renderHome() {
       const quizType = state.quiz ? Number(state.quiz.type) : 0;
-      const isLandscape = quizType === 3;
+      const isLandscape = quizType === 3 || quizType === 4;
 
       const errorBlock = state.error 
         ? `<p class="error-text">${escapeHtml(state.error)}</p><button class="retry-btn" onclick="preloadQuiz()">Повторить попытку</button>` 
@@ -1017,7 +1017,7 @@
 
       const questionTitle = quizType === 1
         ? 'Кто это на фото?'
-        : quizType === 3
+        : quizType === 3 || quizType === 4
           ? 'Этот кадр из какого фильма?'
           : (question.question || 'Вопрос');
 
@@ -1049,11 +1049,11 @@
 
         <h2 class="quiz-title">${escapeHtml(questionTitle)}</h2>
 
-        ${quizType === 1 || quizType === 3 ? `
-          <div class="doodle ${quizType === 3 ? 'question-doodle--landscape' : ''}">
+        ${quizType === 1 || quizType === 3 || quizType === 4 ? `
+          <div class="doodle ${(quizType === 3 || quizType === 4) ? 'question-doodle--landscape' : ''}">
             <img
-              class="scene-photo ${quizType === 3 ? 'scene-photo--landscape' : ''}"
-              src="${escapeHtml(question.image || FALLBACK_SCENE)}"
+              class="scene-photo ${(quizType === 3 || quizType === 4) ? 'scene-photo--landscape' : ''}"
+              src="${escapeHtml(question.image || question.frame_url || FALLBACK_SCENE)}"
               alt="Вопрос ${state.currentQuestion + 1}"
               loading="eager"
               onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'"
