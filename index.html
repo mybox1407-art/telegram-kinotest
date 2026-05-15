@@ -43,11 +43,16 @@
         radial-gradient(circle at 85% 20%, rgba(255, 179, 95, 0.22), transparent 18%),
         linear-gradient(180deg, #fff7ec 0%, #ffe8c9 100%);
       padding: 8px 14px 26px;
+      /* Центрирование контента по вертикали */
+      display: flex;
+      flex-direction: column;
     }
 
     .app {
+      width: 100%;
       max-width: 430px;
-      margin: 0 auto;
+      /* margin: auto отвечает за выравнивание ровно по центру экрана */
+      margin: auto;
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -186,10 +191,10 @@
       position: relative;
       z-index: 1;
       font-family: 'Caveat', cursive;
-      font-size: 26px;
+      font-size: 28px; /* Уменьшенный размер, как ты просил */
       line-height: 1;
       color: var(--accent-dark);
-      margin: 0 0 18px;
+      margin: 0 0 14px;
       transform: rotate(-2deg);
       text-align: center;
     }
@@ -994,8 +999,8 @@
     const state = {
       screen: 'home',
       loading: false,
-      title: 'Твой случайный кинотест',
-      description: 'Подбираем для тебя случайный кинотест. Когда он загрузится, ты увидишь его заголовок и описание и сможешь начать или выбрать другой.',
+      title: '',
+      description: '...',
       previewImage: FALLBACK_SCENE,
       quiz: null,
       currentQuestion: 0,
