@@ -157,12 +157,23 @@
       flex-direction: column;
     }
 
+    .tv-topbar {
+      position: relative;
+      height: 26px;
+      margin-bottom: 10px;
+      border: 3px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(180deg, #f8e5c8 0%, #edd1a4 100%);
+      box-shadow: inset 0 2px 0 rgba(255,255,255,0.35);
+    }
+
     .account-btn {
       position: absolute;
-      top: 8px;
-      right: 8px;
-      width: 36px;
-      height: 36px;
+      right: 4px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       border: 3px solid var(--frame-dark);
       background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
@@ -172,9 +183,10 @@
       justify-content: center;
       cursor: pointer;
       z-index: 6;
-      font-size: 18px;
+      font-size: 15px;
       box-shadow: inset 0 2px 0 rgba(255,255,255,0.18);
       pointer-events: auto;
+      padding: 0;
     }
 
     .account-btn span {
@@ -252,7 +264,7 @@
       justify-content: space-between;
       gap: 6px;
       margin-bottom: 6px;
-      padding-right: 40px;
+      padding-right: 2px;
     }
 
     .progress-badge {
@@ -1041,12 +1053,6 @@
     const startButton = document.getElementById('startButton');
     const backButton = document.getElementById('backButton');
     const accountModal = document.getElementById('accountModal');
-    const accountBtn = document.createElement('button');
-    accountBtn.className = 'account-btn';
-    accountBtn.type = 'button';
-    accountBtn.innerHTML = '<span>👤</span>';
-    accountBtn.setAttribute('aria-label', 'Аккаунт');
-    accountBtn.title = 'Аккаунт';
 
     function safeHaptic(type, level) {
       if (!tg || !tg.HapticFeedback) return;
@@ -1080,19 +1086,16 @@
     function bindAccountActions() {
       document.getElementById('goStatsBtn').onclick = () => {
         closeAccountModal();
-        state.screen = 'home';
         state.error = 'Раздел статистики пока в разработке';
         render();
       };
       document.getElementById('goHistoryBtn').onclick = () => {
         closeAccountModal();
-        state.screen = 'home';
         state.error = 'История игр скоро появится';
         render();
       };
       document.getElementById('goSettingsBtn').onclick = () => {
         closeAccountModal();
-        state.screen = 'home';
         state.error = 'Настройки скоро появятся';
         render();
       };
@@ -1105,9 +1108,18 @@
     function attachAccountButton() {
       const existing = document.getElementById('accountBtnInjected');
       if (existing) return;
-      accountBtn.id = 'accountBtnInjected';
-      accountBtn.addEventListener('click', openAccountModal);
-      tvScreen.appendChild(accountBtn);
+      const btn = document.createElement('button');
+      btn.className = 'account-btn';
+      btn.id = 'accountBtnInjected';
+      btn.type = 'button';
+      btn.innerHTML = '<span>👤</span>';
+      btn.setAttribute('aria-label', 'Аккаунт');
+      btn.title = 'Аккаунт';
+      btn.addEventListener('click', openAccountModal);
+      const topbar = document.createElement('div');
+      topbar.className = 'tv-topbar';
+      topbar.appendChild(btn);
+      tvScreen.prepend(topbar);
     }
 
     async function fetchQuiz() {
@@ -1283,15 +1295,9 @@
         ? `<p class="error-text">${escapeHtml(state.error)}</p><button class="retry-btn" onclick="preloadQuiz()">Повторить попытку</button>` 
         : '';
 
-      if (state.loading) {
-        tvScreen.innerHTML = `
-          <p class="hand-note">Твой случайный кинотест</p>
-          <p class="loading-text">Подбираем для тебя кинотест и загружаем его описание...</p>
-          <div class="spinner" aria-hidden="true"></div>
-          ${errorBlock}
-        `;
-      } else {
-        tvScreen.innerHTML = `
+      tvScreen.innerHTML = `
+        <div class="tv-topbar"></div>
+        <div class="home-inner">
           <p class="hand-note">Твой случайный кинотест</p>
           <h1 class="quiz-title">${escapeHtml(state.title)}</h1>
           <p class="quiz-description home-description">${escapeHtml(state.description)}</p>
@@ -1306,8 +1312,8 @@
             />
           </div>
           ${errorBlock}
-        `;
-      }
+        </div>
+      `;
 
       startButton.textContent = 'Начать';
       startButton.onclick = handleStart;
@@ -1347,9 +1353,7 @@
           `).join('');
 
       tvScreen.innerHTML = `
-        <button class="account-btn" id="accountBtnInjected" type="button" aria-label="Аккаунт" title="Аккаунт">
-          <span>👤</span>
-        </button>
+        <div class="tv-topbar"></div>
 
         <div class="progress-row">
           <div class="progress-badge">Вопрос ${state.currentQuestion + 1} из ${state.quiz.questions.length}</div>
@@ -1381,9 +1385,7 @@
         button.addEventListener('click', () => handleAnswer(Number(button.dataset.optionIndex)));
       });
 
-      const injected = document.getElementById('accountBtnInjected');
-      if (injected) injected.addEventListener('click', openAccountModal);
-
+      attachAccountButton();
       tvControls.style.display = 'none';
     }
 
@@ -1412,9 +1414,7 @@
       }
 
       tvScreen.innerHTML = `
-        <button class="account-btn" id="accountBtnInjected" type="button" aria-label="Аккаунт" title="Аккаунт">
-          <span>👤</span>
-        </button>
+        <div class="tv-topbar"></div>
 
         <div class="result-wrap">
           <p class="hand-note">Финал кинотеста</p>
@@ -1446,9 +1446,7 @@
         </div>
       `;
 
-      const injected = document.getElementById('accountBtnInjected');
-      if (injected) injected.addEventListener('click', openAccountModal);
-
+      attachAccountButton();
       tvControls.style.display = 'grid';
       startButton.textContent = 'Пройти ещё раз';
       startButton.onclick = handleRestart;
