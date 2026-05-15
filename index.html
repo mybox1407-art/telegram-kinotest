@@ -102,7 +102,9 @@
     .tv-start-btn:active,
     .tv-random-btn:active,
     .option-btn:active,
-    .result-btn:active {
+    .result-btn:active,
+    .account-btn:active,
+    .modal-close:active {
       transform: translateY(2px);
       box-shadow: 0 6px 0 rgba(107, 64, 40, 0.12);
     }
@@ -153,6 +155,34 @@
       min-height: 0;
       display: flex;
       flex-direction: column;
+    }
+
+    .account-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 3px solid var(--line);
+      background: linear-gradient(180deg, #fff7ec 0%, #f2d6aa 100%);
+      color: var(--ink);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 5;
+      font-size: 18px;
+      box-shadow: inset 0 2px 0 rgba(255,255,255,0.45);
+    }
+
+    .account-btn:hover {
+      filter: brightness(1.02);
+    }
+
+    .account-btn span {
+      transform: translateY(-1px);
+      line-height: 1;
     }
 
     .hand-note {
@@ -225,6 +255,7 @@
       justify-content: space-between;
       gap: 6px;
       margin-bottom: 6px;
+      padding-right: 34px;
     }
 
     .progress-badge {
@@ -685,6 +716,164 @@
       border-top: 3px solid #6b4028;
     }
 
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(64, 38, 24, 0.42);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 18px;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 360px;
+      border-radius: 28px;
+      border: 3px solid var(--line);
+      background: linear-gradient(180deg, #fffdf7 0%, #f8e8ca 100%);
+      box-shadow: 0 18px 60px rgba(64, 38, 24, 0.28);
+      overflow: hidden;
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 14px 16px;
+      border-bottom: 3px solid var(--line);
+      background: linear-gradient(180deg, #f4dfbf 0%, #e8c99a 100%);
+    }
+
+    .modal-title {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.1;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .modal-close {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 3px solid var(--line);
+      background: linear-gradient(180deg, #fff7ec 0%, #f2d6aa 100%);
+      color: var(--ink);
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 2px 0 rgba(255,255,255,0.45);
+      flex: 0 0 auto;
+    }
+
+    .modal-body {
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .profile-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .profile-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 3px solid var(--line);
+      background: linear-gradient(180deg, #ffd79f 0%, #f0b05d 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      flex: 0 0 auto;
+    }
+
+    .profile-meta {
+      min-width: 0;
+      display: grid;
+      gap: 4px;
+    }
+
+    .profile-name {
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .profile-subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .stat-card {
+      border: 2px solid var(--line);
+      border-radius: 16px;
+      background: var(--paper-2);
+      padding: 10px 12px;
+      display: grid;
+      gap: 4px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .modal-actions {
+      display: grid;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .modal-action-btn {
+      width: 100%;
+      border: 2px solid var(--line);
+      border-radius: 14px;
+      background: linear-gradient(180deg, #fff9ee 0%, #f6e2bd 100%);
+      color: var(--ink);
+      padding: 10px 12px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .modal-action-btn.primary {
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+      color: #fffaf5;
+    }
+
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
@@ -717,6 +906,12 @@
       .question-options--images {
         grid-template-columns: 1fr 1fr;
       }
+      .modal {
+        border-radius: 24px;
+      }
+      .stat-grid {
+        grid-template-columns: 1fr 1fr;
+      }
     }
   </style>
 </head>
@@ -746,6 +941,49 @@
     </section>
   </main>
 
+  <div class="modal-backdrop" id="accountModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="accountModalTitle">
+      <div class="modal-head">
+        <h2 class="modal-title" id="accountModalTitle">Аккаунт</h2>
+        <button class="modal-close" id="closeAccountModal" type="button" aria-label="Закрыть">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="profile-row">
+          <div class="profile-avatar" id="profileAvatar">👤</div>
+          <div class="profile-meta">
+            <p class="profile-name" id="profileName">Пользователь</p>
+            <p class="profile-subtitle" id="profileSubtitle">Статистика и настройки профиля</p>
+          </div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-value" id="statPlayed">0</div>
+            <div class="stat-label">Сыграно</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="statWins">0</div>
+            <div class="stat-label">Побед</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="statAccuracy">0%</div>
+            <div class="stat-label">Точность</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="statBest">—</div>
+            <div class="stat-label">Лучший результат</div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="modal-action-btn primary" type="button" id="goStatsBtn">Открыть статистику</button>
+          <button class="modal-action-btn" type="button" id="goHistoryBtn">История игр</button>
+          <button class="modal-action-btn" type="button" id="goSettingsBtn">Настройки</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     const QUIZ_API = 'https://n8n.kino-test.ru/webhook/random_quiz';
     const FALLBACK_SCENE = './movie_still.jpg';
@@ -762,7 +1000,15 @@
       currentQuestion: 0,
       answers: [],
       score: 0,
-      error: ''
+      error: '',
+      account: {
+        name: 'Пользователь',
+        subtitle: 'Статистика и настройки профиля',
+        played: 0,
+        wins: 0,
+        accuracy: 0,
+        best: '—'
+      }
     };
 
     if (tg) {
@@ -772,6 +1018,10 @@
       tg.MainButton.hide();
 
       tg.BackButton.onClick(() => {
+        if (document.getElementById('accountModal').classList.contains('show')) {
+          closeAccountModal();
+          return;
+        }
         if (state.screen === 'quiz' || state.screen === 'result') {
           goHome();
           return;
@@ -789,6 +1039,13 @@
     const randomButton = document.getElementById('randomButton');
     const startButton = document.getElementById('startButton');
     const backButton = document.getElementById('backButton');
+    const accountModal = document.getElementById('accountModal');
+    const accountBtn = document.createElement('button');
+    accountBtn.className = 'account-btn';
+    accountBtn.type = 'button';
+    accountBtn.innerHTML = '<span>👤</span>';
+    accountBtn.setAttribute('aria-label', 'Аккаунт');
+    accountBtn.title = 'Аккаунт';
 
     function safeHaptic(type, level) {
       if (!tg || !tg.HapticFeedback) return;
@@ -798,6 +1055,58 @@
       } catch (e) {
         console.warn('Haptic feedback failed:', e);
       }
+    }
+
+    function updateAccountUI() {
+      document.getElementById('profileName').textContent = state.account.name;
+      document.getElementById('profileSubtitle').textContent = state.account.subtitle;
+      document.getElementById('statPlayed').textContent = String(state.account.played);
+      document.getElementById('statWins').textContent = String(state.account.wins);
+      document.getElementById('statAccuracy').textContent = `${state.account.accuracy}%`;
+      document.getElementById('statBest').textContent = state.account.best;
+    }
+
+    function openAccountModal() {
+      updateAccountUI();
+      accountModal.classList.add('show');
+      safeHaptic('impact', 'light');
+    }
+
+    function closeAccountModal() {
+      accountModal.classList.remove('show');
+    }
+
+    function bindAccountActions() {
+      document.getElementById('goStatsBtn').onclick = () => {
+        closeAccountModal();
+        state.screen = 'home';
+        state.error = 'Раздел статистики пока в разработке';
+        render();
+      };
+      document.getElementById('goHistoryBtn').onclick = () => {
+        closeAccountModal();
+        state.screen = 'home';
+        state.error = 'История игр скоро появится';
+        render();
+      };
+      document.getElementById('goSettingsBtn').onclick = () => {
+        closeAccountModal();
+        state.screen = 'home';
+        state.error = 'Настройки скоро появятся';
+        render();
+      };
+      document.getElementById('closeAccountModal').onclick = closeAccountModal;
+      accountModal.addEventListener('click', (e) => {
+        if (e.target === accountModal) closeAccountModal();
+      });
+    }
+
+    function attachAccountButton() {
+      const existing = document.getElementById('accountBtnInjected');
+      if (existing) return;
+      accountBtn.id = 'accountBtnInjected';
+      accountBtn.addEventListener('click', openAccountModal);
+      document.querySelector('.tv-screen').appendChild(accountBtn);
     }
 
     async function fetchQuiz() {
@@ -1008,6 +1317,7 @@
       startButton.disabled = state.loading || !state.quiz;
       randomButton.disabled = state.loading;
       tvControls.style.display = 'grid';
+      attachAccountButton();
     }
 
     function renderQuiz() {
@@ -1025,7 +1335,7 @@
         ? question.options.map((option, index) => `
             <button class="option-btn option-btn--image" type="button" data-option-index="${index}">
               <img
-                src="${escapeHtml(option.text)}"
+                src="${escapeHtml(option.text || option.title || '')}"
                 alt="Вариант ${index + 1}"
                 class="option-image"
                 loading="eager"
@@ -1035,11 +1345,15 @@
           `).join('')
         : question.options.map((option, index) => `
             <button class="option-btn" type="button" data-option-index="${index}">
-              ${escapeHtml(option.text)}
+              ${escapeHtml(option.text || option.title || '')}
             </button>
           `).join('');
 
       tvScreen.innerHTML = `
+        <button class="account-btn" id="accountBtnInjected" type="button" aria-label="Аккаунт" title="Аккаунт">
+          <span>👤</span>
+        </button>
+
         <div class="progress-row">
           <div class="progress-badge">Вопрос ${state.currentQuestion + 1} из ${state.quiz.questions.length}</div>
           <div class="progress-bar" aria-hidden="true">
@@ -1067,8 +1381,11 @@
       `;
 
       tvScreen.querySelectorAll('[data-option-index]').forEach((button) => {
-        button.addEventListener('click', () => handleAnswer(Number(button.dataset.optionIndex)));
+        button.addEventListener('click', () => handleAnswer(Number(button.dataset.option-index)));
       });
+
+      const injected = document.getElementById('accountBtnInjected');
+      if (injected) injected.addEventListener('click', openAccountModal);
 
       tvControls.style.display = 'none';
     }
@@ -1098,6 +1415,10 @@
       }
 
       tvScreen.innerHTML = `
+        <button class="account-btn" id="accountBtnInjected" type="button" aria-label="Аккаунт" title="Аккаунт">
+          <span>👤</span>
+        </button>
+
         <div class="result-wrap">
           <p class="hand-note">Финал кинотеста</p>
           <p class="result-text">${escapeHtml(phrase)}</p>
@@ -1128,6 +1449,9 @@
         </div>
       `;
 
+      const injected = document.getElementById('accountBtnInjected');
+      if (injected) injected.addEventListener('click', openAccountModal);
+
       tvControls.style.display = 'grid';
       startButton.textContent = 'Пройти ещё раз';
       startButton.onclick = handleRestart;
@@ -1155,6 +1479,10 @@
     startButton.addEventListener('click', handleStart);
 
     backButton.addEventListener('click', () => {
+      if (document.getElementById('accountModal').classList.contains('show')) {
+        closeAccountModal();
+        return;
+      }
       if (state.screen === 'quiz' || state.screen === 'result') {
         goHome();
         return;
@@ -1166,6 +1494,7 @@
       }
     });
 
+    bindAccountActions();
     render();
     preloadQuiz();
   </script>
