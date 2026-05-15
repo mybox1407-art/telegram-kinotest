@@ -276,6 +276,12 @@
       max-width: 220px;
     }
 
+    .home-doodle--landscape,
+    .question-doodle--landscape {
+      aspect-ratio: 16 / 9;
+      max-width: 320px;
+    }
+
     .scene-photo {
       width: 100%;
       height: 100%;
@@ -283,6 +289,11 @@
       object-fit: cover;
       object-position: center center;
       filter: grayscale(1) contrast(1.04);
+    }
+
+    .scene-photo--landscape {
+      object-fit: cover;
+      object-position: center center;
     }
 
     .doodle::after {
@@ -683,6 +694,8 @@
       .tv-screen { padding: 10px 10px 4px; }
       .doodle { max-width: 220px; }
       .home-doodle { max-width: 210px; }
+      .home-doodle--landscape,
+      .question-doodle--landscape { max-width: 100%; }
       .tv-controls {
         grid-template-columns: minmax(0, 1fr) 52px auto;
         gap: 10px;
@@ -953,6 +966,9 @@
     }
 
     function renderHome() {
+      const quizType = state.quiz ? Number(state.quiz.type) : 0;
+      const isLandscape = quizType === 3;
+
       const errorBlock = state.error 
         ? `<p class="error-text">${escapeHtml(state.error)}</p><button class="retry-btn" onclick="preloadQuiz()">Повторить попытку</button>` 
         : '';
@@ -973,9 +989,9 @@
             <h1 class="quiz-title">${escapeHtml(state.title)}</h1>
             <p class="quiz-description home-description">${escapeHtml(state.description)}</p>
 
-            <div class="doodle home-doodle">
+            <div class="doodle home-doodle ${isLandscape ? 'home-doodle--landscape' : ''}">
               <img
-                class="scene-photo"
+                class="scene-photo ${isLandscape ? 'scene-photo--landscape' : ''}"
                 src="${escapeHtml(state.previewImage)}"
                 alt="Превью кинотеста"
                 loading="eager"
@@ -999,9 +1015,11 @@
       const progress = ((state.currentQuestion + 1) / state.quiz.questions.length) * 100;
       const quizType = Number(state.quiz.type);
 
-      const questionTitle = quizType === 2
-        ? `${question.question || 'Вопрос'}?`
-        : (question.question || 'Вопрос');
+      const questionTitle = quizType === 1
+        ? 'Кто это на фото?'
+        : quizType === 3
+          ? 'Этот кадр из какого фильма?'
+          : (question.question || 'Вопрос');
 
       const optionsHtml = quizType === 2
         ? question.options.map((option, index) => `
@@ -1031,10 +1049,10 @@
 
         <h2 class="quiz-title">${escapeHtml(questionTitle)}</h2>
 
-        ${quizType === 1 ? `
-          <div class="doodle">
+        ${quizType === 1 || quizType === 3 ? `
+          <div class="doodle ${quizType === 3 ? 'question-doodle--landscape' : ''}">
             <img
-              class="scene-photo"
+              class="scene-photo ${quizType === 3 ? 'scene-photo--landscape' : ''}"
               src="${escapeHtml(question.image || FALLBACK_SCENE)}"
               alt="Вопрос ${state.currentQuestion + 1}"
               loading="eager"
