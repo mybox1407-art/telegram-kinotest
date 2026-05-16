@@ -175,29 +175,17 @@
       text-align: center;
     }
 
-    .quiz-title {
+    .quiz-title, .question-title {
       position: relative;
       z-index: 1;
-      margin: 2px 0 0;
-      font-family: 'Caveat', cursive;
-      font-size: 34px;
-      line-height: 1.1;
       color: var(--ink);
+      font-family: 'Caveat', cursive;
       font-weight: 700;
       text-align: center;
     }
 
-    .question-title {
-      position: relative;
-      z-index: 1;
-      margin: 0 0 12px;
-      font-family: 'Caveat', cursive;
-      font-size: 28px;
-      line-height: 1.1;
-      color: var(--ink);
-      font-weight: 700;
-      text-align: center;
-    }
+    .quiz-title { margin: 2px 0 0; font-size: 34px; line-height: 1.1; }
+    .question-title { margin: 0 0 12px; font-size: 28px; line-height: 1.1; }
 
     .quiz-description {
       position: relative;
@@ -222,12 +210,7 @@
       text-align: center;
     }
 
-    .result-text {
-      font-size: 16px;
-      line-height: 1.5;
-      font-weight: 800;
-    }
-
+    .result-text { font-size: 16px; line-height: 1.5; font-weight: 800; }
     .home-description { margin-bottom: 6px; }
 
     .progress-row {
@@ -866,141 +849,76 @@
     .cat-block {
       background: var(--flat-color);
       border-radius: 14px;
-      padding: 9px 9px 10px;
+      padding: 7px 8px 8px;
       color: #fffaf5;
       box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25), 0 4px 6px rgba(107, 64, 40, 0.15);
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      position: relative;
     }
 
     .cat-top {
       display: flex;
       align-items: center;
+      justify-content: center;
+      gap: 6px;
       width: 100%;
-      margin-bottom: 8px;
+      margin-bottom: 5px;
     }
 
     .cat-icon {
-      width: 30px;
-      height: 30px;
-      margin-bottom: 0;
-      margin-right: 8px;
-      flex: 0 0 30px;
-      filter: drop-shadow(0 3px 5px rgba(64, 38, 24, 0.45));
+      width: 24px;
+      height: 24px;
+      flex: 0 0 24px;
+      margin: 0;
+      filter: drop-shadow(0 2px 4px rgba(64, 38, 24, 0.35));
     }
 
     .cat-name {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
-      margin-bottom: 0;
+      margin: 0;
       text-shadow: 0 1px 0 rgba(107,64,40,0.4);
       letter-spacing: 0.02em;
-      text-align: left;
-      flex: 1;
+      text-align: center;
+      flex: 0 0 auto;
     }
 
     .cat-metrics {
       display: flex;
-      gap: 6px;
+      gap: 5px;
       justify-content: center;
       width: 100%;
     }
 
     .cat-circle {
-      width: 34px;
-      height: 34px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       background: rgba(74, 46, 21, 0.15);
       border: 1.5px solid rgba(255, 255, 255, 0.3);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 800;
       color: #fffaf5;
       text-shadow: 0 1px 0 rgba(107,64,40,0.4);
     }
 
-    .stats-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    .stats-list { display: flex; flex-direction: column; gap: 10px; }
+    .reward-item { display: flex; align-items: center; gap: 10px; background: var(--paper-2); border: 2px solid var(--line); border-radius: 12px; padding: 8px 12px; }
+    .reward-icon { font-size: 20px; flex: 0 0 auto; }
+    .reward-info { flex: 1; }
+    .reward-name { font-size: 13px; font-weight: 800; color: var(--ink); margin-bottom: 4px; }
+    .stat-bar-container { height: 8px; border: 1px solid var(--line); border-radius: 999px; background: #f7e6cc; overflow: hidden; }
+    .stat-bar-fill { height: 100%; background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%); border-radius: 0 999px 999px 0; }
+    .tools-grid { display: grid; gap: 8px; }
+    .tool-btn { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border: 2px solid var(--line); border-radius: 12px; background: linear-gradient(180deg, #fff9ee 0%, #f6e2bd 100%); color: var(--ink); font-size: 14px; font-weight: 800; cursor: pointer; }
+    .tool-count { background: var(--accent); color: #fff; padding: 2px 8px; border-radius: 999px; font-size: 12px; }
 
-    .reward-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--paper-2);
-      border: 2px solid var(--line);
-      border-radius: 12px;
-      padding: 8px 12px;
-    }
-
-    .reward-icon {
-      font-size: 20px;
-      flex: 0 0 auto;
-    }
-
-    .reward-info {
-      flex: 1;
-    }
-
-    .reward-name {
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--ink);
-      margin-bottom: 4px;
-    }
-
-    .stat-bar-container {
-      height: 8px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: #f7e6cc;
-      overflow: hidden;
-    }
-
-    .stat-bar-fill {
-      height: 100%;
-      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
-      border-radius: 0 999px 999px 0;
-    }
-
-    .tools-grid {
-      display: grid;
-      gap: 8px;
-    }
-
-    .tool-btn {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 14px;
-      border: 2px solid var(--line);
-      border-radius: 12px;
-      background: linear-gradient(180deg, #fff9ee 0%, #f6e2bd 100%);
-      color: var(--ink);
-      font-size: 14px;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .tool-count {
-      background: var(--accent);
-      color: #fff;
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 12px;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     @media (max-width: 480px) {
       .app { max-width: 100%; }
@@ -1403,10 +1321,8 @@
       try {
         const quiz = await fetchQuiz();
         setPreviewFromQuiz(quiz);
-        safeHaptic('notification', 'success');
       } catch (error) {
         state.error = error.message || 'Ошибка загрузки кинотеста';
-        safeHaptic('notification', 'error');
       } finally {
         state.loading = false;
         render();
@@ -1423,10 +1339,8 @@
         const quiz = await fetchQuiz();
         setPreviewFromQuiz(quiz);
         state.screen = 'home';
-        safeHaptic('impact', 'light');
       } catch (error) {
         state.error = error.message || 'Ошибка загрузки кинотеста';
-        safeHaptic('notification', 'error');
       } finally {
         state.loading = false;
         render();
@@ -1444,13 +1358,10 @@
           const quiz = await fetchQuiz();
           setPreviewFromQuiz(quiz);
         }
-
         resetRun();
         state.screen = 'quiz';
-        safeHaptic('notification', 'success');
       } catch (error) {
         state.error = error.message || 'Не удалось начать кинотест';
-        safeHaptic('notification', 'error');
       } finally {
         state.loading = false;
         render();
@@ -1459,24 +1370,12 @@
 
     function handleAnswer(index) {
       if (state.loading || state.screen !== 'quiz') return;
-
       const question = state.quiz.questions[state.currentQuestion];
       const selected = question.options[index];
       const isCorrect = !!selected.correct;
 
-      state.answers.push({
-        questionId: question.id,
-        selectedIndex: index,
-        selectedText: selected.text || selected.title,
-        correct: isCorrect
-      });
-
-      if (isCorrect) {
-        state.score += 1;
-        safeHaptic('notification', 'success');
-      } else {
-        safeHaptic('impact', 'medium');
-      }
+      state.answers.push({ questionId: question.id, selectedIndex: index, selectedText: selected.text || selected.title, correct: isCorrect });
+      if (isCorrect) state.score += 1;
 
       const isLastQuestion = state.currentQuestion >= state.quiz.questions.length - 1;
       if (isLastQuestion) {
@@ -1490,13 +1389,9 @@
     }
 
     function handleRestart() {
-      if (!state.quiz) {
-        handleStart();
-        return;
-      }
+      if (!state.quiz) { handleStart(); return; }
       resetRun();
       state.screen = 'quiz';
-      safeHaptic('notification', 'success');
       render();
     }
 
@@ -1524,43 +1419,28 @@
     function renderHome() {
       const quizType = state.quiz ? Number(state.quiz.type) : 0;
       const isLandscape = quizType === 3 || quizType === 4;
+      const errorBlock = state.error ? `<p class="error-text">${escapeHtml(state.error)}</p>` : '';
 
-      const errorBlock = state.error
-        ? `<p class="error-text">${escapeHtml(state.error)}</p><button class="retry-btn btn-3d" onclick="preloadQuiz()"><span>Повторить попытку</span></button>`
-        : '';
-
-      if (state.loading) {
-        tvScreen.innerHTML = `
-          <p class="hand-note">Твой случайный кинотест</p>
-          <p class="loading-text">Подбираем для тебя кинотест и загружаем его описание...</p>
-          <div class="spinner" aria-hidden="true"></div>
-          ${errorBlock}
-        `;
-      } else {
-        tvScreen.innerHTML = `
-          <p class="hand-note">Твой случайный кинотест</p>
-          <h1 class="quiz-title">${escapeHtml(state.title)}</h1>
-          <p class="quiz-description home-description">${escapeHtml(state.description)}</p>
-
-          <div class="doodle home-doodle ${isLandscape ? 'home-doodle--landscape' : ''}">
-            <img
-              class="scene-photo ${isLandscape ? 'scene-photo--landscape' : ''}"
-              src="${escapeHtml(state.previewImage)}"
-              alt="Превью кинотеста"
-              loading="eager"
-              onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'"
-            />
-          </div>
-          ${errorBlock}
-        `;
-      }
+      tvScreen.innerHTML = state.loading ? `
+        <p class="hand-note">Твой случайный кинотест</p>
+        <p class="loading-text">Подбираем для тебя кинотест и загружаем его описание...</p>
+        <div class="spinner" aria-hidden="true"></div>
+        ${errorBlock}
+      ` : `
+        <p class="hand-note">Твой случайный кинотест</p>
+        <h1 class="quiz-title">${escapeHtml(state.title)}</h1>
+        <p class="quiz-description home-description">${escapeHtml(state.description)}</p>
+        <div class="doodle home-doodle ${isLandscape ? 'home-doodle--landscape' : ''}">
+          <img class="scene-photo ${isLandscape ? 'scene-photo--landscape' : ''}" src="${escapeHtml(state.previewImage)}" alt="Превью кинотеста" loading="eager" onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'" />
+        </div>
+        ${errorBlock}
+      `;
 
       updateStartButtonText('Начать');
       startButton.onclick = handleStart;
       startButton.disabled = state.loading || !state.quiz;
       randomButton.disabled = state.loading;
       tvControls.style.display = 'grid';
-
       attachAccountButton();
     }
 
@@ -1578,13 +1458,7 @@
       const optionsHtml = quizType === 2
         ? question.options.map((option, index) => `
             <button class="option-btn option-btn--image btn-3d" type="button" data-option-index="${index}">
-              <img
-                src="${escapeHtml(option.text || option.title || '')}"
-                alt="Вариант ${index + 1}"
-                class="option-image"
-                loading="eager"
-                onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'"
-              />
+              <img src="${escapeHtml(option.text || option.title || '')}" alt="Вариант ${index + 1}" class="option-image" loading="eager" onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'" />
             </button>
           `).join('')
         : question.options.map((option, index) => `
@@ -1596,22 +1470,14 @@
       tvScreen.innerHTML = `
         <div class="progress-row">
           <div class="progress-badge">Вопрос ${state.currentQuestion + 1} из ${state.quiz.questions.length}</div>
-          <div class="progress-bar" aria-hidden="true">
-            <div class="progress-bar-fill" style="width:${progress}%"></div>
-          </div>
+          <div class="progress-bar" aria-hidden="true"><div class="progress-bar-fill" style="width:${progress}%"></div></div>
         </div>
 
         <h2 class="question-title">${escapeHtml(questionTitle)}</h2>
 
         ${quizType === 1 || quizType === 3 || quizType === 4 ? `
           <div class="doodle question-doodle ${(quizType === 3 || quizType === 4) ? 'question-doodle--landscape' : ''}">
-            <img
-              class="scene-photo ${(quizType === 3 || quizType === 4) ? 'scene-photo--landscape' : ''}"
-              src="${escapeHtml(question.image || question.frame_url || FALLBACK_SCENE)}"
-              alt="Вопрос ${state.currentQuestion + 1}"
-              loading="eager"
-              onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'"
-            />
+            <img class="scene-photo ${(quizType === 3 || quizType === 4) ? 'scene-photo--landscape' : ''}" src="${escapeHtml(question.image || question.frame_url || FALLBACK_SCENE)}" alt="Вопрос ${state.currentQuestion + 1}" loading="eager" onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'" />
           </div>
         ` : ''}
 
