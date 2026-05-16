@@ -4,13 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Случайный кинотест</title>
-
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-
   <style>
     :root {
       --bg: #fff6ea;
@@ -210,7 +207,12 @@
       text-align: center;
     }
 
-    .result-text { font-size: 16px; line-height: 1.5; font-weight: 800; }
+    .result-text {
+      font-size: 16px;
+      line-height: 1.5;
+      font-weight: 800;
+    }
+
     .home-description { margin-bottom: 6px; }
 
     .progress-row {
@@ -849,76 +851,229 @@
     .cat-block {
       background: var(--flat-color);
       border-radius: 14px;
-      padding: 7px 8px 8px;
+      padding: 9px 9px 10px;
       color: #fffaf5;
       box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25), 0 4px 6px rgba(107, 64, 40, 0.15);
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
+      position: relative;
     }
 
     .cat-top {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 6px;
       width: 100%;
-      margin-bottom: 5px;
+      margin-bottom: 8px;
     }
 
     .cat-icon {
-      width: 24px;
-      height: 24px;
-      flex: 0 0 24px;
-      margin: 0;
-      filter: drop-shadow(0 2px 4px rgba(64, 38, 24, 0.35));
+      width: 30px;
+      height: 30px;
+      margin-bottom: 0;
+      margin-right: 8px;
+      flex: 0 0 30px;
+      filter: drop-shadow(0 3px 5px rgba(64, 38, 24, 0.45));
     }
 
     .cat-name {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 800;
-      margin: 0;
+      margin-bottom: 0;
       text-shadow: 0 1px 0 rgba(107,64,40,0.4);
       letter-spacing: 0.02em;
-      text-align: center;
-      flex: 0 0 auto;
+      text-align: left;
+      flex: 1;
     }
 
     .cat-metrics {
       display: flex;
-      gap: 5px;
+      gap: 6px;
       justify-content: center;
       width: 100%;
     }
 
     .cat-circle {
-      width: 30px;
-      height: 30px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       background: rgba(74, 46, 21, 0.15);
       border: 1.5px solid rgba(255, 255, 255, 0.3);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 800;
       color: #fffaf5;
       text-shadow: 0 1px 0 rgba(107,64,40,0.4);
     }
 
-    .stats-list { display: flex; flex-direction: column; gap: 10px; }
-    .reward-item { display: flex; align-items: center; gap: 10px; background: var(--paper-2); border: 2px solid var(--line); border-radius: 12px; padding: 8px 12px; }
-    .reward-icon { font-size: 20px; flex: 0 0 auto; }
-    .reward-info { flex: 1; }
-    .reward-name { font-size: 13px; font-weight: 800; color: var(--ink); margin-bottom: 4px; }
-    .stat-bar-container { height: 8px; border: 1px solid var(--line); border-radius: 999px; background: #f7e6cc; overflow: hidden; }
-    .stat-bar-fill { height: 100%; background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%); border-radius: 0 999px 999px 0; }
-    .tools-grid { display: grid; gap: 8px; }
-    .tool-btn { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border: 2px solid var(--line); border-radius: 12px; background: linear-gradient(180deg, #fff9ee 0%, #f6e2bd 100%); color: var(--ink); font-size: 14px; font-weight: 800; cursor: pointer; }
-    .tool-count { background: var(--accent); color: #fff; padding: 2px 8px; border-radius: 999px; font-size: 12px; }
+    .reward-panel {
+      background: var(--flat-color);
+      border-radius: 16px;
+      padding: 10px;
+      color: #fffaf5;
+      box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25), 0 4px 6px rgba(107, 64, 40, 0.15);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .reward-panel--stacked {
+      gap: 10px;
+    }
+
+    .reward-track-row {
+      display: grid;
+      grid-template-columns: 68px 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .reward-figure {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 68px;
+      height: 68px;
+      border-radius: 14px;
+      background: rgba(74, 46, 21, 0.10);
+      border: 1.5px solid rgba(255, 255, 255, 0.18);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
+    }
+
+    .reward-figure-icon {
+      width: 54px;
+      height: 54px;
+      display: block;
+      filter: drop-shadow(0 4px 6px rgba(64, 38, 24, 0.35));
+    }
+
+    .reward-scale {
+      display: flex;
+      align-items: center;
+    }
+
+    .reward-scale--line {
+      justify-content: space-between;
+      gap: 4px;
+      flex-wrap: nowrap;
+    }
+
+    .reward-shadow {
+      width: 18px;
+      height: 18px;
+      opacity: 0.28;
+      background: rgba(58, 37, 18, 0.55);
+      flex: 0 0 auto;
+      mask-repeat: no-repeat;
+      mask-position: center;
+      mask-size: contain;
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      -webkit-mask-size: contain;
+      transition: opacity 0.25s ease, background 0.25s ease, transform 0.25s ease;
+    }
+
+    .reward-shadow--bobbin {
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='42' fill='black'/%3E%3Ccircle cx='60' cy='20' r='12' fill='black'/%3E%3Ccircle cx='88' cy='39' r='12' fill='black'/%3E%3Ccircle cx='78' cy='74' r='12' fill='black'/%3E%3Ccircle cx='42' cy='74' r='12' fill='black'/%3E%3Ccircle cx='32' cy='39' r='12' fill='black'/%3E%3C/svg%3E");
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='42' fill='black'/%3E%3Ccircle cx='60' cy='20' r='12' fill='black'/%3E%3Ccircle cx='88' cy='39' r='12' fill='black'/%3E%3Ccircle cx='78' cy='74' r='12' fill='black'/%3E%3Ccircle cx='42' cy='74' r='12' fill='black'/%3E%3Ccircle cx='32' cy='39' r='12' fill='black'/%3E%3C/svg%3E");
+    }
+
+    .reward-shadow--star {
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath d='M60 12 L72 38 L100 40 L79 58 L86 86 L60 72 L34 86 L41 58 L20 40 L48 38 Z' fill='black'/%3E%3C/svg%3E");
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath d='M60 12 L72 38 L100 40 L79 58 L86 86 L60 72 L34 86 L41 58 L20 40 L48 38 Z' fill='black'/%3E%3C/svg%3E");
+    }
+
+    .reward-shadow--ticket {
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect x='16' y='30' width='88' height='60' rx='12' fill='black'/%3E%3C/svg%3E");
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect x='16' y='30' width='88' height='60' rx='12' fill='black'/%3E%3C/svg%3E");
+    }
+
+    .reward-shadow.is-active {
+      opacity: 1;
+      background: #fff4ca;
+      transform: translateY(-1px) scale(1.05);
+    }
+
+    .stats-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .reward-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--paper-2);
+      border: 2px solid var(--line);
+      border-radius: 12px;
+      padding: 8px 12px;
+    }
+
+    .reward-icon {
+      font-size: 20px;
+      flex: 0 0 auto;
+    }
+
+    .reward-info {
+      flex: 1;
+    }
+
+    .reward-name {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .stat-bar-container {
+      height: 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #f7e6cc;
+      overflow: hidden;
+    }
+
+    .stat-bar-fill {
+      height: 100%;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+      border-radius: 0 999px 999px 0;
+    }
+
+    .tools-grid {
+      display: grid;
+      gap: 8px;
+    }
+
+    .tool-btn {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      border: 2px solid var(--line);
+      border-radius: 12px;
+      background: linear-gradient(180deg, #fff9ee 0%, #f6e2bd 100%);
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .tool-count {
+      background: var(--accent);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
 
     @media (max-width: 480px) {
       .app { max-width: 100%; }
@@ -1121,32 +1276,78 @@
 
         <div>
           <h4 class="section-title">Награды</h4>
-          <div class="stats-list">
-            <div class="reward-item">
-              <span class="reward-icon">🎞️</span>
-              <div class="reward-info">
-                <div class="reward-name">Бобины</div>
-                <div class="stat-bar-container">
-                  <div class="stat-bar-fill" style="width: 40%;"></div>
-                </div>
+          <div class="reward-panel reward-panel--stacked">
+            <div class="reward-track-row">
+              <div class="reward-figure reward-figure--bobbin">
+                <svg viewBox="0 0 120 120" class="reward-figure-icon" aria-hidden="true">
+                  <defs>
+                    <radialGradient id="rewardBobbinGrad" cx="30%" cy="30%" r="70%">
+                      <stop offset="0%" stop-color="#fff1b8"/>
+                      <stop offset="45%" stop-color="#d9b06a"/>
+                      <stop offset="100%" stop-color="#8a612b"/>
+                    </radialGradient>
+                    <linearGradient id="rewardBobbinDark" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#5b4028"/>
+                      <stop offset="100%" stop-color="#2d1d12"/>
+                    </linearGradient>
+                  </defs>
+                  <circle cx="60" cy="60" r="42" fill="url(#rewardBobbinGrad)" stroke="#4a2e15" stroke-width="3"/>
+                  <circle cx="60" cy="60" r="33" fill="none" stroke="#f7e0a6" stroke-width="2"/>
+                  <g fill="url(#rewardBobbinDark)" stroke="#f3d89c" stroke-width="2">
+                    <circle cx="60" cy="20" r="12" />
+                    <circle cx="88" cy="39" r="12" />
+                    <circle cx="78" cy="74" r="12" />
+                    <circle cx="42" cy="74" r="12" />
+                    <circle cx="32" cy="39" r="12" />
+                  </g>
+                  <circle cx="60" cy="60" r="6" fill="#3a2512"/>
+                  <circle cx="60" cy="60" r="3" fill="#1c1108"/>
+                </svg>
+              </div>
+              <div class="reward-scale reward-scale--line">
+                <span class="reward-shadow reward-shadow--bobbin"></span><span class="reward-shadow reward-shadow--bobbin"></span><span class="reward-shadow reward-shadow--bobbin"></span><span class="reward-shadow reward-shadow--bobbin"></span><span class="reward-shadow reward-shadow--bobbin"></span><span class="reward-shadow reward-shadow--bobbin"></span><span class="reward-shadow reward-shadow--bobbin"></span><span class="reward-shadow reward-shadow--bobbin"></span><span class="reward-shadow reward-shadow--bobbin"></span><span class="reward-shadow reward-shadow--bobbin"></span>
               </div>
             </div>
-            <div class="reward-item">
-              <span class="reward-icon">⭐</span>
-              <div class="reward-info">
-                <div class="reward-name">Звёзды</div>
-                <div class="stat-bar-container">
-                  <div class="stat-bar-fill" style="width: 90%;"></div>
-                </div>
+            <div class="reward-track-row">
+              <div class="reward-figure reward-figure--star">
+                <svg viewBox="0 0 120 120" class="reward-figure-icon" aria-hidden="true">
+                  <defs>
+                    <radialGradient id="rewardStarGrad" cx="30%" cy="30%" r="70%">
+                      <stop offset="0%" stop-color="#fff6c8"/>
+                      <stop offset="45%" stop-color="#f0c45e"/>
+                      <stop offset="100%" stop-color="#b57b22"/>
+                    </radialGradient>
+                  </defs>
+                  <path d="M60 12 L72 38 L100 40 L79 58 L86 86 L60 72 L34 86 L41 58 L20 40 L48 38 Z" fill="url(#rewardStarGrad)" stroke="#4a2e15" stroke-width="3" stroke-linejoin="round"/>
+                  <path d="M60 18 L69 38 L90 40 L74 54 L79 75 L60 65 L41 75 L46 54 L30 40 L51 38 Z" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="2"/>
+                  <circle cx="49" cy="35" r="5" fill="#fff7d8" opacity="0.85"/>
+                </svg>
+              </div>
+              <div class="reward-scale reward-scale--line">
+                <span class="reward-shadow reward-shadow--star"></span><span class="reward-shadow reward-shadow--star"></span><span class="reward-shadow reward-shadow--star"></span><span class="reward-shadow reward-shadow--star"></span><span class="reward-shadow reward-shadow--star"></span><span class="reward-shadow reward-shadow--star"></span><span class="reward-shadow reward-shadow--star"></span><span class="reward-shadow reward-shadow--star"></span><span class="reward-shadow reward-shadow--star"></span><span class="reward-shadow reward-shadow--star"></span>
               </div>
             </div>
-            <div class="reward-item">
-              <span class="reward-icon">🎫</span>
-              <div class="reward-info">
-                <div class="reward-name">Золотые билеты</div>
-                <div class="stat-bar-container">
-                  <div class="stat-bar-fill" style="width: 15%;"></div>
-                </div>
+            <div class="reward-track-row">
+              <div class="reward-figure reward-figure--ticket">
+                <svg viewBox="0 0 120 120" class="reward-figure-icon" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="rewardTicketGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#ffe49b"/>
+                      <stop offset="55%" stop-color="#f2c24d"/>
+                      <stop offset="100%" stop-color="#b78316"/>
+                    </linearGradient>
+                  </defs>
+                  <rect x="16" y="30" width="88" height="60" rx="12" fill="url(#rewardTicketGrad)" stroke="#4a2e15" stroke-width="3"/>
+                  <rect x="28" y="42" width="44" height="36" rx="8" fill="rgba(255,255,255,0.25)"/>
+                  <circle cx="84" cy="60" r="7" fill="#fff7d8" opacity="0.75"/>
+                  <circle cx="24" cy="47" r="4" fill="#4a2e15"/>
+                  <circle cx="24" cy="73" r="4" fill="#4a2e15"/>
+                  <circle cx="96" cy="47" r="4" fill="#4a2e15"/>
+                  <circle cx="96" cy="73" r="4" fill="#4a2e15"/>
+                </svg>
+              </div>
+              <div class="reward-scale reward-scale--line">
+                <span class="reward-shadow reward-shadow--ticket"></span><span class="reward-shadow reward-shadow--ticket"></span><span class="reward-shadow reward-shadow--ticket"></span><span class="reward-shadow reward-shadow--ticket"></span><span class="reward-shadow reward-shadow--ticket"></span><span class="reward-shadow reward-shadow--ticket"></span><span class="reward-shadow reward-shadow--ticket"></span><span class="reward-shadow reward-shadow--ticket"></span><span class="reward-shadow reward-shadow--ticket"></span><span class="reward-shadow reward-shadow--ticket"></span>
               </div>
             </div>
           </div>
@@ -1193,6 +1394,11 @@
       account: {
         name: 'Пользователь',
         photo: null
+      },
+      rewards: {
+        bobbin: 4,
+        star: 7,
+        ticket: 2
       }
     };
 
@@ -1217,6 +1423,7 @@
     const startButton = document.getElementById('startButton');
     const backButton = document.getElementById('backButton');
     const accountModal = document.getElementById('accountModal');
+
     const accountBtn = document.createElement('button');
     accountBtn.className = 'account-btn btn-3d';
     accountBtn.type = 'button';
@@ -1265,9 +1472,7 @@
     }
 
     document.getElementById('closeAccountModal').onclick = closeAccountModal;
-    accountModal.addEventListener('click', (e) => {
-      if (e.target === accountModal) closeAccountModal();
-    });
+    accountModal.addEventListener('click', e => { if (e.target === accountModal) closeAccountModal(); });
 
     async function fetchQuiz() {
       const response = await fetch(QUIZ_API, {
@@ -1279,22 +1484,11 @@
         mode: 'cors',
         body: JSON.stringify({})
       });
-
-      if (!response.ok) {
-        throw new Error(`Сервер вернул ошибку (HTTP ${response.status})`);
-      }
-
+      if (!response.ok) throw new Error(`Сервер вернул ошибку (HTTP ${response.status})`);
       const contentType = response.headers.get('content-type');
-      if (!contentType || !contentType.includes('application/json')) {
-        throw new Error('Webhook вернул не JSON');
-      }
-
+      if (!contentType || !contentType.includes('application/json')) throw new Error('Webhook вернул не JSON');
       const data = await response.json();
-
-      if (!data || !Array.isArray(data.questions) || !data.questions.length) {
-        throw new Error('Webhook вернул пустой кинотест');
-      }
-
+      if (!data || !Array.isArray(data.questions) || !data.questions.length) throw new Error('Webhook вернул пустой кинотест');
       return data;
     }
 
@@ -1317,7 +1511,6 @@
       state.loading = true;
       state.error = '';
       render();
-
       try {
         const quiz = await fetchQuiz();
         setPreviewFromQuiz(quiz);
@@ -1334,7 +1527,6 @@
       state.loading = true;
       state.error = '';
       render();
-
       try {
         const quiz = await fetchQuiz();
         setPreviewFromQuiz(quiz);
@@ -1352,7 +1544,6 @@
       state.loading = true;
       state.error = '';
       render();
-
       try {
         if (!state.quiz) {
           const quiz = await fetchQuiz();
@@ -1374,7 +1565,13 @@
       const selected = question.options[index];
       const isCorrect = !!selected.correct;
 
-      state.answers.push({ questionId: question.id, selectedIndex: index, selectedText: selected.text || selected.title, correct: isCorrect });
+      state.answers.push({
+        questionId: question.id,
+        selectedIndex: index,
+        selectedText: selected.text || selected.title,
+        correct: isCorrect
+      });
+
       if (isCorrect) state.score += 1;
 
       const isLastQuestion = state.currentQuestion >= state.quiz.questions.length - 1;
@@ -1389,7 +1586,10 @@
     }
 
     function handleRestart() {
-      if (!state.quiz) { handleStart(); return; }
+      if (!state.quiz) {
+        handleStart();
+        return;
+      }
       resetRun();
       state.screen = 'quiz';
       render();
@@ -1421,20 +1621,9 @@
       const isLandscape = quizType === 3 || quizType === 4;
       const errorBlock = state.error ? `<p class="error-text">${escapeHtml(state.error)}</p>` : '';
 
-      tvScreen.innerHTML = state.loading ? `
-        <p class="hand-note">Твой случайный кинотест</p>
-        <p class="loading-text">Подбираем для тебя кинотест и загружаем его описание...</p>
-        <div class="spinner" aria-hidden="true"></div>
-        ${errorBlock}
-      ` : `
-        <p class="hand-note">Твой случайный кинотест</p>
-        <h1 class="quiz-title">${escapeHtml(state.title)}</h1>
-        <p class="quiz-description home-description">${escapeHtml(state.description)}</p>
-        <div class="doodle home-doodle ${isLandscape ? 'home-doodle--landscape' : ''}">
-          <img class="scene-photo ${isLandscape ? 'scene-photo--landscape' : ''}" src="${escapeHtml(state.previewImage)}" alt="Превью кинотеста" loading="eager" onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'" />
-        </div>
-        ${errorBlock}
-      `;
+      tvScreen.innerHTML = state.loading
+        ? `<p class="hand-note">Твой случайный кинотест</p><p class="loading-text">Подбираем для тебя кинотест и загружаем его описание...</p><div class="spinner" aria-hidden="true"></div>${errorBlock}`
+        : `<p class="hand-note">Твой случайный кинотест</p><h1 class="quiz-title">${escapeHtml(state.title)}</h1><p class="quiz-description home-description">${escapeHtml(state.description)}</p><div class="doodle home-doodle ${isLandscape ? 'home-doodle--landscape' : ''}"><img class="scene-photo ${isLandscape ? 'scene-photo--landscape' : ''}" src="${escapeHtml(state.previewImage)}" alt="Превью кинотеста" loading="eager" onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'" /></div>${errorBlock}`;
 
       updateStartButtonText('Начать');
       startButton.onclick = handleStart;
@@ -1444,49 +1633,27 @@
       attachAccountButton();
     }
 
+    function renderRewards() {
+      const activate = (selector, count) => {
+        document.querySelectorAll(selector).forEach((el, i) => el.classList.toggle('is-active', i < count));
+      };
+      activate('.reward-shadow--bobbin', state.rewards.bobbin);
+      activate('.reward-shadow--star', state.rewards.star);
+      activate('.reward-shadow--ticket', state.rewards.ticket);
+    }
+
     function renderQuiz() {
       const question = state.quiz.questions[state.currentQuestion];
       const progress = ((state.currentQuestion + 1) / state.quiz.questions.length) * 100;
       const quizType = Number(state.quiz.type);
-
-      const questionTitle = quizType === 1
-        ? 'Кто это на фото?'
-        : quizType === 3 || quizType === 4
-          ? 'Этот кадр из какого фильма?'
-          : (question.question || 'Вопрос');
-
+      const questionTitle = quizType === 1 ? 'Кто это на фото?' : (quizType === 3 || quizType === 4) ? 'Этот кадр из какого фильма?' : (question.question || 'Вопрос');
       const optionsHtml = quizType === 2
-        ? question.options.map((option, index) => `
-            <button class="option-btn option-btn--image btn-3d" type="button" data-option-index="${index}">
-              <img src="${escapeHtml(option.text || option.title || '')}" alt="Вариант ${index + 1}" class="option-image" loading="eager" onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'" />
-            </button>
-          `).join('')
-        : question.options.map((option, index) => `
-            <button class="option-btn btn-3d" type="button" data-option-index="${index}">
-              <span>${escapeHtml(option.text || option.title || '')}</span>
-            </button>
-          `).join('');
+        ? question.options.map((option, index) => `<button class="option-btn option-btn--image btn-3d" type="button" data-option-index="${index}"><img src="${escapeHtml(option.text || option.title || '')}" alt="Вариант ${index+1}" class="option-image" loading="eager" onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'" /></button>`).join('')
+        : question.options.map((option, index) => `<button class="option-btn btn-3d" type="button" data-option-index="${index}"><span>${escapeHtml(option.text || option.title || '')}</span></button>`).join('');
 
-      tvScreen.innerHTML = `
-        <div class="progress-row">
-          <div class="progress-badge">Вопрос ${state.currentQuestion + 1} из ${state.quiz.questions.length}</div>
-          <div class="progress-bar" aria-hidden="true"><div class="progress-bar-fill" style="width:${progress}%"></div></div>
-        </div>
+      tvScreen.innerHTML = `<div class="progress-row"><div class="progress-badge">Вопрос ${state.currentQuestion + 1} из ${state.quiz.questions.length}</div><div class="progress-bar" aria-hidden="true"><div class="progress-bar-fill" style="width:${progress}%"></div></div></div><h2 class="question-title">${escapeHtml(questionTitle)}</h2>${(quizType===1 || quizType===3 || quizType===4) ? `<div class="doodle question-doodle ${(quizType===3 || quizType===4) ? 'question-doodle--landscape' : ''}"><img class="scene-photo ${(quizType===3 || quizType===4) ? 'scene-photo--landscape' : ''}" src="${escapeHtml(question.image || question.frame_url || FALLBACK_SCENE)}" alt="Вопрос ${state.currentQuestion + 1}" loading="eager" onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'" /></div>` : ''}<div class="question-options ${quizType===2 ? 'question-options--images' : ''}">${optionsHtml}</div>`;
 
-        <h2 class="question-title">${escapeHtml(questionTitle)}</h2>
-
-        ${quizType === 1 || quizType === 3 || quizType === 4 ? `
-          <div class="doodle question-doodle ${(quizType === 3 || quizType === 4) ? 'question-doodle--landscape' : ''}">
-            <img class="scene-photo ${(quizType === 3 || quizType === 4) ? 'scene-photo--landscape' : ''}" src="${escapeHtml(question.image || question.frame_url || FALLBACK_SCENE)}" alt="Вопрос ${state.currentQuestion + 1}" loading="eager" onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'" />
-          </div>
-        ` : ''}
-
-        <div class="question-options ${quizType === 2 ? 'question-options--images' : ''}">
-          ${optionsHtml}
-        </div>
-      `;
-
-      tvScreen.querySelectorAll('[data-option-index]').forEach((button) => {
+      tvScreen.querySelectorAll('[data-option-index]').forEach(button => {
         button.addEventListener('click', () => handleAnswer(Number(button.dataset.optionIndex)));
       });
 
@@ -1497,7 +1664,6 @@
     function renderResult() {
       const total = state.quiz.questions.length;
       const percent = Math.round((state.score / total) * 100);
-
       let phrase = 'Хорошая попытка — следующий кинотест точно покорится тебе.';
       let moodClass = 'path-card--ok';
 
@@ -1518,36 +1684,7 @@
         moodClass = 'path-card--fail';
       }
 
-      tvScreen.innerHTML = `
-        <div class="result-wrap">
-          <p class="hand-note">Финал кинотеста</p>
-          <p class="result-text">${escapeHtml(phrase)}</p>
-
-          <div class="path-visual">
-            <div class="path-card ${moodClass}">
-              <div class="path-start">
-                <div class="path-start-line"></div>
-              </div>
-
-              <div class="path-dots">
-                <span></span><span></span><span></span>
-                <span></span><span></span><span></span>
-              </div>
-
-              <div class="path-target">
-                <div class="path-target-x"></div>
-              </div>
-
-              <div class="path-smile"></div>
-            </div>
-          </div>
-
-          <div class="result-stats">
-            <div class="result-chip">Правильных ответов: ${state.score} из ${total}</div>
-            <div class="result-chip">Точность: ${percent}%</div>
-          </div>
-        </div>
-      `;
+      tvScreen.innerHTML = `<div class="result-wrap"><p class="hand-note">Финал кинотеста</p><p class="result-text">${escapeHtml(phrase)}</p><div class="path-visual"><div class="path-card ${moodClass}"><div class="path-start"><div class="path-start-line"></div></div><div class="path-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="path-target"><div class="path-target-x"></div></div><div class="path-smile"></div></div></div><div class="result-stats"><div class="result-chip">Правильных ответов: ${state.score} из ${total}</div><div class="result-chip">Точность: ${percent}%</div></div></div>`;
 
       attachAccountButton();
       tvControls.style.display = 'grid';
@@ -1560,6 +1697,7 @@
     function render() {
       if (state.screen === 'home') {
         renderHome();
+        renderRewards();
         return;
       }
       if (state.screen === 'quiz' && state.quiz) {
@@ -1575,7 +1713,6 @@
 
     randomButton.addEventListener('click', handleRandomQuiz);
     startButton.addEventListener('click', handleStart);
-
     backButton.addEventListener('click', () => {
       if (document.getElementById('accountModal').classList.contains('show')) {
         closeAccountModal();
@@ -1585,11 +1722,8 @@
         goHome();
         return;
       }
-      if (window.history.length > 1) {
-        window.history.back();
-      } else if (tg) {
-        tg.close();
-      }
+      if (window.history.length > 1) window.history.back();
+      else if (tg) tg.close();
     });
 
     render();
