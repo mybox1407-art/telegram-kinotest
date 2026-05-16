@@ -29,8 +29,10 @@
       --danger: #b24a2a;
       --shadow: 0 10px 0 rgba(107, 64, 40, 0.12);
       --radius: 24px;
-      --flat-color: #b27339;
-      --flat-shadow: #78471c;
+      
+      /* НОВЫЕ БОЛЕЕ ТЕМНЫЕ ЦВЕТА */
+      --flat-color: #b27339;   /* Насыщенный темный цвет кнопок */
+      --flat-shadow: #78471c;  /* Затемненная нижняя 3D-грань */
     }
 
     * { box-sizing: border-box; }
@@ -73,6 +75,7 @@
       padding-top: max(0px, env(safe-area-inset-top));
     }
 
+    /* ===== УНИВЕРСАЛЬНЫЙ 3D-СТИЛЬ ДЛЯ ВСЕХ КНОПОК И БЕЙДЖЕЙ (БЕЗ ГРАДИЕНТА) ===== */
     .btn-3d {
       position: relative;
       background: var(--flat-color);
@@ -82,10 +85,10 @@
       cursor: pointer;
       overflow: visible;
       box-shadow:
-        inset 0 0 0 1.5px rgba(255, 237, 214, 0.35),
-        0 6px 0 var(--flat-shadow),
-        0 10px 8px rgba(107, 64, 40, 0.2);
-      margin-bottom: 6px;
+        inset 0 0 0 1.5px rgba(255, 237, 214, 0.35), /* Внутренний контур (чуть приглушен) */
+        0 6px 0 var(--flat-shadow),                   /* 3D-грань (низ) */
+        0 10px 8px rgba(107, 64, 40, 0.2);            /* Падающая тень */
+      margin-bottom: 6px;                           
       display: flex;
       align-items: center;
       justify-content: center;
@@ -101,13 +104,16 @@
         0 4px 4px rgba(107, 64, 40, 0.2);
     }
 
-    .btn-3d > * { position: relative; z-index: 2; }
+    .btn-3d > * {
+      position: relative;
+      z-index: 2;
+    }
 
-    .tv-start-btn { width: 100%; height: 50px; border-radius: 16px; font-size: 24px; font-weight: 800; }
-    .tv-random-btn { width: 50px; height: 50px; border-radius: 16px; }
-    .back-btn { padding: 10px 16px; font-size: 14px; font-weight: 800; border-radius: 14px; gap: 8px; }
-    .account-btn { position: absolute; top: 6px; right: 6px; width: 48px; height: 48px; z-index: 6; border-radius: 50%; padding: 0; }
-
+    .tv-start-btn { width: 100%; height: 56px; border-radius: 16px; font-family: 'Nunito'; font-size: 24px; font-weight: 800; }
+    .tv-random-btn { width: 56px; height: 56px; border-radius: 16px; }
+    .back-btn { padding: 10px 16px; font-family: 'Nunito'; font-size: 14px; font-weight: 800; border-radius: 14px; gap: 8px;}
+    .account-btn { position: absolute; top: 6px; right: 6px; width: 48px; height: 48px; z-index: 6; border-radius: 50%; padding: 0;}
+    
     .back-btn-icon { width: 20px; height: 20px; flex: 0 0 20px; display: block; }
     .back-btn-icon path, .back-btn-icon polyline { stroke: #fffaf5; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; fill: none; }
 
@@ -120,171 +126,99 @@
       overflow: visible;
     }
 
+    .tv-card::before, .tv-card::after {
+      content: ""; position: absolute; bottom: -14px; width: 58px; height: 10px;
+      background: var(--line); border-radius: 999px; z-index: -1; opacity: 0.9;
+    }
+    .tv-card::before { left: 78px; transform: rotate(22deg); }
+    .tv-card::after { right: 78px; transform: rotate(-22deg); }
+
     .tv-screen {
       position: relative;
-      border: 3px solid var(--line);
-      border-radius: 30px;
-      background: var(--screen);
+      border: 3px solid var(--line); border-radius: 30px; background: var(--screen);
       box-shadow: inset 0 0 0 3px rgba(255,255,255,0.35), 0 8px 0 rgba(107, 64, 40, 0.08);
-      padding: 12px 12px 8px;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
+      padding: 12px 12px 8px; min-height: 0; display: flex; flex-direction: column;
     }
 
     .hand-note {
-      position: relative;
-      z-index: 1;
-      font-family: 'Caveat', cursive;
-      font-size: 24px;
-      line-height: 1;
-      color: var(--flat-color);
-      margin: 12px 0 10px;
-      transform: rotate(-2deg);
-      text-align: center;
+      position: relative; z-index: 1; font-family: 'Caveat', cursive; font-size: 24px;
+      line-height: 1; color: var(--flat-color); margin: 12px 0 10px; transform: rotate(-2deg); text-align: center;
     }
 
     .quiz-title {
-      position: relative;
-      z-index: 1;
-      margin: 2px 0 0;
-      font-family: 'Caveat', cursive;
-      font-size: 34px;
-      line-height: 1.1;
-      color: var(--ink);
-      font-weight: 700;
-      text-align: center;
+      position: relative; z-index: 1; margin: 2px 0 0; font-family: 'Caveat', cursive;
+      font-size: 34px; line-height: 1.1; color: var(--ink); font-weight: 700; text-align: center;
     }
 
     .question-title {
-      position: relative;
-      z-index: 1;
-      margin: 0 0 12px;
-      font-family: 'Caveat', cursive;
-      font-size: 28px;
-      line-height: 1.1;
-      color: var(--ink);
-      font-weight: 700;
-      text-align: center;
+      position: relative; z-index: 1; margin: 0 0 12px; font-family: 'Caveat', cursive;
+      font-size: 28px; line-height: 1.1; color: var(--ink); font-weight: 700; text-align: center;
     }
 
     .quiz-description {
-      position: relative;
-      z-index: 1;
-      margin: 12px 0 0;
-      font-size: 16px;
-      line-height: 1.4;
-      color: var(--ink);
-      font-weight: 500;
-      text-align: center;
+      position: relative; z-index: 1; margin: 12px 0 0; font-family: 'Nunito', system-ui, sans-serif;
+      font-size: 16px; line-height: 1.4; color: var(--ink); font-weight: 500; text-align: center;
     }
 
     .question-text, .result-text, .loading-text, .error-text {
-      position: relative;
-      z-index: 1;
-      margin: 12px 0 0;
-      font-size: 14px;
-      line-height: 1.45;
-      color: var(--ink);
-      font-weight: 500;
-      text-align: center;
+      position: relative; z-index: 1; margin: 12px 0 0; font-size: 14px;
+      line-height: 1.45; color: var(--ink); font-weight: 500; text-align: center;
     }
 
     .result-text { font-size: 16px; line-height: 1.5; font-weight: 800; }
     .home-description { margin-bottom: 6px; }
 
-    .progress-row {
-      position: relative;
-      z-index: 3;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 22px;
-      padding-right: 56px;
+    .progress-row { 
+      display: flex; align-items: center; gap: 12px; 
+      margin-bottom: 22px; 
     }
 
     .progress-badge {
       background: var(--flat-color);
-      color: #fffaf5;
-      text-shadow: 0 2px 0 rgba(107, 64, 40, 0.4);
-      padding: 6px 14px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 800;
+      color: #fffaf5; text-shadow: 0 2px 0 rgba(107, 64, 40, 0.4);
+      padding: 6px 14px; border-radius: 12px; font-size: 12px; font-weight: 800;
       box-shadow: inset 0 0 0 1.5px rgba(255, 237, 214, 0.35), 0 4px 0 var(--flat-shadow);
       white-space: nowrap;
-      flex: 0 0 auto;
     }
 
-    .progress-bar {
-      flex: 1;
-      height: 10px;
-      border: 2px solid var(--line);
-      border-radius: 999px;
-      background: #f7e6cc;
-      overflow: hidden;
-      min-width: 0;
+    .progress-bar { 
+      flex: 1; height: 10px; border: 2px solid var(--line); 
+      border-radius: 999px; background: #f7e6cc; overflow: hidden; 
     }
-
-    .progress-bar-fill {
-      height: 100%;
-      width: 0%;
-      background: var(--flat-color);
-      transition: width 220ms ease;
+    .progress-bar-fill { 
+      height: 100%; width: 0%; 
+      background: var(--flat-color); 
+      transition: width 220ms ease; 
     }
 
     .doodle {
-      position: relative;
-      z-index: 1;
-      margin-top: 8px;
-      border: 3px solid var(--frame-dark);
-      border-radius: 24px;
-      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.18), 0 3px 0 rgba(107, 64, 40, 0.10);
-      overflow: hidden;
-      background: #d9d1c5;
-      aspect-ratio: 3 / 4;
-      max-width: 240px;
-      margin-left: auto;
-      margin-right: auto;
+      position: relative; z-index: 1; margin-top: 8px; border: 3px solid var(--frame-dark);
+      border-radius: 24px; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.18), 0 3px 0 rgba(107, 64, 40, 0.10);
+      overflow: hidden; background: #d9d1c5; aspect-ratio: 3 / 4; max-width: 240px; margin-left: auto; margin-right: auto;
     }
-
     .home-doodle { margin-top: 2px; max-width: 220px; }
     .home-doodle--landscape, .question-doodle--landscape { aspect-ratio: 16 / 9; max-width: 320px; }
+
     .scene-photo { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center center; filter: grayscale(1) contrast(1.04); }
+    .scene-photo--landscape { object-fit: cover; object-position: center center; }
 
     .doodle::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      mix-blend-mode: multiply;
+      content: ""; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: multiply;
       background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(0,0,0,0.06)), radial-gradient(circle at center, transparent 45%, rgba(0,0,0,0.08) 100%);
     }
 
     .question-options { display: grid; gap: 6px; margin-top: 8px; }
 
     .option-btn, .result-btn {
-      width: 100%;
-      border-radius: 14px;
-      padding: 12px 14px;
-      font-size: 16px;
-      font-weight: 700;
-      line-height: 1.2;
-      text-align: left;
-      justify-content: flex-start;
+      width: 100%; border-radius: 16px; padding: 14px 16px; font-family: 'Nunito', system-ui, sans-serif;
+      font-size: 16px; font-weight: 700; line-height: 1.2; text-align: left; justify-content: flex-start;
     }
+    .result-btn { margin-top: 16px; text-align: center; justify-content: center; font-weight: 800; }
 
-    .result-btn {
-      margin-top: 16px;
-      text-align: center;
-      justify-content: center;
-      font-weight: 800;
-    }
-
-    .option-btn--image { padding: 0; overflow: hidden; display: block; min-height: 100px; }
+    .option-btn--image { padding: 0; overflow: hidden; display: block; min-height: 110px; }
     .option-image { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center top; aspect-ratio: 3 / 4; filter: grayscale(1) contrast(1.04); pointer-events: none; }
     .question-options--images { grid-template-columns: 1fr 1fr; gap: 8px; }
-    .question-options--images .option-btn--image { min-height: 116px; }
+    .question-options--images .option-btn--image { min-height: 128px; }
 
     .result-stats { margin-top: 16px; display: grid; gap: 10px; }
     .result-chip { padding: 12px 14px; border: 2px solid var(--line); border-radius: 18px; background: var(--paper-2); text-align: center; font-size: 15px; font-weight: 800; }
@@ -293,17 +227,12 @@
     .error-text { color: var(--danger); font-size: 13px; background: rgba(178, 74, 42, 0.1); padding: 10px; border-radius: 12px; margin-top: 12px; }
 
     .tv-controls {
-      margin-top: 14px;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 50px auto;
-      gap: 12px;
-      align-items: center;
-      padding: 14px 16px;
-      border: 3px solid var(--frame-dark);
-      border-radius: 22px;
-      background: linear-gradient(180deg, #f4dfbf 0%, #e8c99a 100%);
+      margin-top: 14px; display: grid; grid-template-columns: minmax(0, 1fr) 56px auto; gap: 12px; align-items: center;
+      padding: 14px 16px; border: 3px solid var(--frame-dark); border-radius: 22px; background: linear-gradient(180deg, #f4dfbf 0%, #e8c99a 100%);
       box-shadow: inset 0 2px 0 rgba(255,255,255,0.3);
     }
+
+    .tv-start-btn[disabled], .tv-random-btn[disabled], .option-btn[disabled], .result-btn[disabled] { opacity: 0.65; cursor: wait; }
 
     .knobs { display: flex; align-items: center; gap: 10px; justify-self: end; }
     .knob { width: 34px; height: 34px; border-radius: 50%; border: 3px solid var(--line); background: linear-gradient(180deg, #ffd79f 0%, #f0b05d 100%); box-shadow: inset 0 2px 0 rgba(255,255,255,0.38); position: relative; flex: 0 0 auto; }
@@ -329,18 +258,27 @@
     .path-dots span:nth-child(5) { left: 72%; top: 16px; } .path-dots span:nth-child(6) { left: 90%; top: 22px; }
     .path-smile { position: absolute; left: 50%; bottom: 20px; width: 120px; height: 28px; border-radius: 0 0 80px 80px; border-bottom: 3px solid #6b4028; transform: translateX(-50%); }
     .path-card--super .path-smile { width: 140px; height: 34px; bottom: 18px; border-radius: 0 0 90px 90px; }
+    .path-card--good .path-smile { width: 125px; height: 26px; bottom: 20px; }
+    .path-card--ok .path-smile { width: 110px; height: 10px; bottom: 24px; border-radius: 0 0 40px 40px; }
+    .path-card--sad .path-smile { top: 74px; bottom: auto; width: 110px; height: 20px; border-radius: 80px 80px 0 0; border-bottom: none; border-top: 3px solid #6b4028; }
+    .path-card--fail .path-smile { top: 72px; bottom: auto; width: 130px; height: 26px; border-radius: 90px 90px 0 0; border-bottom: none; border-top: 3px solid #6b4028; }
 
+    /* ===== СТИЛИ ПРОФИЛЯ (MODAL) ===== */
     .modal-backdrop { position: fixed; inset: 0; background: rgba(64, 38, 24, 0.42); display: none; align-items: center; justify-content: center; z-index: 9999; padding: 18px; }
     .modal-backdrop.show { display: flex; }
     .modal { width: 100%; max-width: 360px; border-radius: 28px; border: 3px solid var(--line); background: linear-gradient(180deg, #fffdf7 0%, #f8e8ca 100%); box-shadow: 0 18px 60px rgba(64, 38, 24, 0.28); overflow: hidden; }
+    
     .modal-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 16px; border-bottom: 3px solid var(--line); background: linear-gradient(180deg, #f4dfbf 0%, #e8c99a 100%); }
     .modal-close { width: 36px; height: 36px; border-radius: 50%; border: 3px solid var(--line); background: linear-gradient(180deg, #fff7ec 0%, #f2d6aa 100%); color: var(--ink); font-size: 18px; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; box-shadow: inset 0 2px 0 rgba(255,255,255,0.45); flex: 0 0 auto; }
+
     .modal-body { padding: 16px; display: flex; flex-direction: column; gap: 16px; max-height: 80vh; overflow-y: auto; }
 
+    /* Шапка профиля */
     .profile-header { display: flex; gap: 10px; align-items: center; }
     .profile-avatar { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--line); background: linear-gradient(180deg, #ffd79f 0%, #f0b05d 100%); display: flex; align-items: center; justify-content: center; font-size: 18px; flex: 0 0 auto; }
     .profile-name { font-size: 18px; font-weight: 800; margin: 0; color: var(--ink); }
 
+    /* Блок уровня */
     .level-block { position: relative; background: var(--flat-color); border-radius: 20px; padding: 14px 16px; margin-top: 36px; color: #fffaf5; box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25); }
     .level-bump { position: absolute; top: -28px; right: 18px; width: 80px; height: 80px; background: var(--flat-color); border-radius: 50%; box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25); z-index: 0; }
     .level-patch { position: absolute; top: 0; right: 18px; width: 80px; height: 16px; background: var(--flat-color); z-index: 1; }
@@ -355,60 +293,28 @@
     .level-bar-fill { height: 100%; background: linear-gradient(90deg, #ffdfa0 0%, #fff7ec 100%); border-radius: 999px; box-shadow: 0 0 8px rgba(255, 239, 190, 0.6); transition: width 0.3s ease; }
     .level-exp-bottom { font-size: 11px; font-weight: 700; text-align: center; opacity: 0.9; }
 
+    .section-title { font-size: 15px; font-weight: 800; color: var(--ink); margin: 0 0 10px; text-transform: uppercase; letter-spacing: 0.02em; }
+
+    /* Сетка категорий */
     .category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .cat-block {
       background: var(--flat-color);
-      border-radius: 18px;
-      padding: 10px 10px 12px;
-      color: #fffaf5;
+      border-radius: 18px; padding: 12px 10px 14px; color: #fffaf5;
       box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25), 0 4px 6px rgba(107, 64, 40, 0.15);
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      text-align: left;
-      position: relative;
-      gap: 6px;
+      display: flex; flex-direction: column; align-items: center; text-align: center; position: relative;
     }
-    .cat-top {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      width: 100%;
-    }
-    .cat-icon {
-      width: 28px;
-      height: 28px;
-      flex: 0 0 28px;
-      filter: drop-shadow(0 2px 4px rgba(64, 38, 24, 0.35));
-    }
-    .cat-name {
-      font-size: 13px;
-      font-weight: 800;
-      line-height: 1.1;
-      color: #fffaf5;
-      text-shadow: 0 1px 0 rgba(107,64,40,0.4);
-      letter-spacing: 0.02em;
-    }
-    .cat-metrics {
-      display: flex;
-      gap: 6px;
-      width: 100%;
-      padding-left: 36px;
-    }
+    .cat-icon { width: 36px; height: 36px; margin-bottom: 6px; filter: drop-shadow(0 2px 4px rgba(64, 38, 24, 0.35)); }
+    .cat-name { font-size: 14px; font-weight: 800; margin-bottom: 8px; text-shadow: 0 1px 0 rgba(107,64,40,0.4); letter-spacing: 0.02em;}
+    
+    /* Кружки статистики */
+    .cat-metrics { display: flex; gap: 6px; justify-content: center; width: 100%; }
     .cat-circle {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: rgba(74, 46, 21, 0.18);
-      border: 1.5px solid rgba(255, 255, 255, 0.28);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: 800;
-      color: #fffaf5;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(74, 46, 21, 0.15);
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800; color: #fffaf5;
       text-shadow: 0 1px 0 rgba(107,64,40,0.4);
-      flex: 0 0 auto;
     }
 
     .stats-list { display: flex; flex-direction: column; gap: 10px; }
@@ -417,7 +323,7 @@
     .reward-info { flex: 1; }
     .reward-name { font-size: 13px; font-weight: 800; color: var(--ink); margin-bottom: 4px; }
     .stat-bar-container { height: 8px; border: 1px solid var(--line); border-radius: 999px; background: #f7e6cc; overflow: hidden; }
-    .stat-bar-fill { height: 100%; background: var(--accent); border-radius: 0 999px 999px 0; }
+    .stat-bar-fill { height: 100%; background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%); border-radius: 0 999px 999px 0; }
     .tools-grid { display: grid; gap: 8px; }
     .tool-btn { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border: 2px solid var(--line); border-radius: 12px; background: linear-gradient(180deg, #fff9ee 0%, #f6e2bd 100%); color: var(--ink); font-size: 14px; font-weight: 800; cursor: pointer; }
     .tool-count { background: var(--accent); color: #fff; padding: 2px 8px; border-radius: 999px; font-size: 12px; }
@@ -427,9 +333,9 @@
     @media (max-width: 480px) {
       .app { max-width: 100%; }
       .tv-screen { padding: 10px 10px 4px; }
-      .tv-controls { grid-template-columns: minmax(0, 1fr) 50px auto; gap: 10px; padding: 12px 14px; }
-      .tv-start-btn { height: 48px; font-size: 22px; }
-      .tv-random-btn { width: 50px; height: 50px; }
+      .tv-controls { grid-template-columns: minmax(0, 1fr) 52px auto; gap: 10px; padding: 12px 14px; }
+      .tv-start-btn { height: 52px; font-size: 22px; }
+      .tv-random-btn { width: 52px; height: 52px; }
       .knobs { gap: 8px; }
       .knob { width: 30px; height: 30px; }
       .knob.small { width: 22px; height: 22px; }
@@ -470,12 +376,12 @@
 
         <button class="tv-random-btn btn-3d" id="randomButton" type="button" aria-label="Случайный кинотест" title="Случайный кинотест">
           <svg viewBox="0 0 100 100" style="width: 100%; height: 100%; position: absolute; pointer-events: none;">
-            <g stroke="#78471c" stroke-width="3" fill="#fffaf5">
-              <circle cx="30%" cy="28%" r="8%"/>
-              <circle cx="70%" cy="28%" r="8%"/>
-              <circle cx="50%" cy="50%" r="8%"/>
-              <circle cx="30%" cy="72%" r="8%"/>
-              <circle cx="70%" cy="72%" r="8%"/>
+            <g stroke='var(--flat-shadow)' stroke-width='3' fill='#fffaf5'>
+              <circle cx='30%' cy='28%' r='8%'/>
+              <circle cx='70%' cy='28%' r='8%'/>
+              <circle cx='50%' cy='50%' r='8%'/>
+              <circle cx='30%' cy='72%' r='8%'/>
+              <circle cx='70%' cy='72%' r='8%'/>
             </g>
           </svg>
         </button>
@@ -497,13 +403,13 @@
         </div>
         <button class="modal-close" id="closeAccountModal" type="button" aria-label="Закрыть">×</button>
       </div>
-
+      
       <div class="modal-body">
         <div class="level-block">
           <div class="level-bump"></div>
           <div class="level-patch"></div>
           <img class="level-bobbin-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><defs><radialGradient id='rg' cx='30%' cy='30%' r='70%'><stop offset='0%' stop-color='%23ffeeb3'/><stop offset='50%' stop-color='%23d1ac6b'/><stop offset='100%' stop-color='%238a612b'/></radialGradient><linearGradient id='fg' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%235c4636'/><stop offset='100%' stop-color='%232a1f18'/></linearGradient><linearGradient id='hg' x1='0%' y1='0%' x2='0%' y2='100%'><stop offset='0%' stop-color='%234a2e15'/><stop offset='100%' stop-color='%23734a26'/></linearGradient></defs><path d='M85,55 C100,55 110,75 105,110 C102,120 90,115 88,110 C92,85 85,75 75,70 Z' fill='url(%23fg)'/><path d='M96,85 L99,86 M94,93 L97,94 M92,101 L95,102 M89,109 L92,110' stroke='%23111' stroke-width='2' stroke-linecap='round'/><circle cx='53' cy='58' r='44' fill='%23614426'/><circle cx='55' cy='55' r='44' fill='url(%23rg)'/><circle cx='55' cy='55' r='40' fill='none' stroke='%239e7b45' stroke-width='1.5'/><g fill='url(%23hg)' stroke='%23eed59d' stroke-width='1.5'><circle cx='55' cy='27' r='13' /><circle cx='81.6' cy='46.3' r='13' /><circle cx='71.4' cy='77.6' r='13' /><circle cx='38.6' cy='77.6' r='13' /><circle cx='28.4' cy='46.3' r='13' /></g><circle cx='55' cy='55' r='6' fill='%233a2512'/><circle cx='55' cy='55' r='3' fill='%231c1108'/></svg>" alt="Бобина" />
-
+          
           <div class="level-content-wrap">
             <div class="level-header">Текущий уровень</div>
             <div class="level-content">
@@ -520,148 +426,97 @@
         </div>
 
         <div>
+          <!-- Обновленная сетка с кружками метрик -->
           <div class="category-grid">
+            
             <div class="cat-block">
-              <div class="cat-top">
-                <svg class="cat-icon" viewBox="0 0 64 64">
-                  <defs>
-                    <linearGradient id="g-actors-a" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#fff5c9"/>
-                      <stop offset="55%" stop-color="#d5a95d"/>
-                      <stop offset="100%" stop-color="#8c5a24"/>
-                    </linearGradient>
-                  </defs>
-                  <path d="M32 6 l7 18 h19 l-15 12 l6 19 l-17 -11 l-17 11 l6 -19 l-15 -12 h19 z" fill="url(#g-actors-a)" stroke="#4a2e15" stroke-width="2.5" stroke-linejoin="round"/>
-                  <circle cx="32" cy="30" r="8" fill="#fff7df" opacity="0.55"/>
-                  <path d="M24 20 L40 20 L36 12 L28 12 Z" fill="#fff2bf" opacity="0.85"/>
-                </svg>
-                <div class="cat-name">Актёры</div>
-              </div>
+              <svg class="cat-icon" viewBox="0 0 64 64">
+                 <path d="M32 6 l7 18 h19 l-15 12 l6 19 l-17 -11 l-17 11 l6 -19 l-15 -12 h19 z" fill="url(#cat-rg)" stroke="#4a2e15" stroke-width="2.5" stroke-linejoin="round"/>
+              </svg>
+              <div class="cat-name">Актёры</div>
               <div class="cat-metrics">
-                <div class="cat-circle">12</div>
-                <div class="cat-circle">83%</div>
+                <div class="cat-circle" title="Сыграно игр">12</div>
+                <div class="cat-circle" title="Точность">83%</div>
               </div>
             </div>
 
             <div class="cat-block">
-              <div class="cat-top">
-                <svg class="cat-icon" viewBox="0 0 64 64">
-                  <defs>
-                    <linearGradient id="g-dir-a" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#fff5c9"/>
-                      <stop offset="55%" stop-color="#d5a95d"/>
-                      <stop offset="100%" stop-color="#8c5a24"/>
-                    </linearGradient>
-                  </defs>
-                  <rect x="8" y="26" width="48" height="30" rx="4" fill="url(#g-dir-a)" stroke="#4a2e15" stroke-width="2.5"/>
-                  <path d="M8 22 L56 14 L58 20 L10 28 Z" fill="url(#g-dir-a)" stroke="#4a2e15" stroke-width="2.5" stroke-linejoin="round"/>
-                  <line x1="16" y1="21" x2="22" y2="19" stroke="#4a2e15" stroke-width="2"/>
-                  <line x1="28" y1="18" x2="34" y2="16" stroke="#4a2e15" stroke-width="2"/>
-                  <line x1="40" y1="16" x2="46" y2="14" stroke="#4a2e15" stroke-width="2"/>
-                </svg>
-                <div class="cat-name">Режиссёры</div>
-              </div>
+              <svg class="cat-icon" viewBox="0 0 64 64">
+                 <rect x="8" y="26" width="48" height="30" rx="4" fill="url(#cat-rg)" stroke="#4a2e15" stroke-width="2.5"/>
+                 <path d="M8 22 L56 14 L58 20 L10 28 Z" fill="url(#cat-rg)" stroke="#4a2e15" stroke-width="2.5" stroke-linejoin="round"/>
+                 <line x1="16" y1="21" x2="22" y2="19" stroke="#4a2e15" stroke-width="2"/>
+                 <line x1="28" y1="18" x2="34" y2="16" stroke="#4a2e15" stroke-width="2"/>
+                 <line x1="40" y1="16" x2="46" y2="14" stroke="#4a2e15" stroke-width="2"/>
+              </svg>
+              <div class="cat-name">Режиссёры</div>
               <div class="cat-metrics">
-                <div class="cat-circle">5</div>
-                <div class="cat-circle">60%</div>
+                <div class="cat-circle" title="Сыграно игр">5</div>
+                <div class="cat-circle" title="Точность">60%</div>
               </div>
             </div>
 
             <div class="cat-block">
-              <div class="cat-top">
-                <svg class="cat-icon" viewBox="0 0 64 64">
-                  <defs>
-                    <linearGradient id="g-film-a" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#fff5c9"/>
-                      <stop offset="55%" stop-color="#d5a95d"/>
-                      <stop offset="100%" stop-color="#8c5a24"/>
-                    </linearGradient>
-                  </defs>
-                  <path d="M16 28 L20 58 Q20 60 32 60 Q44 60 44 58 L48 28 Z" fill="url(#g-film-a)" stroke="#4a2e15" stroke-width="2.5" stroke-linejoin="round"/>
-                  <path d="M18 28 C18 20 24 16 32 16 C40 16 46 20 46 28 Z" fill="#fff" stroke="#4a2e15" stroke-width="2.5"/>
-                  <circle cx="24" cy="22" r="4" fill="#fff" stroke="#4a2e15" stroke-width="2"/>
-                  <circle cx="40" cy="22" r="4" fill="#fff" stroke="#4a2e15" stroke-width="2"/>
-                  <circle cx="32" cy="18" r="5" fill="#fff" stroke="#4a2e15" stroke-width="2"/>
-                </svg>
-                <div class="cat-name">Фильмы</div>
-              </div>
+              <svg class="cat-icon" viewBox="0 0 64 64">
+                 <path d="M16 28 L20 58 Q20 60 32 60 Q44 60 44 58 L48 28 Z" fill="url(#cat-rg)" stroke="#4a2e15" stroke-width="2.5" stroke-linejoin="round"/>
+                 <path d="M18 28 C18 20 24 16 32 16 C40 16 46 20 46 28 Z" fill="#fff" stroke="#4a2e15" stroke-width="2.5"/>
+                 <circle cx="24" cy="22" r="4" fill="#fff" stroke="#4a2e15" stroke-width="2"/>
+                 <circle cx="40" cy="22" r="4" fill="#fff" stroke="#4a2e15" stroke-width="2"/>
+                 <circle cx="32" cy="18" r="5" fill="#fff" stroke="#4a2e15" stroke-width="2"/>
+                 <line x1="24" y1="28" x2="26" y2="58" stroke="#4a2e15" stroke-width="2"/>
+                 <line x1="40" y1="28" x2="38" y2="58" stroke="#4a2e15" stroke-width="2"/>
+              </svg>
+              <div class="cat-name">Фильмы</div>
               <div class="cat-metrics">
-                <div class="cat-circle">19</div>
-                <div class="cat-circle">74%</div>
+                <div class="cat-circle" title="Сыграно игр">19</div>
+                <div class="cat-circle" title="Точность">74%</div>
               </div>
             </div>
 
             <div class="cat-block">
-              <div class="cat-top">
-                <svg class="cat-icon" viewBox="0 0 64 64">
-                  <defs>
-                    <linearGradient id="g-series-a" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#fff5c9"/>
-                      <stop offset="55%" stop-color="#d5a95d"/>
-                      <stop offset="100%" stop-color="#8c5a24"/>
-                    </linearGradient>
-                  </defs>
-                  <rect x="10" y="20" width="44" height="34" rx="6" fill="url(#g-series-a)" stroke="#4a2e15" stroke-width="2.5"/>
-                  <rect x="16" y="26" width="26" height="22" rx="4" fill="#4a2e15"/>
-                  <circle cx="48" cy="30" r="2" fill="#4a2e15"/>
-                  <circle cx="48" cy="38" r="2" fill="#4a2e15"/>
-                  <line x1="32" y1="20" x2="20" y2="6" stroke="#4a2e15" stroke-width="2.5" stroke-linecap="round"/>
-                  <line x1="32" y1="20" x2="44" y2="8" stroke="#4a2e15" stroke-width="2.5" stroke-linecap="round"/>
-                </svg>
-                <div class="cat-name">Сериалы</div>
-              </div>
+              <svg class="cat-icon" viewBox="0 0 64 64">
+                 <rect x="10" y="20" width="44" height="34" rx="6" fill="url(#cat-rg)" stroke="#4a2e15" stroke-width="2.5"/>
+                 <rect x="16" y="26" width="26" height="22" rx="4" fill="#4a2e15"/>
+                 <circle cx="48" cy="30" r="2" fill="#4a2e15"/>
+                 <circle cx="48" cy="38" r="2" fill="#4a2e15"/>
+                 <line x1="32" y1="20" x2="20" y2="6" stroke="#4a2e15" stroke-width="2.5" stroke-linecap="round"/>
+                 <line x1="32" y1="20" x2="44" y2="8" stroke="#4a2e15" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+              <div class="cat-name">Сериалы</div>
               <div class="cat-metrics">
-                <div class="cat-circle">8</div>
-                <div class="cat-circle">80%</div>
+                <div class="cat-circle" title="Сыграно игр">8</div>
+                <div class="cat-circle" title="Точность">80%</div>
               </div>
             </div>
 
             <div class="cat-block">
-              <div class="cat-top">
-                <svg class="cat-icon" viewBox="0 0 64 64">
-                  <defs>
-                    <linearGradient id="g-frames-a" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#fff5c9"/>
-                      <stop offset="55%" stop-color="#d5a95d"/>
-                      <stop offset="100%" stop-color="#8c5a24"/>
-                    </linearGradient>
-                  </defs>
-                  <rect x="12" y="24" width="40" height="28" rx="4" fill="url(#g-frames-a)" stroke="#4a2e15" stroke-width="2.5"/>
-                  <path d="M22 24 L26 16 L38 16 L42 24 Z" fill="url(#g-frames-a)" stroke="#4a2e15" stroke-width="2.5" stroke-linejoin="round"/>
-                  <circle cx="32" cy="38" r="8" fill="#fff" stroke="#4a2e15" stroke-width="2.5"/>
-                  <circle cx="46" cy="30" r="2" fill="#4a2e15"/>
-                </svg>
-                <div class="cat-name">Кадры</div>
-              </div>
+              <svg class="cat-icon" viewBox="0 0 64 64">
+                 <rect x="12" y="24" width="40" height="28" rx="4" fill="url(#cat-rg)" stroke="#4a2e15" stroke-width="2.5"/>
+                 <path d="M22 24 L26 16 L38 16 L42 24 Z" fill="url(#cat-rg)" stroke="#4a2e15" stroke-width="2.5" stroke-linejoin="round"/>
+                 <circle cx="32" cy="38" r="8" fill="#fff" stroke="#4a2e15" stroke-width="2.5"/>
+                 <circle cx="46" cy="30" r="2" fill="#4a2e15"/>
+              </svg>
+              <div class="cat-name">Кадры</div>
               <div class="cat-metrics">
-                <div class="cat-circle">7</div>
-                <div class="cat-circle">61%</div>
+                <div class="cat-circle" title="Сыграно игр">7</div>
+                <div class="cat-circle" title="Точность">61%</div>
               </div>
             </div>
 
             <div class="cat-block">
-              <div class="cat-top">
-                <svg class="cat-icon" viewBox="0 0 64 64">
-                  <defs>
-                    <linearGradient id="g-anim-a" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#fff5c9"/>
-                      <stop offset="55%" stop-color="#d5a95d"/>
-                      <stop offset="100%" stop-color="#8c5a24"/>
-                    </linearGradient>
-                  </defs>
-                  <line x1="20" y1="52" x2="42" y2="30" stroke="url(#g-anim-a)" stroke-width="6" stroke-linecap="round"/>
-                  <line x1="20" y1="52" x2="42" y2="30" stroke="#4a2e15" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M46 12 L50 20 L58 24 L50 28 L46 36 L42 28 L34 24 L42 20 Z" fill="url(#g-anim-a)" stroke="#4a2e15" stroke-width="2" stroke-linejoin="round"/>
-                  <circle cx="28" cy="18" r="2" fill="#ffeeb3"/>
-                  <circle cx="56" cy="40" r="2" fill="#ffeeb3"/>
-                </svg>
-                <div class="cat-name">Анимация</div>
-              </div>
+              <svg class="cat-icon" viewBox="0 0 64 64">
+                 <line x1="20" y1="52" x2="42" y2="30" stroke="url(#cat-rg)" stroke-width="6" stroke-linecap="round"/>
+                 <line x1="20" y1="52" x2="42" y2="30" stroke="#4a2e15" stroke-width="2" stroke-linecap="round"/>
+                 <path d="M46 12 L50 20 L58 24 L50 28 L46 36 L42 28 L34 24 L42 20 Z" fill="url(#cat-rg)" stroke="#4a2e15" stroke-width="2" stroke-linejoin="round"/>
+                 <circle cx="28" cy="18" r="2" fill="#ffeeb3"/>
+                 <circle cx="56" cy="40" r="2" fill="#ffeeb3"/>
+              </svg>
+              <div class="cat-name">Анимация</div>
               <div class="cat-metrics">
-                <div class="cat-circle">14</div>
-                <div class="cat-circle">92%</div>
+                <div class="cat-circle" title="Сыграно игр">14</div>
+                <div class="cat-circle" title="Точность">92%</div>
               </div>
             </div>
+
           </div>
         </div>
 
@@ -722,18 +577,38 @@
   <script>
     const QUIZ_API = 'https://n8n.kino-test.ru/webhook/random_quiz';
     const FALLBACK_SCENE = './movie_still.jpg';
+
     const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
-    const state = { screen: 'home', loading: false, title: '', description: '...', previewImage: FALLBACK_SCENE, quiz: null, currentQuestion: 0, answers: [], score: 0, error: '', account: { name: 'Пользователь', photo: null } };
+
+    const state = {
+      screen: 'home',
+      loading: false,
+      title: '',
+      description: '...',
+      previewImage: FALLBACK_SCENE,
+      quiz: null,
+      currentQuestion: 0,
+      answers: [],
+      score: 0,
+      error: '',
+      account: {
+        name: 'Пользователь',
+        photo: null
+      }
+    };
 
     if (tg) {
       tg.ready();
       tg.expand();
       tg.BackButton.show();
       tg.MainButton.hide();
+
       if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
         const user = tg.initDataUnsafe.user;
         state.account.name = user.first_name || 'Пользователь';
-        if (user.photo_url) state.account.photo = user.photo_url;
+        if (user.photo_url) {
+          state.account.photo = user.photo_url;
+        }
       }
     }
 
@@ -747,12 +622,18 @@
     const accountBtn = document.createElement('button');
     accountBtn.className = 'account-btn btn-3d';
     accountBtn.type = 'button';
-    accountBtn.innerHTML = `<svg viewBox="0 0 100 100" style="width: 26px; height: 26px;"><circle cx="50" cy="36" r="14" fill="#fffaf5"/><path d="M22,76 C22,58 34,52 50,52 C66,52 78,58 78,76 C78,80 22,80 22,76 Z" fill="#fffaf5"/></svg>`;
+    accountBtn.innerHTML = `
+      <svg viewBox="0 0 100 100" style="width: 26px; height: 26px;">
+         <circle cx='50' cy='36' r='14' fill='#fffaf5'/>
+         <path d='M22,76 C22,58 34,52 50,52 C66,52 78,58 78,76 C78,80 22,80 22,76 Z' fill='#fffaf5'/>
+      </svg>
+    `;
     accountBtn.setAttribute('aria-label', 'Профиль');
     accountBtn.title = 'Профиль';
 
     function attachAccountButton() {
-      if (document.getElementById('accountBtnInjected')) return;
+      const existing = document.getElementById('accountBtnInjected');
+      if (existing) return;
       accountBtn.id = 'accountBtnInjected';
       accountBtn.addEventListener('click', openAccountModal);
       tvScreen.appendChild(accountBtn);
@@ -763,7 +644,9 @@
       try {
         if (type === 'impact') tg.HapticFeedback.impactOccurred(level);
         if (type === 'notification') tg.HapticFeedback.notificationOccurred(level);
-      } catch (e) {}
+      } catch (e) {
+        console.warn('Haptic feedback failed:', e);
+      }
     }
 
     function openAccountModal() {
@@ -779,23 +662,41 @@
       safeHaptic('impact', 'light');
     }
 
-    function closeAccountModal() { accountModal.classList.remove('show'); }
+    function closeAccountModal() {
+      accountModal.classList.remove('show');
+    }
 
     document.getElementById('closeAccountModal').onclick = closeAccountModal;
-    accountModal.addEventListener('click', e => { if (e.target === accountModal) closeAccountModal(); });
+    accountModal.addEventListener('click', (e) => {
+      if (e.target === accountModal) closeAccountModal();
+    });
 
     async function fetchQuiz() {
       const response = await fetch(QUIZ_API, {
         method: 'POST',
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        headers: { 
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
         mode: 'cors',
         body: JSON.stringify({})
       });
-      if (!response.ok) throw new Error(`Сервер вернул ошибку (HTTP ${response.status})`);
+
+      if (!response.ok) {
+        throw new Error(`Сервер вернул ошибку (HTTP ${response.status})`);
+      }
+
       const contentType = response.headers.get('content-type');
-      if (!contentType || !contentType.includes('application/json')) throw new Error('Webhook вернул не JSON');
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error('Webhook вернул не JSON');
+      }
+
       const data = await response.json();
-      if (!data || !Array.isArray(data.questions) || !data.questions.length) throw new Error('Webhook вернул пустой кинотест');
+
+      if (!data || !Array.isArray(data.questions) || !data.questions.length) {
+        throw new Error('Webhook вернул пустой кинотест');
+      }
+
       return data;
     }
 
@@ -807,56 +708,132 @@
       state.error = '';
     }
 
-    function resetRun() { state.currentQuestion = 0; state.answers = []; state.score = 0; }
+    function resetRun() {
+      state.currentQuestion = 0;
+      state.answers = [];
+      state.score = 0;
+    }
 
     async function preloadQuiz() {
       if (state.loading) return;
-      state.loading = true; state.error = ''; render();
-      try { const quiz = await fetchQuiz(); setPreviewFromQuiz(quiz); safeHaptic('notification', 'success'); }
-      catch (error) { state.error = error.message || 'Ошибка загрузки кинотеста'; safeHaptic('notification', 'error'); }
-      finally { state.loading = false; render(); }
+      state.loading = true;
+      state.error = '';
+      render();
+
+      try {
+        const quiz = await fetchQuiz();
+        setPreviewFromQuiz(quiz);
+        safeHaptic('notification', 'success');
+      } catch (error) {
+        state.error = error.message || 'Ошибка загрузки кинотеста';
+        safeHaptic('notification', 'error');
+      } finally {
+        state.loading = false;
+        render();
+      }
     }
 
     async function handleRandomQuiz() {
       if (state.loading) return;
-      state.loading = true; state.error = ''; render();
-      try { const quiz = await fetchQuiz(); setPreviewFromQuiz(quiz); state.screen = 'home'; safeHaptic('impact', 'light'); }
-      catch (error) { state.error = error.message || 'Ошибка загрузки кинотеста'; safeHaptic('notification', 'error'); }
-      finally { state.loading = false; render(); }
+      state.loading = true;
+      state.error = '';
+      render();
+
+      try {
+        const quiz = await fetchQuiz();
+        setPreviewFromQuiz(quiz);
+        state.screen = 'home';
+        safeHaptic('impact', 'light');
+      } catch (error) {
+        state.error = error.message || 'Ошибка загрузки кинотеста';
+        safeHaptic('notification', 'error');
+      } finally {
+        state.loading = false;
+        render();
+      }
     }
 
     async function handleStart() {
       if (state.loading) return;
-      state.loading = true; state.error = ''; render();
+      state.loading = true;
+      state.error = '';
+      render();
+
       try {
-        if (!state.quiz) { const quiz = await fetchQuiz(); setPreviewFromQuiz(quiz); }
-        resetRun(); state.screen = 'quiz'; safeHaptic('notification', 'success');
+        if (!state.quiz) {
+          const quiz = await fetchQuiz();
+          setPreviewFromQuiz(quiz);
+        }
+
+        resetRun();
+        state.screen = 'quiz';
+        safeHaptic('notification', 'success');
       } catch (error) {
-        state.error = error.message || 'Не удалось начать кинотест'; safeHaptic('notification', 'error');
-      } finally { state.loading = false; render(); }
+        state.error = error.message || 'Не удалось начать кинотест';
+        safeHaptic('notification', 'error');
+      } finally {
+        state.loading = false;
+        render();
+      }
     }
 
     function handleAnswer(index) {
       if (state.loading || state.screen !== 'quiz') return;
+
       const question = state.quiz.questions[state.currentQuestion];
       const selected = question.options[index];
       const isCorrect = !!selected.correct;
-      state.answers.push({ questionId: question.id, selectedIndex: index, selectedText: selected.text || selected.title, correct: isCorrect });
-      if (isCorrect) { state.score += 1; safeHaptic('notification', 'success'); } else { safeHaptic('impact', 'medium'); }
-      if (state.currentQuestion >= state.quiz.questions.length - 1) { state.screen = 'result'; render(); return; }
+
+      state.answers.push({
+        questionId: question.id,
+        selectedIndex: index,
+        selectedText: selected.text || selected.title,
+        correct: isCorrect
+      });
+
+      if (isCorrect) {
+        state.score += 1;
+        safeHaptic('notification', 'success');
+      } else {
+        safeHaptic('impact', 'medium');
+      }
+
+      const isLastQuestion = state.currentQuestion >= state.quiz.questions.length - 1;
+      if (isLastQuestion) {
+        state.screen = 'result';
+        render();
+        return;
+      }
+
       state.currentQuestion += 1;
       render();
     }
 
     function handleRestart() {
-      if (!state.quiz) { handleStart(); return; }
-      resetRun(); state.screen = 'quiz'; safeHaptic('notification', 'success'); render();
+      if (!state.quiz) {
+        handleStart();
+        return;
+      }
+      resetRun();
+      state.screen = 'quiz';
+      safeHaptic('notification', 'success');
+      render();
     }
 
-    function goHome() { state.screen = 'home'; state.error = ''; state.loading = false; render(); }
+    function goHome() {
+      state.screen = 'home';
+      state.error = '';
+      state.loading = false;
+      render();
+    }
 
     function escapeHtml(value) {
-      return String(value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
     }
 
     function updateStartButtonText(text) {
@@ -867,17 +844,43 @@
     function renderHome() {
       const quizType = state.quiz ? Number(state.quiz.type) : 0;
       const isLandscape = quizType === 3 || quizType === 4;
-      const errorBlock = state.error ? `<p class="error-text">${escapeHtml(state.error)}</p><button class="retry-btn btn-3d" onclick="preloadQuiz()"><span>Повторить попытку</span></button>` : '';
+
+      const errorBlock = state.error 
+        ? `<p class="error-text">${escapeHtml(state.error)}</p><button class="retry-btn btn-3d" onclick="preloadQuiz()"><span>Повторить попытку</span></button>` 
+        : '';
+
       if (state.loading) {
-        tvScreen.innerHTML = `<p class="hand-note">Твой случайный кинотест</p><p class="loading-text">Подбираем для тебя кинотест и загружаем его описание...</p><div class="spinner" aria-hidden="true"></div>${errorBlock}`;
+        tvScreen.innerHTML = `
+          <p class="hand-note">Твой случайный кинотест</p>
+          <p class="loading-text">Подбираем для тебя кинотест и загружаем его описание...</p>
+          <div class="spinner" aria-hidden="true"></div>
+          ${errorBlock}
+        `;
       } else {
-        tvScreen.innerHTML = `<p class="hand-note">Твой случайный кинотест</p><h1 class="quiz-title">${escapeHtml(state.title)}</h1><p class="quiz-description home-description">${escapeHtml(state.description)}</p><div class="doodle home-doodle ${isLandscape ? 'home-doodle--landscape' : ''}"><img class="scene-photo ${isLandscape ? 'scene-photo--landscape' : ''}" src="${escapeHtml(state.previewImage)}" alt="Превью кинотеста" loading="eager" onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'" /></div>${errorBlock}`;
+        tvScreen.innerHTML = `
+          <p class="hand-note">Твой случайный кинотест</p>
+          <h1 class="quiz-title">${escapeHtml(state.title)}</h1>
+          <p class="quiz-description home-description">${escapeHtml(state.description)}</p>
+
+          <div class="doodle home-doodle ${isLandscape ? 'home-doodle--landscape' : ''}">
+            <img
+              class="scene-photo ${isLandscape ? 'scene-photo--landscape' : ''}"
+              src="${escapeHtml(state.previewImage)}"
+              alt="Превью кинотеста"
+              loading="eager"
+              onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'"
+            />
+          </div>
+          ${errorBlock}
+        `;
       }
+
       updateStartButtonText('Начать');
       startButton.onclick = handleStart;
       startButton.disabled = state.loading || !state.quiz;
       randomButton.disabled = state.loading;
       tvControls.style.display = 'grid';
+      
       attachAccountButton();
     }
 
@@ -885,12 +888,62 @@
       const question = state.quiz.questions[state.currentQuestion];
       const progress = ((state.currentQuestion + 1) / state.quiz.questions.length) * 100;
       const quizType = Number(state.quiz.type);
-      const questionTitle = quizType === 1 ? 'Кто это на фото?' : quizType === 3 || quizType === 4 ? 'Этот кадр из какого фильма?' : (question.question || 'Вопрос');
+
+      const questionTitle = quizType === 1
+        ? 'Кто это на фото?'
+        : quizType === 3 || quizType === 4
+          ? 'Этот кадр из какого фильма?'
+          : (question.question || 'Вопрос');
+
       const optionsHtml = quizType === 2
-        ? question.options.map((option, index) => `<button class="option-btn option-btn--image btn-3d" type="button" data-option-index="${index}"><img src="${escapeHtml(option.text || option.title || '')}" alt="Вариант ${index + 1}" class="option-image" loading="eager" onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'" /></button>`).join('')
-        : question.options.map((option, index) => `<button class="option-btn btn-3d" type="button" data-option-index="${index}"><span>${escapeHtml(option.text || option.title || '')}</span></button>`).join('');
-      tvScreen.innerHTML = `<div class="progress-row"><div class="progress-badge">Вопрос ${state.currentQuestion + 1} из ${state.quiz.questions.length}</div><div class="progress-bar" aria-hidden="true"><div class="progress-bar-fill" style="width:${progress}%"></div></div></div><h2 class="question-title">${escapeHtml(questionTitle)}</h2>${quizType === 1 || quizType === 3 || quizType === 4 ? `<div class="doodle ${(quizType === 3 || quizType === 4) ? 'question-doodle--landscape' : ''}"><img class="scene-photo ${(quizType === 3 || quizType === 4) ? 'scene-photo--landscape' : ''}" src="${escapeHtml(question.image || question.frame_url || FALLBACK_SCENE)}" alt="Вопрос ${state.currentQuestion + 1}" loading="eager" onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'" /></div>` : ''}<div class="question-options ${quizType === 2 ? 'question-options--images' : ''}">${optionsHtml}</div>`;
-      tvScreen.querySelectorAll('[data-option-index]').forEach(button => button.addEventListener('click', () => handleAnswer(Number(button.dataset.optionIndex))));
+        ? question.options.map((option, index) => `
+            <button class="option-btn option-btn--image btn-3d" type="button" data-option-index="${index}">
+              <img
+                src="${escapeHtml(option.text || option.title || '')}"
+                alt="Вариант ${index + 1}"
+                class="option-image"
+                loading="eager"
+                onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'"
+              />
+            </button>
+          `).join('')
+        : question.options.map((option, index) => `
+            <button class="option-btn btn-3d" type="button" data-option-index="${index}">
+              <span>${escapeHtml(option.text || option.title || '')}</span>
+            </button>
+          `).join('');
+
+      tvScreen.innerHTML = `
+        <div class="progress-row">
+          <div class="progress-badge">Вопрос ${state.currentQuestion + 1} из ${state.quiz.questions.length}</div>
+          <div class="progress-bar" aria-hidden="true">
+            <div class="progress-bar-fill" style="width:${progress}%"></div>
+          </div>
+        </div>
+
+        <h2 class="question-title">${escapeHtml(questionTitle)}</h2>
+
+        ${quizType === 1 || quizType === 3 || quizType === 4 ? `
+          <div class="doodle ${(quizType === 3 || quizType === 4) ? 'question-doodle--landscape' : ''}">
+            <img
+              class="scene-photo ${(quizType === 3 || quizType === 4) ? 'scene-photo--landscape' : ''}"
+              src="${escapeHtml(question.image || question.frame_url || FALLBACK_SCENE)}"
+              alt="Вопрос ${state.currentQuestion + 1}"
+              loading="eager"
+              onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'"
+            />
+          </div>
+        ` : ''}
+
+        <div class="question-options ${quizType === 2 ? 'question-options--images' : ''}">
+          ${optionsHtml}
+        </div>
+      `;
+
+      tvScreen.querySelectorAll('[data-option-index]').forEach((button) => {
+        button.addEventListener('click', () => handleAnswer(Number(button.dataset.optionIndex)));
+      });
+
       attachAccountButton();
       tvControls.style.display = 'none';
     }
@@ -898,14 +951,58 @@
     function renderResult() {
       const total = state.quiz.questions.length;
       const percent = Math.round((state.score / total) * 100);
+
       let phrase = 'Хорошая попытка — следующий кинотест точно покорится тебе.';
       let moodClass = 'path-card--ok';
-      if (percent === 100) { phrase = 'Идеально! Кинотест пройден без единой ошибки!'; moodClass = 'path-card--super'; }
-      else if (percent >= 70) { phrase = 'Хороший результат! Ты отлично разбираешься в кинематографе!'; moodClass = 'path-card--good'; }
-      else if (percent >= 40) { phrase = 'Неплохо! Но ты делаешь много ошибок, попробуй еще раз!'; moodClass = 'path-card--ok'; }
-      else if (percent >= 20) { phrase = 'Кинотест провален. Думаю, что тебе стоит попробовать ещё раз!'; moodClass = 'path-card--sad'; }
-      else { phrase = 'Почти всё мимо, но в этом и кайф — давай попробуем ещё раз!'; moodClass = 'path-card--fail'; }
-      tvScreen.innerHTML = `<div class="result-wrap"><p class="hand-note">Финал кинотеста</p><p class="result-text">${escapeHtml(phrase)}</p><div class="path-visual"><div class="path-card ${moodClass}"><div class="path-start"><div class="path-start-line"></div></div><div class="path-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="path-target"><div class="path-target-x"></div></div><div class="path-smile"></div></div></div><div class="result-stats"><div class="result-chip">Правильных ответов: ${state.score} из ${total}</div><div class="result-chip">Точность: ${percent}%</div></div></div>`;
+
+      if (percent === 100) {
+        phrase = 'Идеально! Кинотест пройден без единой ошибки!';
+        moodClass = 'path-card--super';
+      } else if (percent >= 70) {
+        phrase = 'Хороший результат! Ты отлично разбираешься в кинематографе!';
+        moodClass = 'path-card--good';
+      } else if (percent >= 40) {
+        phrase = 'Неплохо! Но ты делаешь много ошибок, попробуй еще раз!';
+        moodClass = 'path-card--ok';
+      } else if (percent >= 20) {
+        phrase = 'Кинотест провален. Думаю, что тебе стоит попробовать ещё раз!';
+        moodClass = 'path-card--sad';
+      } else {
+        phrase = 'Почти всё мимо, но в этом и кайф — давай попробуем ещё раз!';
+        moodClass = 'path-card--fail';
+      }
+
+      tvScreen.innerHTML = `
+        <div class="result-wrap">
+          <p class="hand-note">Финал кинотеста</p>
+          <p class="result-text">${escapeHtml(phrase)}</p>
+
+          <div class="path-visual">
+            <div class="path-card ${moodClass}">
+              <div class="path-start">
+                <div class="path-start-line"></div>
+              </div>
+
+              <div class="path-dots">
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+              </div>
+
+              <div class="path-target">
+                <div class="path-target-x"></div>
+              </div>
+
+              <div class="path-smile"></div>
+            </div>
+          </div>
+
+          <div class="result-stats">
+            <div class="result-chip">Правильных ответов: ${state.score} из ${total}</div>
+            <div class="result-chip">Точность: ${percent}%</div>
+          </div>
+        </div>
+      `;
+
       attachAccountButton();
       tvControls.style.display = 'grid';
       updateStartButtonText('Повторить');
@@ -915,9 +1012,18 @@
     }
 
     function render() {
-      if (state.screen === 'home') return renderHome();
-      if (state.screen === 'quiz' && state.quiz) return renderQuiz();
-      if (state.screen === 'result' && state.quiz) return renderResult();
+      if (state.screen === 'home') {
+        renderHome();
+        return;
+      }
+      if (state.screen === 'quiz' && state.quiz) {
+        renderQuiz();
+        return;
+      }
+      if (state.screen === 'result' && state.quiz) {
+        renderResult();
+        return;
+      }
       goHome();
     }
 
@@ -925,10 +1031,19 @@
     startButton.addEventListener('click', handleStart);
 
     backButton.addEventListener('click', () => {
-      if (document.getElementById('accountModal').classList.contains('show')) return closeAccountModal();
-      if (state.screen === 'quiz' || state.screen === 'result') return goHome();
-      if (window.history.length > 1) window.history.back();
-      else if (tg) tg.close();
+      if (document.getElementById('accountModal').classList.contains('show')) {
+        closeAccountModal();
+        return;
+      }
+      if (state.screen === 'quiz' || state.screen === 'result') {
+        goHome();
+        return;
+      }
+      if (window.history.length > 1) {
+        window.history.back();
+      } else if (tg) {
+        tg.close();
+      }
     });
 
     render();
