@@ -51,7 +51,7 @@
     .app {
       width: 100%;
       max-width: 430px;
-      /* margin: auto отвечает за выравнивание ровно по центру экрана */
+      /* Авто-отступы для центрирования */
       margin: auto;
       display: flex;
       flex-direction: column;
@@ -109,7 +109,8 @@
     .option-btn:active,
     .result-btn:active,
     .account-btn:active,
-    .modal-close:active {
+    .modal-close:active,
+    .tool-btn:active {
       transform: translateY(2px);
       box-shadow: 0 6px 0 rgba(107, 64, 40, 0.12);
     }
@@ -162,12 +163,23 @@
       flex-direction: column;
     }
 
+    .tv-topbar {
+      position: relative;
+      height: 26px;
+      margin-bottom: 10px;
+      border: 3px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(180deg, #f8e5c8 0%, #edd1a4 100%);
+      box-shadow: inset 0 2px 0 rgba(255,255,255,0.35);
+    }
+
     .account-btn {
       position: absolute;
-      top: 8px;
-      right: 8px;
-      width: 36px;
-      height: 36px;
+      right: 4px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       border: 3px solid var(--frame-dark);
       background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
@@ -177,9 +189,10 @@
       justify-content: center;
       cursor: pointer;
       z-index: 6;
-      font-size: 18px;
+      font-size: 15px;
       box-shadow: inset 0 2px 0 rgba(255,255,255,0.18);
       pointer-events: auto;
+      padding: 0;
     }
 
     .account-btn span {
@@ -191,7 +204,7 @@
       position: relative;
       z-index: 1;
       font-family: 'Caveat', cursive;
-      font-size: 26px; /* Уменьшенный размер, как ты просил */
+      font-size: 28px;
       line-height: 1;
       color: var(--accent-dark);
       margin: 0 0 14px;
@@ -257,7 +270,7 @@
       justify-content: space-between;
       gap: 6px;
       margin-bottom: 6px;
-      padding-right: 40px;
+      padding-right: 2px;
     }
 
     .progress-badge {
@@ -782,42 +795,42 @@
       flex: 0 0 auto;
     }
 
+    /* ===== НОВЫЕ СТИЛИ ПРОФИЛЯ ===== */
     .modal-body {
       padding: 16px;
-      display: grid;
-      gap: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-height: 80vh;
+      overflow-y: auto;
     }
 
-    .profile-row {
+    .profile-header {
       display: flex;
       gap: 12px;
       align-items: center;
     }
 
-    .profile-avatar {
+    .profile-avatar-img {
       width: 56px;
       height: 56px;
       border-radius: 50%;
       border: 3px solid var(--line);
       background: linear-gradient(180deg, #ffd79f 0%, #f0b05d 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 26px;
+      object-fit: cover;
       flex: 0 0 auto;
     }
 
     .profile-meta {
       min-width: 0;
-      display: grid;
-      gap: 4px;
     }
 
     .profile-name {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 800;
       line-height: 1.2;
-      margin: 0;
+      margin: 0 0 2px;
+      color: var(--ink);
     }
 
     .profile-subtitle {
@@ -827,57 +840,138 @@
       font-weight: 700;
     }
 
-    .stat-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
-    }
-
-    .stat-card {
+    .level-block {
+      background: var(--paper-2);
       border: 2px solid var(--line);
       border-radius: 16px;
-      background: var(--paper-2);
-      padding: 10px 12px;
-      display: grid;
-      gap: 4px;
-      text-align: center;
+      padding: 12px;
     }
 
-    .stat-value {
-      font-size: 18px;
+    .level-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+
+    .level-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--muted);
+    }
+
+    .level-value {
+      font-size: 20px;
       font-weight: 800;
       color: var(--ink);
-      line-height: 1.1;
     }
 
-    .stat-label {
+    .level-exp {
       font-size: 12px;
       color: var(--muted);
       font-weight: 700;
     }
 
-    .modal-actions {
-      display: grid;
-      gap: 8px;
+    .stat-bar-container {
+      height: 14px;
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      background: #f7e6cc;
+      overflow: hidden;
       margin-top: 4px;
     }
 
-    .modal-action-btn {
-      width: 100%;
+    .stat-bar-fill {
+      height: 100%;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+      border-radius: 0 999px 999px 0;
+      transition: width 0.3s ease;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--ink);
+      margin: 0 0 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .stats-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .stat-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .stat-label { color: var(--ink); }
+    .stat-count { color: var(--muted); }
+    
+    .reward-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--paper-2);
       border: 2px solid var(--line);
-      border-radius: 14px;
+      border-radius: 12px;
+      padding: 8px 12px;
+    }
+
+    .reward-icon {
+      font-size: 20px;
+      flex: 0 0 auto;
+    }
+
+    .reward-info {
+      flex: 1;
+    }
+
+    .reward-name {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .tools-grid {
+      display: grid;
+      gap: 8px;
+    }
+
+    .tool-btn {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      border: 2px solid var(--line);
+      border-radius: 12px;
       background: linear-gradient(180deg, #fff9ee 0%, #f6e2bd 100%);
       color: var(--ink);
-      padding: 10px 12px;
       font-size: 14px;
       font-weight: 800;
       cursor: pointer;
-      text-align: left;
     }
 
-    .modal-action-btn.primary {
-      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
-      color: #fffaf5;
+    .tool-count {
+      background: var(--accent);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 12px;
     }
 
     @keyframes spin {
@@ -909,15 +1003,8 @@
       .knobs { gap: 8px; }
       .knob { width: 30px; height: 30px; }
       .knob.small { width: 22px; height: 22px; }
-      .question-options--images {
-        grid-template-columns: 1fr 1fr;
-      }
-      .modal {
-        border-radius: 24px;
-      }
-      .stat-grid {
-        grid-template-columns: 1fr 1fr;
-      }
+      .question-options--images { grid-template-columns: 1fr 1fr; }
+      .modal { border-radius: 24px; }
     }
   </style>
 </head>
@@ -953,38 +1040,109 @@
         <h2 class="modal-title" id="accountModalTitle">Аккаунт</h2>
         <button class="modal-close" id="closeAccountModal" type="button" aria-label="Закрыть">×</button>
       </div>
+      
       <div class="modal-body">
-        <div class="profile-row">
-          <div class="profile-avatar" id="profileAvatar">👤</div>
+        <div class="profile-header">
+          <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='50%' x='50%' dominant-baseline='middle' text-anchor='middle' font-size='50'>🤖</text></svg>" alt="Аватар" class="profile-avatar-img" id="profileAvatarImg">
           <div class="profile-meta">
-            <p class="profile-name" id="profileName">Пользователь</p>
-            <p class="profile-subtitle" id="profileSubtitle">Статистика и настройки профиля</p>
+            <h3 class="profile-name" id="profileName">Пользователь</h3>
+            <p class="profile-subtitle">Статистика и настройки профиля</p>
           </div>
         </div>
 
-        <div class="stat-grid">
-          <div class="stat-card">
-            <div class="stat-value" id="statPlayed">0</div>
-            <div class="stat-label">Сыграно</div>
+        <div class="level-block">
+          <div class="level-header">
+            <span class="level-title">ТЕКУЩИЙ УРОВЕНЬ</span>
+            <span class="level-value">3</span>
           </div>
-          <div class="stat-card">
-            <div class="stat-value" id="statWins">0</div>
-            <div class="stat-label">Побед</div>
+          <div class="stat-bar-container">
+            <div class="stat-bar-fill" style="width: 65%;"></div>
           </div>
-          <div class="stat-card">
-            <div class="stat-value" id="statAccuracy">0%</div>
-            <div class="stat-label">Точность</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value" id="statBest">—</div>
-            <div class="stat-label">Лучший результат</div>
+          <div class="level-exp" style="margin-top: 4px; text-align: right;">650 / 1000 XP</div>
+        </div>
+
+        <div>
+          <h4 class="section-title">Точность по категориям</h4>
+          <div class="stats-list">
+            <div class="stat-item">
+              <div class="stat-item-header">
+                <span class="stat-label">Актёры и актрисы</span>
+                <span class="stat-count">12 игр</span>
+              </div>
+              <div class="stat-bar-container">
+                <div class="stat-bar-fill" style="width: 83%;"></div>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-item-header">
+                <span class="stat-label">Кадры из фильмов</span>
+                <span class="stat-count">7 игр</span>
+              </div>
+              <div class="stat-bar-container">
+                <div class="stat-bar-fill" style="width: 61%;"></div>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-item-header">
+                <span class="stat-label">Вопросы про кино</span>
+                <span class="stat-count">19 игр</span>
+              </div>
+              <div class="stat-bar-container">
+                <div class="stat-bar-fill" style="width: 74%;"></div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="modal-actions">
-          <button class="modal-action-btn primary" type="button" id="goStatsBtn">Открыть статистику</button>
-          <button class="modal-action-btn" type="button" id="goHistoryBtn">История игр</button>
-          <button class="modal-action-btn" type="button" id="goSettingsBtn">Настройки</button>
+        <div>
+          <h4 class="section-title">Награды</h4>
+          <div class="stats-list">
+            <div class="reward-item">
+              <span class="reward-icon">🎞️</span>
+              <div class="reward-info">
+                <div class="reward-name">Бобины</div>
+                <div class="stat-bar-container" style="height: 8px;">
+                  <div class="stat-bar-fill" style="width: 40%;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="reward-item">
+              <span class="reward-icon">⭐</span>
+              <div class="reward-info">
+                <div class="reward-name">Звёзды</div>
+                <div class="stat-bar-container" style="height: 8px;">
+                  <div class="stat-bar-fill" style="width: 90%;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="reward-item">
+              <span class="reward-icon">🎫</span>
+              <div class="reward-info">
+                <div class="reward-name">Золотые билеты</div>
+                <div class="stat-bar-container" style="height: 8px;">
+                  <div class="stat-bar-fill" style="width: 15%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="section-title">Инструменты</h4>
+          <div class="tools-grid">
+            <button class="tool-btn" type="button">
+              Монтажная резка (50/50)
+              <span class="tool-count">3</span>
+            </button>
+            <button class="tool-btn" type="button">
+              Второй дубль (повтор)
+              <span class="tool-count">1</span>
+            </button>
+            <button class="tool-btn" type="button">
+              Оскар (сразу выиграть)
+              <span class="tool-count">0</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -1009,11 +1167,7 @@
       error: '',
       account: {
         name: 'Пользователь',
-        subtitle: 'Статистика и настройки профиля',
-        played: 0,
-        wins: 0,
-        accuracy: 0,
-        best: '—'
+        photo: null
       }
     };
 
@@ -1022,6 +1176,14 @@
       tg.expand();
       tg.BackButton.show();
       tg.MainButton.hide();
+
+      if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+        const user = tg.initDataUnsafe.user;
+        state.account.name = user.first_name || 'Пользователь';
+        if (user.photo_url) {
+          state.account.photo = user.photo_url;
+        }
+      }
 
       tg.BackButton.onClick(() => {
         if (document.getElementById('accountModal').classList.contains('show')) {
@@ -1046,12 +1208,6 @@
     const startButton = document.getElementById('startButton');
     const backButton = document.getElementById('backButton');
     const accountModal = document.getElementById('accountModal');
-    const accountBtn = document.createElement('button');
-    accountBtn.className = 'account-btn';
-    accountBtn.type = 'button';
-    accountBtn.innerHTML = '<span>👤</span>';
-    accountBtn.setAttribute('aria-label', 'Аккаунт');
-    accountBtn.title = 'Аккаунт';
 
     function safeHaptic(type, level) {
       if (!tg || !tg.HapticFeedback) return;
@@ -1063,17 +1219,11 @@
       }
     }
 
-    function updateAccountUI() {
-      document.getElementById('profileName').textContent = state.account.name;
-      document.getElementById('profileSubtitle').textContent = state.account.subtitle;
-      document.getElementById('statPlayed').textContent = String(state.account.played);
-      document.getElementById('statWins').textContent = String(state.account.wins);
-      document.getElementById('statAccuracy').textContent = `${state.account.accuracy}%`;
-      document.getElementById('statBest').textContent = state.account.best;
-    }
-
     function openAccountModal() {
-      updateAccountUI();
+      document.getElementById('profileName').textContent = state.account.name;
+      if (state.account.photo) {
+        document.getElementById('profileAvatarImg').src = state.account.photo;
+      }
       accountModal.classList.add('show');
       safeHaptic('impact', 'light');
     }
@@ -1082,38 +1232,10 @@
       accountModal.classList.remove('show');
     }
 
-    function bindAccountActions() {
-      document.getElementById('goStatsBtn').onclick = () => {
-        closeAccountModal();
-        state.screen = 'home';
-        state.error = 'Раздел статистики пока в разработке';
-        render();
-      };
-      document.getElementById('goHistoryBtn').onclick = () => {
-        closeAccountModal();
-        state.screen = 'home';
-        state.error = 'История игр скоро появится';
-        render();
-      };
-      document.getElementById('goSettingsBtn').onclick = () => {
-        closeAccountModal();
-        state.screen = 'home';
-        state.error = 'Настройки скоро появятся';
-        render();
-      };
-      document.getElementById('closeAccountModal').onclick = closeAccountModal;
-      accountModal.addEventListener('click', (e) => {
-        if (e.target === accountModal) closeAccountModal();
-      });
-    }
-
-    function attachAccountButton() {
-      const existing = document.getElementById('accountBtnInjected');
-      if (existing) return;
-      accountBtn.id = 'accountBtnInjected';
-      accountBtn.addEventListener('click', openAccountModal);
-      tvScreen.appendChild(accountBtn);
-    }
+    document.getElementById('closeAccountModal').onclick = closeAccountModal;
+    accountModal.addEventListener('click', (e) => {
+      if (e.target === accountModal) closeAccountModal();
+    });
 
     async function fetchQuiz() {
       const response = await fetch(QUIZ_API, {
@@ -1147,7 +1269,7 @@
     function setPreviewFromQuiz(quiz) {
       state.quiz = quiz;
       state.title = quiz.title || 'Твой случайный кинотест';
-      state.description = quiz.description || '🤖 Готово — тест подобран! Можно начинать!';
+      state.description = quiz.description || 'Готово — тест подобран. Можно начинать.';
       state.previewImage = quiz.image || quiz.questions?.[0]?.image || quiz.questions?.[0]?.frame_url || FALLBACK_SCENE;
       state.error = '';
     }
@@ -1290,13 +1412,19 @@
 
       if (state.loading) {
         tvScreen.innerHTML = `
+          <div class="tv-topbar">
+            <button class="account-btn" id="accountBtnInjected" type="button" aria-label="Аккаунт" title="Аккаунт"><span>👤</span></button>
+          </div>
           <p class="hand-note">Твой случайный кинотест</p>
-          <p class="loading-text">🤖 Подбираю для тебя кинотест и загружаю его...</p>
+          <p class="loading-text">Подбираем для тебя кинотест и загружаем его описание...</p>
           <div class="spinner" aria-hidden="true"></div>
           ${errorBlock}
         `;
       } else {
         tvScreen.innerHTML = `
+          <div class="tv-topbar">
+            <button class="account-btn" id="accountBtnInjected" type="button" aria-label="Аккаунт" title="Аккаунт"><span>👤</span></button>
+          </div>
           <p class="hand-note">Твой случайный кинотест</p>
           <h1 class="quiz-title">${escapeHtml(state.title)}</h1>
           <p class="quiz-description home-description">${escapeHtml(state.description)}</p>
@@ -1319,7 +1447,9 @@
       startButton.disabled = state.loading || !state.quiz;
       randomButton.disabled = state.loading;
       tvControls.style.display = 'grid';
-      attachAccountButton();
+      
+      const injectedBtn = document.getElementById('accountBtnInjected');
+      if (injectedBtn) injectedBtn.addEventListener('click', openAccountModal);
     }
 
     function renderQuiz() {
@@ -1352,9 +1482,9 @@
           `).join('');
 
       tvScreen.innerHTML = `
-        <button class="account-btn" id="accountBtnInjected" type="button" aria-label="Аккаунт" title="Аккаунт">
-          <span>👤</span>
-        </button>
+        <div class="tv-topbar">
+          <button class="account-btn" id="accountBtnInjected" type="button" aria-label="Аккаунт" title="Аккаунт"><span>👤</span></button>
+        </div>
 
         <div class="progress-row">
           <div class="progress-badge">Вопрос ${state.currentQuestion + 1} из ${state.quiz.questions.length}</div>
@@ -1386,8 +1516,8 @@
         button.addEventListener('click', () => handleAnswer(Number(button.dataset.optionIndex)));
       });
 
-      const injected = document.getElementById('accountBtnInjected');
-      if (injected) injected.addEventListener('click', openAccountModal);
+      const injectedBtn = document.getElementById('accountBtnInjected');
+      if (injectedBtn) injectedBtn.addEventListener('click', openAccountModal);
 
       tvControls.style.display = 'none';
     }
@@ -1417,9 +1547,9 @@
       }
 
       tvScreen.innerHTML = `
-        <button class="account-btn" id="accountBtnInjected" type="button" aria-label="Аккаунт" title="Аккаунт">
-          <span>👤</span>
-        </button>
+        <div class="tv-topbar">
+          <button class="account-btn" id="accountBtnInjected" type="button" aria-label="Аккаунт" title="Аккаунт"><span>👤</span></button>
+        </div>
 
         <div class="result-wrap">
           <p class="hand-note">Финал кинотеста</p>
@@ -1451,8 +1581,8 @@
         </div>
       `;
 
-      const injected = document.getElementById('accountBtnInjected');
-      if (injected) injected.addEventListener('click', openAccountModal);
+      const injectedBtn = document.getElementById('accountBtnInjected');
+      if (injectedBtn) injectedBtn.addEventListener('click', openAccountModal);
 
       tvControls.style.display = 'grid';
       startButton.textContent = 'Пройти ещё раз';
@@ -1480,23 +1610,6 @@
     randomButton.addEventListener('click', handleRandomQuiz);
     startButton.addEventListener('click', handleStart);
 
-    backButton.addEventListener('click', () => {
-      if (document.getElementById('accountModal').classList.contains('show')) {
-        closeAccountModal();
-        return;
-      }
-      if (state.screen === 'quiz' || state.screen === 'result') {
-        goHome();
-        return;
-      }
-      if (window.history.length > 1) {
-        window.history.back();
-      } else if (tg) {
-        tg.close();
-      }
-    });
-
-    bindAccountActions();
     render();
     preloadQuiz();
   </script>
