@@ -13,19 +13,16 @@
 
   <style>
     :root {
-      --bg: #fff6ea;
       --paper: #fffdf7;
       --paper-2: #fff1dc;
       --paper-tv: #f2dec0;
       --paper-tv-dark: #e3c597;
       --screen: #fffaf4;
       --ink: #4b2d1f;
-      --muted: #8f6147;
       --accent: #f48a2a;
       --accent-dark: #db6c12;
       --line: #6b4028;
       --frame-dark: #654321;
-      --success: #3d8a43;
       --danger: #b24a2a;
       --shadow: 0 10px 0 rgba(107, 64, 40, 0.12);
       --radius: 24px;
@@ -82,10 +79,10 @@
       cursor: pointer;
       overflow: visible;
       box-shadow:
-        inset 0 0 0 1.5px rgba(255, 237, 214, 0.35),
-        0 6px 0 var(--flat-shadow),
-        0 10px 8px rgba(107, 64, 40, 0.2);
-      margin-bottom: 6px;
+        inset 0 0 0 1.5px rgba(255, 237, 214, 0.30),
+        0 5px 0 var(--flat-shadow),
+        0 8px 6px rgba(107, 64, 40, 0.16);
+      margin-bottom: 5px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -94,21 +91,21 @@
     }
 
     .btn-3d:active {
-      transform: translateY(4px);
+      transform: translateY(3px);
       box-shadow:
-        inset 0 0 0 1.5px rgba(255, 237, 214, 0.35),
+        inset 0 0 0 1.5px rgba(255, 237, 214, 0.30),
         0 2px 0 var(--flat-shadow),
-        0 4px 4px rgba(107, 64, 40, 0.2);
+        0 4px 4px rgba(107, 64, 40, 0.16);
     }
 
     .btn-3d > * { position: relative; z-index: 2; }
 
-    .tv-start-btn { width: 100%; height: 46px; border-radius: 16px; font-size: 24px; font-weight: 800; }
-    .tv-random-btn { width: 46px; height: 46px; border-radius: 16px; }
-    .back-btn { padding: 10px 16px; font-size: 14px; font-weight: 800; border-radius: 14px; gap: 8px; }
-    .account-btn { position: absolute; top: 6px; right: 6px; width: 48px; height: 48px; z-index: 6; border-radius: 50%; padding: 0; }
+    .tv-start-btn { width: 100%; height: 42px; border-radius: 16px; font-size: 22px; font-weight: 800; }
+    .tv-random-btn { width: 42px; height: 42px; border-radius: 16px; }
+    .back-btn { padding: 8px 14px; font-size: 13px; font-weight: 800; border-radius: 14px; gap: 8px; }
+    .account-btn { position: absolute; top: 6px; right: 6px; width: 46px; height: 46px; z-index: 6; border-radius: 50%; padding: 0; }
 
-    .back-btn-icon { width: 20px; height: 20px; flex: 0 0 20px; display: block; }
+    .back-btn-icon { width: 18px; height: 18px; flex: 0 0 18px; display: block; }
     .back-btn-icon path, .back-btn-icon polyline { stroke: #fffaf5; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; fill: none; }
 
     .tv-card {
@@ -179,7 +176,7 @@
       text-align: center;
     }
 
-    .question-text, .result-text, .loading-text, .error-text {
+    .loading-text, .error-text, .result-text {
       position: relative;
       z-index: 1;
       margin: 12px 0 0;
@@ -191,7 +188,6 @@
     }
 
     .result-text { font-size: 16px; line-height: 1.5; font-weight: 800; }
-    .home-description { margin-bottom: 6px; }
 
     .progress-row {
       position: relative;
@@ -211,7 +207,7 @@
       border-radius: 12px;
       font-size: 12px;
       font-weight: 800;
-      box-shadow: inset 0 0 0 1.5px rgba(255, 237, 214, 0.35), 0 4px 0 var(--flat-shadow);
+      box-shadow: inset 0 0 0 1.5px rgba(255, 237, 214, 0.30), 0 4px 0 var(--flat-shadow);
       white-space: nowrap;
       flex: 0 0 auto;
     }
@@ -248,9 +244,30 @@
       margin-right: auto;
     }
 
-    .home-doodle { margin-top: 2px; max-width: 220px; }
-    .home-doodle--landscape, .question-doodle--landscape { aspect-ratio: 16 / 9; max-width: 320px; }
-    .scene-photo { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center center; filter: grayscale(1) contrast(1.04); }
+    .home-doodle {
+      margin-top: 2px;
+      max-width: 220px;
+      aspect-ratio: 3 / 4;
+    }
+
+    .home-doodle--landscape, .question-doodle--landscape {
+      aspect-ratio: 16 / 9;
+      max-width: 320px;
+    }
+
+    .scene-photo {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center center;
+      filter: grayscale(1) contrast(1.04);
+    }
+
+    .scene-photo--landscape {
+      object-fit: cover;
+      object-position: center center;
+    }
 
     .doodle::after {
       content: "";
@@ -266,7 +283,7 @@
     .option-btn, .result-btn {
       width: 100%;
       border-radius: 14px;
-      padding: 10px 14px;
+      padding: 8px 14px;
       font-size: 16px;
       font-weight: 700;
       line-height: 1.2;
@@ -274,26 +291,32 @@
       justify-content: flex-start;
     }
 
-    .result-btn {
-      margin-top: 16px;
-      text-align: center;
-      justify-content: center;
-      font-weight: 800;
+    .option-btn--image { padding: 0; overflow: hidden; display: block; min-height: 88px; }
+    .option-image {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center top;
+      aspect-ratio: 3 / 4;
+      filter: grayscale(1) contrast(1.04);
+      pointer-events: none;
     }
 
-    .option-btn--image { padding: 0; overflow: hidden; display: block; min-height: 94px; }
-    .question-options--images .option-btn--image { min-height: 110px; }
+    .question-options--images { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .question-options--images .option-btn--image { min-height: 104px; }
 
     .result-stats { margin-top: 16px; display: grid; gap: 10px; }
     .result-chip { padding: 12px 14px; border: 2px solid var(--line); border-radius: 18px; background: var(--paper-2); text-align: center; font-size: 15px; font-weight: 800; }
-    .loading-wrap, .error-wrap, .result-wrap { display: flex; flex-direction: column; justify-content: center; min-height: 100%; }
+
     .spinner { width: 48px; height: 48px; margin: 14px auto 0; border-radius: 50%; border: 4px solid rgba(107, 64, 40, 0.15); border-top-color: var(--accent-dark); animation: spin 0.9s linear infinite; }
+
     .error-text { color: var(--danger); font-size: 13px; background: rgba(178, 74, 42, 0.1); padding: 10px; border-radius: 12px; margin-top: 12px; }
 
     .tv-controls {
       margin-top: 14px;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 46px auto;
+      grid-template-columns: minmax(0, 1fr) 42px auto;
       gap: 12px;
       align-items: center;
       padding: 14px 16px;
@@ -319,12 +342,16 @@
     .path-target { position: absolute; right: 32px; top: 26px; width: 52px; height: 52px; border-radius: 50%; background: #fff7ee; border: 3px solid #6b4028; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; }
     .path-target-x { position: relative; width: 24px; height: 24px; }
     .path-target-x::before, .path-target-x::after { content: ""; position: absolute; left: 50%; top: 50%; width: 100%; height: 3px; background: #f48a2a; border-radius: 999px; transform-origin: center; }
-    .path-target-x::before { transform: translate(-50%, -50%) rotate(45deg); } .path-target-x::after { transform: translate(-50%, -50%) rotate(-45deg); }
+    .path-target-x::before { transform: translate(-50%, -50%) rotate(45deg); }
+    .path-target-x::after { transform: translate(-50%, -50%) rotate(-45deg); }
     .path-dots { position: absolute; left: 80px; right: 90px; top: 48px; height: 40px; pointer-events: none; }
     .path-dots span { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #6b4028; opacity: 0.9; }
-    .path-dots span:nth-child(1) { left: 0%; top: 18px; } .path-dots span:nth-child(2) { left: 18%; top: 12px; }
-    .path-dots span:nth-child(3) { left: 36%; top: 8px; } .path-dots span:nth-child(4) { left: 54%; top: 10px; }
-    .path-dots span:nth-child(5) { left: 72%; top: 16px; } .path-dots span:nth-child(6) { left: 90%; top: 22px; }
+    .path-dots span:nth-child(1) { left: 0%; top: 18px; }
+    .path-dots span:nth-child(2) { left: 18%; top: 12px; }
+    .path-dots span:nth-child(3) { left: 36%; top: 8px; }
+    .path-dots span:nth-child(4) { left: 54%; top: 10px; }
+    .path-dots span:nth-child(5) { left: 72%; top: 16px; }
+    .path-dots span:nth-child(6) { left: 90%; top: 22px; }
     .path-smile { position: absolute; left: 50%; bottom: 20px; width: 120px; height: 28px; border-radius: 0 0 80px 80px; border-bottom: 3px solid #6b4028; transform: translateX(-50%); }
     .path-card--super .path-smile { width: 140px; height: 34px; bottom: 18px; border-radius: 0 0 90px 90px; }
 
@@ -357,7 +384,7 @@
     .cat-block {
       background: var(--flat-color);
       border-radius: 18px;
-      padding: 10px 10px 12px;
+      padding: 8px 10px 10px;
       color: #fffaf5;
       box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25), 0 4px 6px rgba(107, 64, 40, 0.15);
       display: flex;
@@ -365,23 +392,23 @@
       align-items: center;
       text-align: center;
       position: relative;
-      gap: 6px;
+      gap: 4px;
     }
     .cat-top {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 6px;
       width: 100%;
     }
     .cat-icon {
-      width: 28px;
-      height: 28px;
-      flex: 0 0 28px;
+      width: 24px;
+      height: 24px;
+      flex: 0 0 24px;
       filter: drop-shadow(0 2px 4px rgba(64, 38, 24, 0.35));
     }
     .cat-name {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
       line-height: 1.1;
       color: #fffaf5;
@@ -391,21 +418,21 @@
     }
     .cat-metrics {
       display: flex;
-      gap: 6px;
+      gap: 5px;
       width: 100%;
       justify-content: center;
       padding-left: 0;
     }
     .cat-circle {
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       background: rgba(74, 46, 21, 0.18);
       border: 1.5px solid rgba(255, 255, 255, 0.28);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 800;
       color: #fffaf5;
       text-shadow: 0 1px 0 rgba(107,64,40,0.4);
@@ -428,9 +455,9 @@
     @media (max-width: 480px) {
       .app { max-width: 100%; }
       .tv-screen { padding: 10px 10px 4px; }
-      .tv-controls { grid-template-columns: minmax(0, 1fr) 46px auto; gap: 10px; padding: 12px 14px; }
-      .tv-start-btn { height: 46px; font-size: 22px; }
-      .tv-random-btn { width: 46px; height: 46px; }
+      .tv-controls { grid-template-columns: minmax(0, 1fr) 42px auto; gap: 10px; padding: 12px 14px; }
+      .tv-start-btn { height: 42px; font-size: 20px; }
+      .tv-random-btn { width: 42px; height: 42px; }
       .knobs { gap: 8px; }
       .knob { width: 30px; height: 30px; }
       .knob.small { width: 22px; height: 22px; }
@@ -504,7 +531,7 @@
           <div class="level-bump"></div>
           <div class="level-patch"></div>
           <img class="level-bobbin-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><defs><radialGradient id='rg' cx='30%' cy='30%' r='70%'><stop offset='0%' stop-color='%23ffeeb3'/><stop offset='50%' stop-color='%23d1ac6b'/><stop offset='100%' stop-color='%238a612b'/></radialGradient><linearGradient id='fg' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%235c4636'/><stop offset='100%' stop-color='%232a1f18'/></linearGradient><linearGradient id='hg' x1='0%' y1='0%' x2='0%' y2='100%'><stop offset='0%' stop-color='%234a2e15'/><stop offset='100%' stop-color='%23734a26'/></linearGradient></defs><path d='M85,55 C100,55 110,75 105,110 C102,120 90,115 88,110 C92,85 85,75 75,70 Z' fill='url(%23fg)'/><path d='M96,85 L99,86 M94,93 L97,94 M92,101 L95,102 M89,109 L92,110' stroke='%23111' stroke-width='2' stroke-linecap='round'/><circle cx='53' cy='58' r='44' fill='%23614426'/><circle cx='55' cy='55' r='44' fill='url(%23rg)'/><circle cx='55' cy='55' r='40' fill='none' stroke='%239e7b45' stroke-width='1.5'/><g fill='url(%23hg)' stroke='%23eed59d' stroke-width='1.5'><circle cx='55' cy='27' r='13' /><circle cx='81.6' cy='46.3' r='13' /><circle cx='71.4' cy='77.6' r='13' /><circle cx='38.6' cy='77.6' r='13' /><circle cx='28.4' cy='46.3' r='13' /></g><circle cx='55' cy='55' r='6' fill='%233a2512'/><circle cx='55' cy='55' r='3' fill='%231c1108'/></svg>" alt="Бобина" />
-
+          
           <div class="level-content-wrap">
             <div class="level-header">Текущий уровень</div>
             <div class="level-content">
@@ -673,27 +700,21 @@
               <span class="reward-icon">🎞️</span>
               <div class="reward-info">
                 <div class="reward-name">Бобины</div>
-                <div class="stat-bar-container">
-                  <div class="stat-bar-fill" style="width: 40%;"></div>
-                </div>
+                <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 40%;"></div></div>
               </div>
             </div>
             <div class="reward-item">
               <span class="reward-icon">⭐</span>
               <div class="reward-info">
                 <div class="reward-name">Звёзды</div>
-                <div class="stat-bar-container">
-                  <div class="stat-bar-fill" style="width: 90%;"></div>
-                </div>
+                <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 90%;"></div></div>
               </div>
             </div>
             <div class="reward-item">
               <span class="reward-icon">🎫</span>
               <div class="reward-info">
                 <div class="reward-name">Золотые билеты</div>
-                <div class="stat-bar-container">
-                  <div class="stat-bar-fill" style="width: 15%;"></div>
-                </div>
+                <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 15%;"></div></div>
               </div>
             </div>
           </div>
@@ -702,18 +723,9 @@
         <div>
           <h4 class="section-title">Инструменты</h4>
           <div class="tools-grid">
-            <button class="tool-btn" type="button">
-              Монтажная резка (50/50)
-              <span class="tool-count">3</span>
-            </button>
-            <button class="tool-btn" type="button">
-              Второй дубль (повтор)
-              <span class="tool-count">1</span>
-            </button>
-            <button class="tool-btn" type="button">
-              Оскар (сразу выиграть)
-              <span class="tool-count">0</span>
-            </button>
+            <button class="tool-btn" type="button">Монтажная резка (50/50)<span class="tool-count">3</span></button>
+            <button class="tool-btn" type="button">Второй дубль (повтор)<span class="tool-count">1</span></button>
+            <button class="tool-btn" type="button">Оскар (сразу выиграть)<span class="tool-count">0</span></button>
           </div>
         </div>
       </div>
@@ -737,10 +749,7 @@
       answers: [],
       score: 0,
       error: '',
-      account: {
-        name: 'Пользователь',
-        photo: null
-      }
+      account: { name: 'Пользователь', photo: null }
     };
 
     if (tg) {
@@ -766,12 +775,7 @@
     const accountBtn = document.createElement('button');
     accountBtn.className = 'account-btn btn-3d';
     accountBtn.type = 'button';
-    accountBtn.innerHTML = `
-      <svg viewBox="0 0 100 100" style="width: 26px; height: 26px;">
-        <circle cx="50" cy="36" r="14" fill="#fffaf5"/>
-        <path d="M22,76 C22,58 34,52 50,52 C66,52 78,58 78,76 C78,80 22,80 22,76 Z" fill="#fffaf5"/>
-      </svg>
-    `;
+    accountBtn.innerHTML = `<svg viewBox="0 0 100 100" style="width: 26px; height: 26px;"><circle cx="50" cy="36" r="14" fill="#fffaf5"/><path d="M22,76 C22,58 34,52 50,52 C66,52 78,58 78,76 C78,80 22,80 22,76 Z" fill="#fffaf5"/></svg>`;
     accountBtn.setAttribute('aria-label', 'Профиль');
     accountBtn.title = 'Профиль';
 
@@ -815,10 +819,7 @@
     async function fetchQuiz() {
       const response = await fetch(QUIZ_API, {
         method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         mode: 'cors',
         body: JSON.stringify({})
       });
@@ -850,7 +851,6 @@
       state.loading = true;
       state.error = '';
       render();
-
       try {
         const quiz = await fetchQuiz();
         setPreviewFromQuiz(quiz);
@@ -869,7 +869,6 @@
       state.loading = true;
       state.error = '';
       render();
-
       try {
         const quiz = await fetchQuiz();
         setPreviewFromQuiz(quiz);
@@ -889,13 +888,11 @@
       state.loading = true;
       state.error = '';
       render();
-
       try {
         if (!state.quiz) {
           const quiz = await fetchQuiz();
           setPreviewFromQuiz(quiz);
         }
-
         resetRun();
         state.screen = 'quiz';
         safeHaptic('notification', 'success');
@@ -1141,18 +1138,9 @@
     }
 
     function render() {
-      if (state.screen === 'home') {
-        renderHome();
-        return;
-      }
-      if (state.screen === 'quiz' && state.quiz) {
-        renderQuiz();
-        return;
-      }
-      if (state.screen === 'result' && state.quiz) {
-        renderResult();
-        return;
-      }
+      if (state.screen === 'home') return renderHome();
+      if (state.screen === 'quiz' && state.quiz) return renderQuiz();
+      if (state.screen === 'result' && state.quiz) return renderResult();
       goHome();
     }
 
