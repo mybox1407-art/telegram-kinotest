@@ -106,8 +106,21 @@
       z-index: 2;
     }
 
-    .tv-start-btn { width: 100%; height: 56px; border-radius: 16px; font-family: 'Nunito'; font-size: 24px; font-weight: 800; }
-    .tv-random-btn { width: 56px; height: 56px; border-radius: 16px; }
+    .tv-start-btn {
+      width: 100%;
+      height: 46px;
+      border-radius: 14px;
+      font-family: 'Nunito';
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .tv-random-btn {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+    }
+
     .back-btn { padding: 10px 16px; font-family: 'Nunito'; font-size: 14px; font-weight: 800; border-radius: 14px; gap: 8px; }
     .account-btn { position: absolute; top: 6px; right: 6px; width: 48px; height: 48px; z-index: 6; border-radius: 50%; padding: 0; }
 
@@ -134,6 +147,7 @@
       z-index: -1;
       opacity: 0.9;
     }
+
     .tv-card::before { left: 78px; transform: rotate(22deg); }
     .tv-card::after { right: 78px; transform: rotate(-22deg); }
 
@@ -161,17 +175,29 @@
       text-align: center;
     }
 
-    .quiz-title, .question-title {
+    .quiz-title {
       position: relative;
       z-index: 1;
-      color: var(--ink);
+      margin: 2px 0 0;
       font-family: 'Caveat', cursive;
+      font-size: 34px;
+      line-height: 1.1;
+      color: var(--ink);
       font-weight: 700;
       text-align: center;
     }
 
-    .quiz-title { margin: 2px 0 0; font-size: 34px; line-height: 1.1; }
-    .question-title { margin: 0 0 12px; font-size: 28px; line-height: 1.1; }
+    .question-title {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 12px;
+      font-family: 'Caveat', cursive;
+      font-size: 28px;
+      line-height: 1.1;
+      color: var(--ink);
+      font-weight: 700;
+      text-align: center;
+    }
 
     .quiz-description {
       position: relative;
@@ -196,14 +222,20 @@
       text-align: center;
     }
 
-    .result-text { font-size: 16px; line-height: 1.5; font-weight: 800; }
+    .result-text {
+      font-size: 16px;
+      line-height: 1.5;
+      font-weight: 800;
+    }
+
     .home-description { margin-bottom: 6px; }
 
     .progress-row {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 22px;
+      gap: 8px;
+      margin-bottom: 16px;
+      padding-right: 56px;
     }
 
     .progress-badge {
@@ -220,7 +252,8 @@
 
     .progress-bar {
       flex: 1;
-      height: 10px;
+      max-width: calc(100% - 64px);
+      height: 8px;
       border: 2px solid var(--line);
       border-radius: 999px;
       background: #f7e6cc;
@@ -229,7 +262,7 @@
 
     .progress-bar-fill {
       height: 100%;
-      width: 0%;
+      width: 0;
       background: var(--flat-color);
       transition: width 220ms ease;
     }
@@ -238,18 +271,37 @@
       position: relative;
       z-index: 1;
       margin-top: 8px;
-      border: 3px solid var(--frame-dark);
+      border: none;
       border-radius: 24px;
-      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.18), 0 3px 0 rgba(107, 64, 40, 0.10);
       overflow: hidden;
-      background: #d9d1c5;
+      background: transparent;
       aspect-ratio: 3 / 4;
       max-width: 240px;
       margin-left: auto;
       margin-right: auto;
     }
-    .home-doodle { margin-top: 2px; max-width: 220px; }
-    .home-doodle--landscape, .question-doodle--landscape { aspect-ratio: 16 / 9; max-width: 320px; }
+
+    .home-doodle {
+      margin-top: 2px;
+      max-width: 220px;
+      box-shadow:
+        inset 0 0 0 1.5px rgba(255, 237, 214, 0.35),
+        0 6px 0 var(--flat-shadow),
+        0 10px 8px rgba(107, 64, 40, 0.2);
+    }
+
+    .question-doodle {
+      box-shadow:
+        inset 0 0 0 1.5px rgba(255, 237, 214, 0.35),
+        0 6px 0 var(--flat-shadow),
+        0 10px 8px rgba(107, 64, 40, 0.2);
+    }
+
+    .home-doodle--landscape,
+    .question-doodle--landscape {
+      aspect-ratio: 16 / 9;
+      max-width: 320px;
+    }
 
     .scene-photo {
       width: 100%;
@@ -258,9 +310,13 @@
       object-fit: cover;
       object-position: center center;
       filter: grayscale(1) contrast(1.04);
+      border: none;
     }
 
-    .scene-photo--landscape { object-fit: cover; object-position: center center; }
+    .scene-photo--landscape {
+      object-fit: cover;
+      object-position: center center;
+    }
 
     .doodle::after {
       content: "";
@@ -272,37 +328,104 @@
                   radial-gradient(circle at center, transparent 45%, rgba(0,0,0,0.08) 100%);
     }
 
-    .question-options { display: grid; gap: 6px; margin-top: 8px; }
+    .question-options {
+      display: grid;
+      gap: 6px;
+      margin-top: 8px;
+    }
 
     .option-btn, .result-btn {
       width: 100%;
-      border-radius: 16px;
-      padding: 14px 16px;
+      border-radius: 14px;
+      padding: 10px 14px;
       font-family: 'Nunito', system-ui, sans-serif;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
       line-height: 1.2;
       text-align: left;
       justify-content: flex-start;
     }
 
-    .result-btn { margin-top: 16px; text-align: center; justify-content: center; font-weight: 800; }
+    .result-btn {
+      margin-top: 16px;
+      text-align: center;
+      justify-content: center;
+      font-weight: 800;
+    }
 
-    .option-btn--image { padding: 0; overflow: hidden; display: block; min-height: 110px; }
-    .option-image { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center top; aspect-ratio: 3 / 4; filter: grayscale(1) contrast(1.04); pointer-events: none; }
-    .question-options--images { grid-template-columns: 1fr 1fr; gap: 8px; }
-    .question-options--images .option-btn--image { min-height: 128px; }
+    .option-btn--image {
+      padding: 0;
+      overflow: hidden;
+      display: block;
+      min-height: 110px;
+    }
 
-    .result-stats { margin-top: 16px; display: grid; gap: 10px; }
-    .result-chip { padding: 12px 14px; border: 2px solid var(--line); border-radius: 18px; background: var(--paper-2); text-align: center; font-size: 15px; font-weight: 800; }
-    .loading-wrap, .error-wrap, .result-wrap { display: flex; flex-direction: column; justify-content: center; min-height: 100%; }
-    .spinner { width: 48px; height: 48px; margin: 14px auto 0; border-radius: 50%; border: 4px solid rgba(107, 64, 40, 0.15); border-top-color: var(--accent-dark); animation: spin 0.9s linear infinite; }
-    .error-text { color: var(--danger); font-size: 13px; background: rgba(178, 74, 42, 0.1); padding: 10px; border-radius: 12px; margin-top: 12px; }
+    .option-image {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center top;
+      aspect-ratio: 3 / 4;
+      filter: grayscale(1) contrast(1.04);
+      pointer-events: none;
+    }
+
+    .question-options--images {
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .question-options--images .option-btn--image {
+      min-height: 128px;
+    }
+
+    .result-stats {
+      margin-top: 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .result-chip {
+      padding: 12px 14px;
+      border: 2px solid var(--line);
+      border-radius: 18px;
+      background: var(--paper-2);
+      text-align: center;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .loading-wrap, .error-wrap, .result-wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 100%;
+    }
+
+    .spinner {
+      width: 48px;
+      height: 48px;
+      margin: 14px auto 0;
+      border-radius: 50%;
+      border: 4px solid rgba(107, 64, 40, 0.15);
+      border-top-color: var(--accent-dark);
+      animation: spin 0.9s linear infinite;
+    }
+
+    .error-text {
+      color: var(--danger);
+      font-size: 13px;
+      background: rgba(178, 74, 42, 0.1);
+      padding: 10px;
+      border-radius: 12px;
+      margin-top: 12px;
+    }
 
     .tv-controls {
       margin-top: 14px;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 56px auto;
+      grid-template-columns: minmax(0, 1fr) 46px auto;
       gap: 12px;
       align-items: center;
       padding: 14px 16px;
@@ -312,15 +435,433 @@
       box-shadow: inset 0 2px 0 rgba(255,255,255,0.3);
     }
 
-    .tv-start-btn[disabled], .tv-random-btn[disabled], .option-btn[disabled], .result-btn[disabled] { opacity: 0.65; cursor: wait; }
+    .tv-start-btn[disabled],
+    .tv-random-btn[disabled],
+    .option-btn[disabled],
+    .result-btn[disabled] {
+      opacity: 0.65;
+      cursor: wait;
+    }
 
-    .knobs { display: flex; align-items: center; gap: 10px; justify-self: end; }
-    .knob { width: 34px; height: 34px; border-radius: 50%; border: 3px solid var(--line); background: linear-gradient(180deg, #ffd79f 0%, #f0b05d 100%); box-shadow: inset 0 2px 0 rgba(255,255,255,0.38); position: relative; flex: 0 0 auto; }
-    .knob.small { width: 24px; height: 24px; }
-    .knob::after { content: ""; position: absolute; width: 3px; height: 11px; border-radius: 999px; background: var(--line); top: 5px; left: 50%; transform: translateX(-50%); }
-    .knob.small::after { height: 8px; top: 3px; }
+    .knobs {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-self: end;
+    }
 
-    .category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .knob {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 3px solid var(--line);
+      background: linear-gradient(180deg, #ffd79f 0%, #f0b05d 100%);
+      box-shadow: inset 0 2px 0 rgba(255,255,255,0.38);
+      position: relative;
+      flex: 0 0 auto;
+    }
+
+    .knob.small {
+      width: 24px;
+      height: 24px;
+    }
+
+    .knob::after {
+      content: "";
+      position: absolute;
+      width: 3px;
+      height: 11px;
+      border-radius: 999px;
+      background: var(--line);
+      top: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .knob.small::after {
+      height: 8px;
+      top: 3px;
+    }
+
+    .path-visual {
+      margin-top: 14px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .path-card {
+      position: relative;
+      width: 280px;
+      height: 120px;
+      border-radius: 18px;
+      background: var(--paper-2);
+      border: 2px solid var(--line);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.7);
+      overflow: hidden;
+      transition: transform 160ms ease-out;
+    }
+
+    .path-card--super { transform: translateY(-2px); }
+
+    .path-start {
+      position: absolute;
+      left: 26px;
+      top: 34px;
+      width: 64px;
+      height: 40px;
+      border-radius: 14px;
+      background: #f4c28f;
+      border: 3px solid #6b4028;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.4);
+    }
+
+    .path-start-line {
+      position: absolute;
+      top: 50%;
+      left: 20%;
+      right: 20%;
+      height: 0;
+      border-top: 3px solid #6b4028;
+      transform: translateY(-50%);
+    }
+
+    .path-start-line::before,
+    .path-start-line::after {
+      content: "";
+      position: absolute;
+      top: -16px;
+      bottom: -16px;
+      width: 0;
+      border-left: 3px solid #6b4028;
+    }
+
+    .path-start-line::before { left: 34%; }
+    .path-start-line::after { right: 34%; }
+
+    .path-target {
+      position: absolute;
+      right: 32px;
+      top: 26px;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #fff7ee;
+      border: 3px solid #6b4028;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .path-target-x {
+      position: relative;
+      width: 24px;
+      height: 24px;
+    }
+
+    .path-target-x::before,
+    .path-target-x::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 100%;
+      height: 3px;
+      background: #f48a2a;
+      border-radius: 999px;
+      transform-origin: center;
+    }
+
+    .path-target-x::before {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    .path-target-x::after {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+
+    .path-dots {
+      position: absolute;
+      left: 80px;
+      right: 90px;
+      top: 48px;
+      height: 40px;
+      pointer-events: none;
+    }
+
+    .path-dots span {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #6b4028;
+      opacity: 0.9;
+    }
+
+    .path-dots span:nth-child(1) { left: 0%; top: 18px; }
+    .path-dots span:nth-child(2) { left: 18%; top: 12px; }
+    .path-dots span:nth-child(3) { left: 36%; top: 8px; }
+    .path-dots span:nth-child(4) { left: 54%; top: 10px; }
+    .path-dots span:nth-child(5) { left: 72%; top: 16px; }
+    .path-dots span:nth-child(6) { left: 90%; top: 22px; }
+
+    .path-smile {
+      position: absolute;
+      left: 50%;
+      bottom: 20px;
+      width: 120px;
+      height: 28px;
+      border-radius: 0 0 80px 80px;
+      border-bottom: 3px solid #6b4028;
+      transform: translateX(-50%);
+    }
+
+    .path-card--super .path-smile {
+      width: 140px;
+      height: 34px;
+      bottom: 18px;
+      border-radius: 0 0 90px 90px;
+    }
+
+    .path-card--good .path-smile {
+      width: 125px;
+      height: 26px;
+      bottom: 20px;
+    }
+
+    .path-card--ok .path-smile {
+      width: 110px;
+      height: 10px;
+      bottom: 24px;
+      border-radius: 0 0 40px 40px;
+    }
+
+    .path-card--sad .path-smile {
+      top: 74px;
+      bottom: auto;
+      width: 110px;
+      height: 20px;
+      border-radius: 80px 80px 0 0;
+      border-bottom: none;
+      border-top: 3px solid #6b4028;
+    }
+
+    .path-card--fail .path-smile {
+      top: 72px;
+      bottom: auto;
+      width: 130px;
+      height: 26px;
+      border-radius: 90px 90px 0 0;
+      border-bottom: none;
+      border-top: 3px solid #6b4028;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(64, 38, 24, 0.42);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 18px;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 360px;
+      border-radius: 28px;
+      border: 3px solid var(--line);
+      background: linear-gradient(180deg, #fffdf7 0%, #f8e8ca 100%);
+      box-shadow: 0 18px 60px rgba(64, 38, 24, 0.28);
+      overflow: hidden;
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 14px 16px;
+      border-bottom: 3px solid var(--line);
+      background: linear-gradient(180deg, #f4dfbf 0%, #e8c99a 100%);
+    }
+
+    .modal-close {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 3px solid var(--line);
+      background: linear-gradient(180deg, #fff7ec 0%, #f2d6aa 100%);
+      color: var(--ink);
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 2px 0 rgba(255,255,255,0.45);
+      flex: 0 0 auto;
+    }
+
+    .modal-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .profile-header {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .profile-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid var(--line);
+      background: linear-gradient(180deg, #ffd79f 0%, #f0b05d 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex: 0 0 auto;
+    }
+
+    .profile-name {
+      font-size: 18px;
+      font-weight: 800;
+      margin: 0;
+      color: var(--ink);
+    }
+
+    .level-block {
+      position: relative;
+      background: var(--flat-color);
+      border-radius: 20px;
+      padding: 14px 16px;
+      margin-top: 36px;
+      color: #fffaf5;
+      box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25);
+    }
+
+    .level-bump {
+      position: absolute;
+      top: -28px;
+      right: 18px;
+      width: 80px;
+      height: 80px;
+      background: var(--flat-color);
+      border-radius: 50%;
+      box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25);
+      z-index: 0;
+    }
+
+    .level-patch {
+      position: absolute;
+      top: 0;
+      right: 18px;
+      width: 80px;
+      height: 16px;
+      background: var(--flat-color);
+      z-index: 1;
+    }
+
+    .level-bobbin-img {
+      position: absolute;
+      top: -42px;
+      right: 4px;
+      width: 104px;
+      height: 104px;
+      z-index: 2;
+      pointer-events: none;
+      filter: drop-shadow(0 6px 8px rgba(64, 38, 24, 0.35));
+    }
+
+    .level-content-wrap {
+      position: relative;
+      z-index: 3;
+    }
+
+    .level-header {
+      font-size: 15px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      letter-spacing: 0.02em;
+    }
+
+    .level-content {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .level-value-large {
+      font-size: 48px;
+      font-weight: 800;
+      line-height: 1;
+      text-shadow: 0 3px 0 rgba(107, 64, 40, 0.4);
+    }
+
+    .level-progress-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .level-exp-top {
+      font-size: 11px;
+      font-weight: 700;
+      text-align: center;
+      opacity: 0.9;
+    }
+
+    .level-bar-bg {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      overflow: hidden;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .level-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #ffdfa0 0%, #fff7ec 100%);
+      border-radius: 999px;
+      box-shadow: 0 0 8px rgba(255, 239, 190, 0.6);
+      transition: width 0.3s ease;
+    }
+
+    .level-exp-bottom {
+      font-size: 11px;
+      font-weight: 700;
+      text-align: center;
+      opacity: 0.9;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--ink);
+      margin: 0 0 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
 
     .cat-block {
       background: var(--flat-color);
@@ -338,26 +879,27 @@
     .cat-top {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 8px;
       width: 100%;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .cat-icon {
-      width: 28px;
-      height: 28px;
-      flex: 0 0 28px;
+      width: 30px;
+      height: 30px;
+      margin-bottom: 0;
+      margin-right: 8px;
+      flex: 0 0 30px;
       filter: drop-shadow(0 3px 5px rgba(64, 38, 24, 0.45));
     }
 
     .cat-name {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 800;
-      margin: 0;
+      margin-bottom: 0;
       text-shadow: 0 1px 0 rgba(107,64,40,0.4);
       letter-spacing: 0.02em;
-      text-align: center;
+      text-align: left;
+      flex: 1;
     }
 
     .cat-metrics {
@@ -382,34 +924,95 @@
       text-shadow: 0 1px 0 rgba(107,64,40,0.4);
     }
 
-    .stats-list { display: flex; flex-direction: column; gap: 10px; }
-    .reward-item { display: flex; align-items: center; gap: 10px; background: var(--paper-2); border: 2px solid var(--line); border-radius: 12px; padding: 8px 12px; }
-    .reward-icon { font-size: 20px; flex: 0 0 auto; }
-    .reward-info { flex: 1; }
-    .reward-name { font-size: 13px; font-weight: 800; color: var(--ink); margin-bottom: 4px; }
-    .stat-bar-container { height: 8px; border: 1px solid var(--line); border-radius: 999px; background: #f7e6cc; overflow: hidden; }
-    .stat-bar-fill { height: 100%; background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%); border-radius: 0 999px 999px 0; }
-    .tools-grid { display: grid; gap: 8px; }
-    .tool-btn { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border: 2px solid var(--line); border-radius: 12px; background: linear-gradient(180deg, #fff9ee 0%, #f6e2bd 100%); color: var(--ink); font-size: 14px; font-weight: 800; cursor: pointer; }
-    .tool-count { background: var(--accent); color: #fff; padding: 2px 8px; border-radius: 999px; font-size: 12px; }
+    .stats-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .reward-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--paper-2);
+      border: 2px solid var(--line);
+      border-radius: 12px;
+      padding: 8px 12px;
+    }
+
+    .reward-icon {
+      font-size: 20px;
+      flex: 0 0 auto;
+    }
+
+    .reward-info {
+      flex: 1;
+    }
+
+    .reward-name {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .stat-bar-container {
+      height: 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #f7e6cc;
+      overflow: hidden;
+    }
+
+    .stat-bar-fill {
+      height: 100%;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+      border-radius: 0 999px 999px 0;
+    }
+
+    .tools-grid {
+      display: grid;
+      gap: 8px;
+    }
+
+    .tool-btn {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      border: 2px solid var(--line);
+      border-radius: 12px;
+      background: linear-gradient(180deg, #fff9ee 0%, #f6e2bd 100%);
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .tool-count {
+      background: var(--accent);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
 
     @media (max-width: 480px) {
       .app { max-width: 100%; }
       .tv-screen { padding: 10px 10px 4px; }
-      .tv-controls { grid-template-columns: minmax(0, 1fr) 52px auto; gap: 10px; padding: 12px 14px; }
-      .tv-start-btn { height: 52px; font-size: 22px; }
-      .tv-random-btn { width: 52px; height: 52px; }
+      .tv-controls { grid-template-columns: minmax(0, 1fr) 42px auto; gap: 10px; padding: 12px 14px; }
+      .tv-start-btn { height: 42px; font-size: 17px; }
+      .tv-random-btn { width: 42px; height: 42px; }
       .knobs { gap: 8px; }
       .knob { width: 30px; height: 30px; }
       .knob.small { width: 22px; height: 22px; }
       .question-options--images { grid-template-columns: 1fr 1fr; }
       .modal { border-radius: 24px; }
-      .cat-block { padding: 8px 8px 9px; }
-      .cat-top { gap: 6px; margin-bottom: 6px; }
-      .cat-icon { width: 28px; height: 28px; flex-basis: 28px; }
-      .cat-name { font-size: 12px; }
     }
   </style>
 </head>
@@ -464,7 +1067,7 @@
   </main>
 
   <div class="modal-backdrop" id="accountModal">
-    <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="accountModalTitle">
       <div class="modal-head">
         <div class="profile-header">
           <div class="profile-avatar" id="profileAvatar">🤖</div>
@@ -485,7 +1088,9 @@
               <div class="level-value-large">34</div>
               <div class="level-progress-wrapper">
                 <div class="level-exp-top">7,850 XP</div>
-                <div class="level-bar-bg"><div class="level-bar-fill" style="width: 78.5%;"></div></div>
+                <div class="level-bar-bg">
+                  <div class="level-bar-fill" style="width: 78.5%;"></div>
+                </div>
                 <div class="level-exp-bottom">2,150 XP до следующего уровня</div>
               </div>
             </div>
@@ -502,8 +1107,8 @@
                 <div class="cat-name">Актёры</div>
               </div>
               <div class="cat-metrics">
-                <div class="cat-circle">12</div>
-                <div class="cat-circle">83%</div>
+                <div class="cat-circle" title="Сыграно игр">12</div>
+                <div class="cat-circle" title="Точность">83%</div>
               </div>
             </div>
 
@@ -519,8 +1124,8 @@
                 <div class="cat-name">Режиссёры</div>
               </div>
               <div class="cat-metrics">
-                <div class="cat-circle">5</div>
-                <div class="cat-circle">60%</div>
+                <div class="cat-circle" title="Сыграно игр">5</div>
+                <div class="cat-circle" title="Точность">60%</div>
               </div>
             </div>
 
@@ -538,8 +1143,8 @@
                 <div class="cat-name">Фильмы</div>
               </div>
               <div class="cat-metrics">
-                <div class="cat-circle">19</div>
-                <div class="cat-circle">74%</div>
+                <div class="cat-circle" title="Сыграно игр">19</div>
+                <div class="cat-circle" title="Точность">74%</div>
               </div>
             </div>
 
@@ -556,8 +1161,8 @@
                 <div class="cat-name">Сериалы</div>
               </div>
               <div class="cat-metrics">
-                <div class="cat-circle">8</div>
-                <div class="cat-circle">80%</div>
+                <div class="cat-circle" title="Сыграно игр">8</div>
+                <div class="cat-circle" title="Точность">80%</div>
               </div>
             </div>
 
@@ -572,8 +1177,8 @@
                 <div class="cat-name">Кадры</div>
               </div>
               <div class="cat-metrics">
-                <div class="cat-circle">7</div>
-                <div class="cat-circle">61%</div>
+                <div class="cat-circle" title="Сыграно игр">7</div>
+                <div class="cat-circle" title="Точность">61%</div>
               </div>
             </div>
 
@@ -589,10 +1194,61 @@
                 <div class="cat-name">Анимация</div>
               </div>
               <div class="cat-metrics">
-                <div class="cat-circle">14</div>
-                <div class="cat-circle">92%</div>
+                <div class="cat-circle" title="Сыграно игр">14</div>
+                <div class="cat-circle" title="Точность">92%</div>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="section-title">Награды</h4>
+          <div class="stats-list">
+            <div class="reward-item">
+              <span class="reward-icon">🎞️</span>
+              <div class="reward-info">
+                <div class="reward-name">Бобины</div>
+                <div class="stat-bar-container">
+                  <div class="stat-bar-fill" style="width: 40%;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="reward-item">
+              <span class="reward-icon">⭐</span>
+              <div class="reward-info">
+                <div class="reward-name">Звёзды</div>
+                <div class="stat-bar-container">
+                  <div class="stat-bar-fill" style="width: 90%;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="reward-item">
+              <span class="reward-icon">🎫</span>
+              <div class="reward-info">
+                <div class="reward-name">Золотые билеты</div>
+                <div class="stat-bar-container">
+                  <div class="stat-bar-fill" style="width: 15%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="section-title">Инструменты</h4>
+          <div class="tools-grid">
+            <button class="tool-btn" type="button">
+              Монтажная резка (50/50)
+              <span class="tool-count">3</span>
+            </button>
+            <button class="tool-btn" type="button">
+              Второй дубль (повтор)
+              <span class="tool-count">1</span>
+            </button>
+            <button class="tool-btn" type="button">
+              Оскар (сразу выиграть)
+              <span class="tool-count">0</span>
+            </button>
           </div>
         </div>
       </div>
@@ -602,6 +1258,7 @@
   <script>
     const QUIZ_API = 'https://n8n.kino-test.ru/webhook/random_quiz';
     const FALLBACK_SCENE = './movie_still.jpg';
+
     const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
 
     const state = {
@@ -615,7 +1272,10 @@
       answers: [],
       score: 0,
       error: '',
-      account: { name: 'Пользователь', photo: null }
+      account: {
+        name: 'Пользователь',
+        photo: null
+      }
     };
 
     if (tg) {
@@ -623,10 +1283,13 @@
       tg.expand();
       tg.BackButton.show();
       tg.MainButton.hide();
+
       if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
         const user = tg.initDataUnsafe.user;
         state.account.name = user.first_name || 'Пользователь';
-        if (user.photo_url) state.account.photo = user.photo_url;
+        if (user.photo_url) {
+          state.account.photo = user.photo_url;
+        }
       }
     }
 
@@ -636,27 +1299,34 @@
     const startButton = document.getElementById('startButton');
     const backButton = document.getElementById('backButton');
     const accountModal = document.getElementById('accountModal');
-
     const accountBtn = document.createElement('button');
     accountBtn.className = 'account-btn btn-3d';
     accountBtn.type = 'button';
-    accountBtn.innerHTML = `<svg viewBox="0 0 100 100" style="width: 26px; height: 26px;"><circle cx="50" cy="36" r="14" fill="#fffaf5"/><path d="M22,76 C22,58 34,52 50,52 C66,52 78,58 78,76 C78,80 22,80 22,76 Z" fill="#fffaf5"/></svg>`;
+    accountBtn.innerHTML = `
+      <svg viewBox="0 0 100 100" style="width: 26px; height: 26px;">
+         <circle cx='50' cy='36' r='14' fill='#fffaf5'/>
+         <path d='M22,76 C22,58 34,52 50,52 C66,52 78,58 78,76 C78,80 22,80 22,76 Z' fill='#fffaf5'/>
+      </svg>
+    `;
     accountBtn.setAttribute('aria-label', 'Профиль');
     accountBtn.title = 'Профиль';
+
+    function attachAccountButton() {
+      const existing = document.getElementById('accountBtnInjected');
+      if (existing) return;
+      accountBtn.id = 'accountBtnInjected';
+      accountBtn.addEventListener('click', openAccountModal);
+      tvScreen.appendChild(accountBtn);
+    }
 
     function safeHaptic(type, level) {
       if (!tg || !tg.HapticFeedback) return;
       try {
         if (type === 'impact') tg.HapticFeedback.impactOccurred(level);
         if (type === 'notification') tg.HapticFeedback.notificationOccurred(level);
-      } catch (e) {}
-    }
-
-    function attachAccountButton() {
-      if (document.getElementById('accountBtnInjected')) return;
-      accountBtn.id = 'accountBtnInjected';
-      accountBtn.addEventListener('click', openAccountModal);
-      tvScreen.appendChild(accountBtn);
+      } catch (e) {
+        console.warn('Haptic feedback failed:', e);
+      }
     }
 
     function openAccountModal() {
@@ -684,13 +1354,29 @@
     async function fetchQuiz() {
       const response = await fetch(QUIZ_API, {
         method: 'POST',
-        headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
         mode: 'cors',
         body: JSON.stringify({})
       });
-      if (!response.ok) throw new Error(`Сервер вернул ошибку (HTTP ${response.status})`);
+
+      if (!response.ok) {
+        throw new Error(`Сервер вернул ошибку (HTTP ${response.status})`);
+      }
+
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error('Webhook вернул не JSON');
+      }
+
       const data = await response.json();
-      if (!data || !Array.isArray(data.questions) || !data.questions.length) throw new Error('Webhook вернул пустой кинотест');
+
+      if (!data || !Array.isArray(data.questions) || !data.questions.length) {
+        throw new Error('Webhook вернул пустой кинотест');
+      }
+
       return data;
     }
 
@@ -713,11 +1399,14 @@
       state.loading = true;
       state.error = '';
       render();
+
       try {
         const quiz = await fetchQuiz();
         setPreviewFromQuiz(quiz);
+        safeHaptic('notification', 'success');
       } catch (error) {
         state.error = error.message || 'Ошибка загрузки кинотеста';
+        safeHaptic('notification', 'error');
       } finally {
         state.loading = false;
         render();
@@ -729,12 +1418,15 @@
       state.loading = true;
       state.error = '';
       render();
+
       try {
         const quiz = await fetchQuiz();
         setPreviewFromQuiz(quiz);
         state.screen = 'home';
+        safeHaptic('impact', 'light');
       } catch (error) {
         state.error = error.message || 'Ошибка загрузки кинотеста';
+        safeHaptic('notification', 'error');
       } finally {
         state.loading = false;
         render();
@@ -746,15 +1438,19 @@
       state.loading = true;
       state.error = '';
       render();
+
       try {
         if (!state.quiz) {
           const quiz = await fetchQuiz();
           setPreviewFromQuiz(quiz);
         }
+
         resetRun();
         state.screen = 'quiz';
+        safeHaptic('notification', 'success');
       } catch (error) {
         state.error = error.message || 'Не удалось начать кинотест';
+        safeHaptic('notification', 'error');
       } finally {
         state.loading = false;
         render();
@@ -763,12 +1459,24 @@
 
     function handleAnswer(index) {
       if (state.loading || state.screen !== 'quiz') return;
+
       const question = state.quiz.questions[state.currentQuestion];
       const selected = question.options[index];
       const isCorrect = !!selected.correct;
 
-      state.answers.push({ questionId: question.id, selectedIndex: index, selectedText: selected.text || selected.title, correct: isCorrect });
-      if (isCorrect) state.score += 1;
+      state.answers.push({
+        questionId: question.id,
+        selectedIndex: index,
+        selectedText: selected.text || selected.title,
+        correct: isCorrect
+      });
+
+      if (isCorrect) {
+        state.score += 1;
+        safeHaptic('notification', 'success');
+      } else {
+        safeHaptic('impact', 'medium');
+      }
 
       const isLastQuestion = state.currentQuestion >= state.quiz.questions.length - 1;
       if (isLastQuestion) {
@@ -782,9 +1490,13 @@
     }
 
     function handleRestart() {
-      if (!state.quiz) { handleStart(); return; }
+      if (!state.quiz) {
+        handleStart();
+        return;
+      }
       resetRun();
       state.screen = 'quiz';
+      safeHaptic('notification', 'success');
       render();
     }
 
@@ -796,7 +1508,12 @@
     }
 
     function escapeHtml(value) {
-      return String(value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
     }
 
     function updateStartButtonText(text) {
@@ -807,28 +1524,43 @@
     function renderHome() {
       const quizType = state.quiz ? Number(state.quiz.type) : 0;
       const isLandscape = quizType === 3 || quizType === 4;
-      const errorBlock = state.error ? `<p class="error-text">${escapeHtml(state.error)}</p>` : '';
 
-      tvScreen.innerHTML = state.loading ? `
-        <p class="hand-note">Твой случайный кинотест</p>
-        <p class="loading-text">Подбираем для тебя кинотест и загружаем его описание...</p>
-        <div class="spinner" aria-hidden="true"></div>
-        ${errorBlock}
-      ` : `
-        <p class="hand-note">Твой случайный кинотест</p>
-        <h1 class="quiz-title">${escapeHtml(state.title)}</h1>
-        <p class="quiz-description home-description">${escapeHtml(state.description)}</p>
-        <div class="doodle home-doodle ${isLandscape ? 'home-doodle--landscape' : ''}">
-          <img class="scene-photo ${isLandscape ? 'scene-photo--landscape' : ''}" src="${escapeHtml(state.previewImage)}" alt="Превью кинотеста" loading="eager" onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'" />
-        </div>
-        ${errorBlock}
-      `;
+      const errorBlock = state.error
+        ? `<p class="error-text">${escapeHtml(state.error)}</p><button class="retry-btn btn-3d" onclick="preloadQuiz()"><span>Повторить попытку</span></button>`
+        : '';
+
+      if (state.loading) {
+        tvScreen.innerHTML = `
+          <p class="hand-note">Твой случайный кинотест</p>
+          <p class="loading-text">Подбираем для тебя кинотест и загружаем его описание...</p>
+          <div class="spinner" aria-hidden="true"></div>
+          ${errorBlock}
+        `;
+      } else {
+        tvScreen.innerHTML = `
+          <p class="hand-note">Твой случайный кинотест</p>
+          <h1 class="quiz-title">${escapeHtml(state.title)}</h1>
+          <p class="quiz-description home-description">${escapeHtml(state.description)}</p>
+
+          <div class="doodle home-doodle ${isLandscape ? 'home-doodle--landscape' : ''}">
+            <img
+              class="scene-photo ${isLandscape ? 'scene-photo--landscape' : ''}"
+              src="${escapeHtml(state.previewImage)}"
+              alt="Превью кинотеста"
+              loading="eager"
+              onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'"
+            />
+          </div>
+          ${errorBlock}
+        `;
+      }
 
       updateStartButtonText('Начать');
       startButton.onclick = handleStart;
       startButton.disabled = state.loading || !state.quiz;
       randomButton.disabled = state.loading;
       tvControls.style.display = 'grid';
+
       attachAccountButton();
     }
 
@@ -846,7 +1578,13 @@
       const optionsHtml = quizType === 2
         ? question.options.map((option, index) => `
             <button class="option-btn option-btn--image btn-3d" type="button" data-option-index="${index}">
-              <img src="${escapeHtml(option.text || option.title || '')}" alt="Вариант ${index + 1}" class="option-image" loading="eager" onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'" />
+              <img
+                src="${escapeHtml(option.text || option.title || '')}"
+                alt="Вариант ${index + 1}"
+                class="option-image"
+                loading="eager"
+                onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'"
+              />
             </button>
           `).join('')
         : question.options.map((option, index) => `
@@ -858,14 +1596,22 @@
       tvScreen.innerHTML = `
         <div class="progress-row">
           <div class="progress-badge">Вопрос ${state.currentQuestion + 1} из ${state.quiz.questions.length}</div>
-          <div class="progress-bar" aria-hidden="true"><div class="progress-bar-fill" style="width:${progress}%"></div></div>
+          <div class="progress-bar" aria-hidden="true">
+            <div class="progress-bar-fill" style="width:${progress}%"></div>
+          </div>
         </div>
 
         <h2 class="question-title">${escapeHtml(questionTitle)}</h2>
 
         ${quizType === 1 || quizType === 3 || quizType === 4 ? `
-          <div class="doodle ${quizType === 3 || quizType === 4 ? 'question-doodle--landscape' : ''}">
-            <img class="scene-photo ${quizType === 3 || quizType === 4 ? 'scene-photo--landscape' : ''}" src="${escapeHtml(question.image || question.frame_url || FALLBACK_SCENE)}" alt="Вопрос ${state.currentQuestion + 1}" loading="eager" onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'" />
+          <div class="doodle question-doodle ${(quizType === 3 || quizType === 4) ? 'question-doodle--landscape' : ''}">
+            <img
+              class="scene-photo ${(quizType === 3 || quizType === 4) ? 'scene-photo--landscape' : ''}"
+              src="${escapeHtml(question.image || question.frame_url || FALLBACK_SCENE)}"
+              alt="Вопрос ${state.currentQuestion + 1}"
+              loading="eager"
+              onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'"
+            />
           </div>
         ` : ''}
 
@@ -913,9 +1659,19 @@
 
           <div class="path-visual">
             <div class="path-card ${moodClass}">
-              <div class="path-start"><div class="path-start-line"></div></div>
-              <div class="path-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div>
-              <div class="path-target"><div class="path-target-x"></div></div>
+              <div class="path-start">
+                <div class="path-start-line"></div>
+              </div>
+
+              <div class="path-dots">
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+              </div>
+
+              <div class="path-target">
+                <div class="path-target-x"></div>
+              </div>
+
               <div class="path-smile"></div>
             </div>
           </div>
@@ -936,9 +1692,18 @@
     }
 
     function render() {
-      if (state.screen === 'home') return renderHome();
-      if (state.screen === 'quiz' && state.quiz) return renderQuiz();
-      if (state.screen === 'result' && state.quiz) return renderResult();
+      if (state.screen === 'home') {
+        renderHome();
+        return;
+      }
+      if (state.screen === 'quiz' && state.quiz) {
+        renderQuiz();
+        return;
+      }
+      if (state.screen === 'result' && state.quiz) {
+        renderResult();
+        return;
+      }
       goHome();
     }
 
@@ -946,10 +1711,19 @@
     startButton.addEventListener('click', handleStart);
 
     backButton.addEventListener('click', () => {
-      if (document.getElementById('accountModal').classList.contains('show')) return closeAccountModal();
-      if (state.screen === 'quiz' || state.screen === 'result') return goHome();
-      if (window.history.length > 1) window.history.back();
-      else if (tg) tg.close();
+      if (document.getElementById('accountModal').classList.contains('show')) {
+        closeAccountModal();
+        return;
+      }
+      if (state.screen === 'quiz' || state.screen === 'result') {
+        goHome();
+        return;
+      }
+      if (window.history.length > 1) {
+        window.history.back();
+      } else if (tg) {
+        tg.close();
+      }
     });
 
     render();
