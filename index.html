@@ -100,7 +100,7 @@
 
     .btn-3d > * { position: relative; z-index: 2; }
 
-    .tv-start-btn { width: 100%; height: 42px; border-radius: 16px; font-size: 22px; font-weight: 800; }
+    .tv-start-btn { width: 100%; height: 42px; border-radius: 16px; font-size: 34px; font-weight: 800; }
     .tv-random-btn { width: 42px; height: 42px; border-radius: 16px; }
     .back-btn { padding: 8px 14px; font-size: 13px; font-weight: 800; border-radius: 14px; gap: 8px; }
     .account-btn { position: absolute; top: 6px; right: 6px; width: 46px; height: 46px; z-index: 6; border-radius: 50%; padding: 0; }
@@ -335,25 +335,6 @@
     .path-visual { margin-top: 14px; display: flex; justify-content: center; }
     .path-card { position: relative; width: 280px; height: 120px; border-radius: 18px; background: var(--paper-2); border: 2px solid var(--line); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.7); overflow: hidden; transition: transform 160ms ease-out; }
     .path-card--super { transform: translateY(-2px); }
-    .path-start { position: absolute; left: 26px; top: 34px; width: 64px; height: 40px; border-radius: 14px; background: #f4c28f; border: 3px solid #6b4028; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.4); }
-    .path-start-line { position: absolute; top: 50%; left: 20%; right: 20%; height: 0; border-top: 3px solid #6b4028; transform: translateY(-50%); }
-    .path-start-line::before, .path-start-line::after { content: ""; position: absolute; top: -16px; bottom: -16px; width: 0; border-left: 3px solid #6b4028; }
-    .path-start-line::before { left: 34%; } .path-start-line::after { right: 34%; }
-    .path-target { position: absolute; right: 32px; top: 26px; width: 52px; height: 52px; border-radius: 50%; background: #fff7ee; border: 3px solid #6b4028; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; }
-    .path-target-x { position: relative; width: 24px; height: 24px; }
-    .path-target-x::before, .path-target-x::after { content: ""; position: absolute; left: 50%; top: 50%; width: 100%; height: 3px; background: #f48a2a; border-radius: 999px; transform-origin: center; }
-    .path-target-x::before { transform: translate(-50%, -50%) rotate(45deg); }
-    .path-target-x::after { transform: translate(-50%, -50%) rotate(-45deg); }
-    .path-dots { position: absolute; left: 80px; right: 90px; top: 48px; height: 40px; pointer-events: none; }
-    .path-dots span { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #6b4028; opacity: 0.9; }
-    .path-dots span:nth-child(1) { left: 0%; top: 18px; }
-    .path-dots span:nth-child(2) { left: 18%; top: 12px; }
-    .path-dots span:nth-child(3) { left: 36%; top: 8px; }
-    .path-dots span:nth-child(4) { left: 54%; top: 10px; }
-    .path-dots span:nth-child(5) { left: 72%; top: 16px; }
-    .path-dots span:nth-child(6) { left: 90%; top: 22px; }
-    .path-smile { position: absolute; left: 50%; bottom: 20px; width: 120px; height: 28px; border-radius: 0 0 80px 80px; border-bottom: 3px solid #6b4028; transform: translateX(-50%); }
-    .path-card--super .path-smile { width: 140px; height: 34px; bottom: 18px; border-radius: 0 0 90px 90px; }
 
     .modal-backdrop { position: fixed; inset: 0; background: rgba(64, 38, 24, 0.42); display: none; align-items: center; justify-content: center; z-index: 9999; padding: 18px; }
     .modal-backdrop.show { display: flex; }
@@ -391,7 +372,6 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      position: relative;
       gap: 4px;
     }
     .cat-top {
@@ -456,7 +436,7 @@
       .app { max-width: 100%; }
       .tv-screen { padding: 10px 10px 4px; }
       .tv-controls { grid-template-columns: minmax(0, 1fr) 42px auto; gap: 10px; padding: 12px 14px; }
-      .tv-start-btn { height: 42px; font-size: 20px; }
+      .tv-start-btn { height: 42px; font-size: 34px; }
       .tv-random-btn { width: 42px; height: 42px; }
       .knobs { gap: 8px; }
       .knob { width: 30px; height: 30px; }
@@ -517,7 +497,7 @@
   </main>
 
   <div class="modal-backdrop" id="accountModal">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="accountModalTitle">
+    <div class="modal" role="dialog" aria-modal="true">
       <div class="modal-head">
         <div class="profile-header">
           <div class="profile-avatar" id="profileAvatar">🤖</div>
@@ -735,7 +715,6 @@
   <script>
     const QUIZ_API = 'https://n8n.kino-test.ru/webhook/random_quiz';
     const FALLBACK_SCENE = './movie_still.jpg';
-
     const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
 
     const state = {
@@ -757,7 +736,6 @@
       tg.expand();
       tg.BackButton.show();
       tg.MainButton.hide();
-
       if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
         const user = tg.initDataUnsafe.user;
         state.account.name = user.first_name || 'Пользователь';
@@ -807,14 +785,10 @@
       safeHaptic('impact', 'light');
     }
 
-    function closeAccountModal() {
-      accountModal.classList.remove('show');
-    }
+    function closeAccountModal() { accountModal.classList.remove('show'); }
 
     document.getElementById('closeAccountModal').onclick = closeAccountModal;
-    accountModal.addEventListener('click', (e) => {
-      if (e.target === accountModal) closeAccountModal();
-    });
+    accountModal.addEventListener('click', (e) => { if (e.target === accountModal) closeAccountModal(); });
 
     async function fetchQuiz() {
       const response = await fetch(QUIZ_API, {
@@ -823,7 +797,6 @@
         mode: 'cors',
         body: JSON.stringify({})
       });
-
       if (!response.ok) throw new Error(`Сервер вернул ошибку (HTTP ${response.status})`);
       const contentType = response.headers.get('content-type');
       if (!contentType || !contentType.includes('application/json')) throw new Error('Webhook вернул не JSON');
@@ -907,17 +880,11 @@
 
     function handleAnswer(index) {
       if (state.loading || state.screen !== 'quiz') return;
-
       const question = state.quiz.questions[state.currentQuestion];
       const selected = question.options[index];
       const isCorrect = !!selected.correct;
 
-      state.answers.push({
-        questionId: question.id,
-        selectedIndex: index,
-        selectedText: selected.text || selected.title,
-        correct: isCorrect
-      });
+      state.answers.push({ questionId: question.id, selectedIndex: index, selectedText: selected.text || selected.title, correct: isCorrect });
 
       if (isCorrect) {
         state.score += 1;
@@ -955,12 +922,7 @@
     }
 
     function escapeHtml(value) {
-      return String(value ?? '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
+      return String(value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
     }
 
     function updateStartButtonText(text) {
@@ -1108,16 +1070,8 @@
               <div class="path-start">
                 <div class="path-start-line"></div>
               </div>
-
-              <div class="path-dots">
-                <span></span><span></span><span></span>
-                <span></span><span></span><span></span>
-              </div>
-
-              <div class="path-target">
-                <div class="path-target-x"></div>
-              </div>
-
+              <div class="path-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+              <div class="path-target"><div class="path-target-x"></div></div>
               <div class="path-smile"></div>
             </div>
           </div>
