@@ -1147,7 +1147,7 @@
     function setPreviewFromQuiz(quiz) {
       state.quiz = quiz;
       state.title = quiz.title || 'Твой случайный кинотест';
-      state.description = quiz.description || 'Готово — тест подобран. Можно начинать.';
+      state.description = quiz.description || '🤖 Готово — тест подобран! Можно начинать!';
       state.previewImage = quiz.image || quiz.questions?.[0]?.image || quiz.questions?.[0]?.frame_url || FALLBACK_SCENE;
       state.error = '';
     }
@@ -1291,7 +1291,7 @@
       if (state.loading) {
         tvScreen.innerHTML = `
           <p class="hand-note">Твой случайный кинотест</p>
-          <p class="loading-text">Подбираем для тебя кинотест и загружаем его описание...</p>
+          <p class="loading-text">🤖 Подбираю для тебя кинотест и загружаю его...</p>
           <div class="spinner" aria-hidden="true"></div>
           ${errorBlock}
         `;
