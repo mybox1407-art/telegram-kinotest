@@ -29,7 +29,10 @@
       --danger: #b24a2a;
       --shadow: 0 10px 0 rgba(107, 64, 40, 0.12);
       --radius: 24px;
-      --flat-color: #d39c65; /* Ровный цвет для кнопок и блоков */
+      
+      /* НОВЫЕ БОЛЕЕ ТЕМНЫЕ ЦВЕТА */
+      --flat-color: #b27339;   /* Насыщенный темный цвет кнопок */
+      --flat-shadow: #78471c;  /* Затемненная нижняя 3D-грань */
     }
 
     * { box-sizing: border-box; }
@@ -82,9 +85,9 @@
       cursor: pointer;
       overflow: visible;
       box-shadow:
-        inset 0 0 0 1.5px rgba(255, 237, 214, 0.5), /* Внутренний контур */
-        0 6px 0 #855424,                            /* 3D-грань (низ) */
-        0 10px 8px rgba(107, 64, 40, 0.2);          /* Падающая тень */
+        inset 0 0 0 1.5px rgba(255, 237, 214, 0.35), /* Внутренний контур (чуть приглушен) */
+        0 6px 0 var(--flat-shadow),                   /* 3D-грань (низ) */
+        0 10px 8px rgba(107, 64, 40, 0.2);            /* Падающая тень */
       margin-bottom: 6px;                           
       display: flex;
       align-items: center;
@@ -96,8 +99,8 @@
     .btn-3d:active {
       transform: translateY(4px);
       box-shadow:
-        inset 0 0 0 1.5px rgba(255, 237, 214, 0.5),
-        0 2px 0 #855424,
+        inset 0 0 0 1.5px rgba(255, 237, 214, 0.35),
+        0 2px 0 var(--flat-shadow),
         0 4px 4px rgba(107, 64, 40, 0.2);
     }
 
@@ -147,7 +150,6 @@
       font-size: 34px; line-height: 1.1; color: var(--ink); font-weight: 700; text-align: center;
     }
 
-    /* Уменьшенный шрифт для самого вопроса в тесте */
     .question-title {
       position: relative; z-index: 1; margin: 0 0 12px; font-family: 'Caveat', cursive;
       font-size: 28px; line-height: 1.1; color: var(--ink); font-weight: 700; text-align: center;
@@ -166,17 +168,16 @@
     .result-text { font-size: 16px; line-height: 1.5; font-weight: 800; }
     .home-description { margin-bottom: 6px; }
 
-    /* Шкала прогресса и бейдж (ровный цвет) */
     .progress-row { 
       display: flex; align-items: center; gap: 12px; 
-      margin-bottom: 22px; /* сместили линию вниз (отступ больше) */
+      margin-bottom: 22px; 
     }
 
     .progress-badge {
       background: var(--flat-color);
       color: #fffaf5; text-shadow: 0 2px 0 rgba(107, 64, 40, 0.4);
       padding: 6px 14px; border-radius: 12px; font-size: 12px; font-weight: 800;
-      box-shadow: inset 0 0 0 1.5px rgba(255, 237, 214, 0.5), 0 4px 0 #855424;
+      box-shadow: inset 0 0 0 1.5px rgba(255, 237, 214, 0.35), 0 4px 0 var(--flat-shadow);
       white-space: nowrap;
     }
 
@@ -277,7 +278,7 @@
     .profile-avatar { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--line); background: linear-gradient(180deg, #ffd79f 0%, #f0b05d 100%); display: flex; align-items: center; justify-content: center; font-size: 18px; flex: 0 0 auto; }
     .profile-name { font-size: 18px; font-weight: 800; margin: 0; color: var(--ink); }
 
-    /* Блок уровня (смещен ниже: margin-top 36px) и ровный цвет */
+    /* Блок уровня */
     .level-block { position: relative; background: var(--flat-color); border-radius: 20px; padding: 14px 16px; margin-top: 36px; color: #fffaf5; box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25); }
     .level-bump { position: absolute; top: -28px; right: 18px; width: 80px; height: 80px; background: var(--flat-color); border-radius: 50%; box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25); z-index: 0; }
     .level-patch { position: absolute; top: 0; right: 18px; width: 80px; height: 16px; background: var(--flat-color); z-index: 1; }
@@ -294,7 +295,7 @@
 
     .section-title { font-size: 15px; font-weight: 800; color: var(--ink); margin: 0 0 10px; text-transform: uppercase; letter-spacing: 0.02em; }
 
-    /* Сетка категорий (ровный цвет) */
+    /* Сетка категорий */
     .category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .cat-block {
       background: var(--flat-color);
@@ -375,7 +376,7 @@
 
         <button class="tv-random-btn btn-3d" id="randomButton" type="button" aria-label="Случайный кинотест" title="Случайный кинотест">
           <svg viewBox="0 0 100 100" style="width: 100%; height: 100%; position: absolute; pointer-events: none;">
-            <g stroke='#855424' stroke-width='3' fill='#fffaf5'>
+            <g stroke='var(--flat-shadow)' stroke-width='3' fill='#fffaf5'>
               <circle cx='30%' cy='28%' r='8%'/>
               <circle cx='70%' cy='28%' r='8%'/>
               <circle cx='50%' cy='50%' r='8%'/>
