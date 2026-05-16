@@ -43,7 +43,6 @@
         radial-gradient(circle at 85% 20%, rgba(255, 179, 95, 0.22), transparent 18%),
         linear-gradient(180deg, #fff7ec 0%, #ffe8c9 100%);
       padding: 8px 14px 26px;
-      /* Центрирование контента по вертикали */
       display: flex;
       flex-direction: column;
     }
@@ -51,7 +50,6 @@
     .app {
       width: 100%;
       max-width: 430px;
-      /* Авто-отступы для центрирования */
       margin: auto;
       display: flex;
       flex-direction: column;
@@ -163,23 +161,12 @@
       flex-direction: column;
     }
 
-    .tv-topbar {
-      position: relative;
-      height: 26px;
-      margin-bottom: 10px;
-      border: 3px solid var(--line);
-      border-radius: 18px;
-      background: linear-gradient(180deg, #f8e5c8 0%, #edd1a4 100%);
-      box-shadow: inset 0 2px 0 rgba(255,255,255,0.35);
-    }
-
     .account-btn {
       position: absolute;
-      right: 4px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 28px;
-      height: 28px;
+      top: 8px;
+      right: 8px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       border: 3px solid var(--frame-dark);
       background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
@@ -189,10 +176,9 @@
       justify-content: center;
       cursor: pointer;
       z-index: 6;
-      font-size: 15px;
+      font-size: 18px;
       box-shadow: inset 0 2px 0 rgba(255,255,255,0.18);
       pointer-events: auto;
-      padding: 0;
     }
 
     .account-btn span {
@@ -270,7 +256,7 @@
       justify-content: space-between;
       gap: 6px;
       margin-bottom: 6px;
-      padding-right: 2px;
+      padding-right: 40px;
     }
 
     .progress-badge {
@@ -811,13 +797,16 @@
       align-items: center;
     }
 
-    .profile-avatar-img {
+    .profile-avatar {
       width: 56px;
       height: 56px;
       border-radius: 50%;
       border: 3px solid var(--line);
       background: linear-gradient(180deg, #ffd79f 0%, #f0b05d 100%);
-      object-fit: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
       flex: 0 0 auto;
     }
 
@@ -1043,7 +1032,7 @@
       
       <div class="modal-body">
         <div class="profile-header">
-          <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='50%' x='50%' dominant-baseline='middle' text-anchor='middle' font-size='50'>🤖</text></svg>" alt="Аватар" class="profile-avatar-img" id="profileAvatarImg">
+          <div class="profile-avatar" id="profileAvatar">🤖</div>
           <div class="profile-meta">
             <h3 class="profile-name" id="profileName">Пользователь</h3>
             <p class="profile-subtitle">Статистика и настройки профиля</p>
@@ -1184,22 +1173,6 @@
           state.account.photo = user.photo_url;
         }
       }
-
-      tg.BackButton.onClick(() => {
-        if (document.getElementById('accountModal').classList.contains('show')) {
-          closeAccountModal();
-          return;
-        }
-        if (state.screen === 'quiz' || state.screen === 'result') {
-          goHome();
-          return;
-        }
-        if (window.history.length > 1) {
-          window.history.back();
-        } else {
-          tg.close();
-        }
-      });
     }
 
     const tvScreen = document.getElementById('tvScreen');
@@ -1208,6 +1181,21 @@
     const startButton = document.getElementById('startButton');
     const backButton = document.getElementById('backButton');
     const accountModal = document.getElementById('accountModal');
+
+    const accountBtn = document.createElement('button');
+    accountBtn.className = 'account-btn';
+    accountBtn.type = 'button';
+    accountBtn.innerHTML = '<span>👤</span>';
+    accountBtn.setAttribute('aria-label', 'Аккаунт');
+    accountBtn.title = 'Аккаунт';
+
+    function attachAccountButton() {
+      const existing = document.getElementById('accountBtnInjected');
+      if (existing) return;
+      accountBtn.id = 'accountBtnInjected';
+      accountBtn.addEventListener('click', openAccountModal);
+      tvScreen.appendChild(accountBtn);
+    }
 
     function safeHaptic(type, level) {
       if (!tg || !tg.HapticFeedback) return;
@@ -1222,7 +1210,11 @@
     function openAccountModal() {
       document.getElementById('profileName').textContent = state.account.name;
       if (state.account.photo) {
-        document.getElementById('profileAvatarImg').src = state.account.photo;
+        const avatar = document.getElementById('profileAvatar');
+        avatar.style.backgroundImage = `url('${state.account.photo}')`;
+        avatar.style.backgroundSize = 'cover';
+        avatar.style.backgroundPosition = 'center';
+        avatar.textContent = ''; // прячем смайлик, если есть фото
       }
       accountModal.classList.add('show');
       safeHaptic('impact', 'light');
@@ -1412,9 +1404,6 @@
 
       if (state.loading) {
         tvScreen.innerHTML = `
-          <div class="tv-topbar">
-            <button class="account-btn" id="accountBtnInjected" type="button" aria-label="Аккаунт" title="Аккаунт"><span>👤</span></button>
-          </div>
           <p class="hand-note">Твой случайный кинотест</p>
           <p class="loading-text">Подбираем для тебя кинотест и загружаем его описание...</p>
           <div class="spinner" aria-hidden="true"></div>
@@ -1422,9 +1411,6 @@
         `;
       } else {
         tvScreen.innerHTML = `
-          <div class="tv-topbar">
-            <button class="account-btn" id="accountBtnInjected" type="button" aria-label="Аккаунт" title="Аккаунт"><span>👤</span></button>
-          </div>
           <p class="hand-note">Твой случайный кинотест</p>
           <h1 class="quiz-title">${escapeHtml(state.title)}</h1>
           <p class="quiz-description home-description">${escapeHtml(state.description)}</p>
@@ -1448,8 +1434,7 @@
       randomButton.disabled = state.loading;
       tvControls.style.display = 'grid';
       
-      const injectedBtn = document.getElementById('accountBtnInjected');
-      if (injectedBtn) injectedBtn.addEventListener('click', openAccountModal);
+      attachAccountButton();
     }
 
     function renderQuiz() {
@@ -1482,9 +1467,9 @@
           `).join('');
 
       tvScreen.innerHTML = `
-        <div class="tv-topbar">
-          <button class="account-btn" id="accountBtnInjected" type="button" aria-label="Аккаунт" title="Аккаунт"><span>👤</span></button>
-        </div>
+        <button class="account-btn" id="accountBtnInjected" type="button" aria-label="Аккаунт" title="Аккаунт">
+          <span>👤</span>
+        </button>
 
         <div class="progress-row">
           <div class="progress-badge">Вопрос ${state.currentQuestion + 1} из ${state.quiz.questions.length}</div>
@@ -1547,9 +1532,9 @@
       }
 
       tvScreen.innerHTML = `
-        <div class="tv-topbar">
-          <button class="account-btn" id="accountBtnInjected" type="button" aria-label="Аккаунт" title="Аккаунт"><span>👤</span></button>
-        </div>
+        <button class="account-btn" id="accountBtnInjected" type="button" aria-label="Аккаунт" title="Аккаунт">
+          <span>👤</span>
+        </button>
 
         <div class="result-wrap">
           <p class="hand-note">Финал кинотеста</p>
@@ -1609,6 +1594,22 @@
 
     randomButton.addEventListener('click', handleRandomQuiz);
     startButton.addEventListener('click', handleStart);
+
+    backButton.addEventListener('click', () => {
+      if (document.getElementById('accountModal').classList.contains('show')) {
+        closeAccountModal();
+        return;
+      }
+      if (state.screen === 'quiz' || state.screen === 'result') {
+        goHome();
+        return;
+      }
+      if (window.history.length > 1) {
+        window.history.back();
+      } else if (tg) {
+        tg.close();
+      }
+    });
 
     render();
     preloadQuiz();
