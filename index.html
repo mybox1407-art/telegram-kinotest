@@ -106,8 +106,8 @@
       z-index: 2;
     }
 
-    .tv-start-btn { width: 100%; height: 46px; border-radius: 14px; font-family: 'Nunito'; font-size: 20px; font-weight: 800; }
-    .tv-random-btn { width: 46px; height: 46px; border-radius: 14px; }
+    .tv-start-btn { width: 100%; height: 56px; border-radius: 16px; font-family: 'Nunito'; font-size: 24px; font-weight: 800; }
+    .tv-random-btn { width: 56px; height: 56px; border-radius: 16px; }
     .back-btn { padding: 10px 16px; font-family: 'Nunito'; font-size: 14px; font-weight: 800; border-radius: 14px; gap: 8px; }
     .account-btn { position: absolute; top: 6px; right: 6px; width: 48px; height: 48px; z-index: 6; border-radius: 50%; padding: 0; }
 
@@ -271,6 +271,13 @@
     .home-doodle {
       margin-top: 2px;
       max-width: 220px;
+      box-shadow:
+        inset 0 0 0 1.5px rgba(255, 237, 214, 0.35),
+        0 6px 0 var(--flat-shadow),
+        0 10px 8px rgba(107, 64, 40, 0.2);
+    }
+
+    .question-doodle {
       box-shadow:
         inset 0 0 0 1.5px rgba(255, 237, 214, 0.35),
         0 6px 0 var(--flat-shadow),
@@ -481,9 +488,7 @@
       transition: transform 160ms ease-out;
     }
 
-    .path-card--super {
-      transform: translateY(-2px);
-    }
+    .path-card--super { transform: translateY(-2px); }
 
     .path-start {
       position: absolute;
@@ -1001,10 +1006,10 @@
 <body>
   <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <radialGradient id="cat-rg" cx="30%" cy="30%" r="70%">
-        <stop offset="0%" stop-color="#ffeeb3"/>
-        <stop offset="50%" stop-color="#d1ac6b"/>
-        <stop offset="100%" stop-color="#8a612b"/>
+      <radialGradient id='cat-rg' cx='30%' cy='30%' r='70%'>
+        <stop offset='0%' stop-color='#ffeeb3'/>
+        <stop offset='50%' stop-color='#d1ac6b'/>
+        <stop offset='100%' stop-color='#8a612b'/>
       </radialGradient>
     </defs>
   </svg>
@@ -1586,7 +1591,7 @@
         <h2 class="question-title">${escapeHtml(questionTitle)}</h2>
 
         ${quizType === 1 || quizType === 3 || quizType === 4 ? `
-          <div class="doodle ${(quizType === 3 || quizType === 4) ? 'question-doodle--landscape' : ''}">
+          <div class="doodle question-doodle ${(quizType === 3 || quizType === 4) ? 'question-doodle--landscape' : ''}">
             <img
               class="scene-photo ${(quizType === 3 || quizType === 4) ? 'scene-photo--landscape' : ''}"
               src="${escapeHtml(question.image || question.frame_url || FALLBACK_SCENE)}"
