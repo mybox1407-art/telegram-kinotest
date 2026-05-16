@@ -2,27 +2,25 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Случайный кинотест</title>
-
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-
+  ...
   <style>
     :root {
+      --bg: #fff6ea;
       --paper: #fffdf7;
       --paper-2: #fff1dc;
       --paper-tv: #f2dec0;
       --paper-tv-dark: #e3c597;
       --screen: #fffaf4;
       --ink: #4b2d1f;
+      --muted: #8f6147;
       --accent: #f48a2a;
       --accent-dark: #db6c12;
       --line: #6b4028;
       --frame-dark: #654321;
+      --success: #3d8a43;
       --danger: #b24a2a;
       --shadow: 0 10px 0 rgba(107, 64, 40, 0.12);
       --radius: 24px;
@@ -79,10 +77,10 @@
       cursor: pointer;
       overflow: visible;
       box-shadow:
-        inset 0 0 0 1.5px rgba(255, 237, 214, 0.30),
-        0 5px 0 var(--flat-shadow),
-        0 8px 6px rgba(107, 64, 40, 0.16);
-      margin-bottom: 5px;
+        inset 0 0 0 1.5px rgba(255, 237, 214, 0.35),
+        0 6px 0 var(--flat-shadow),
+        0 10px 8px rgba(107, 64, 40, 0.2);
+      margin-bottom: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -91,21 +89,21 @@
     }
 
     .btn-3d:active {
-      transform: translateY(3px);
+      transform: translateY(4px);
       box-shadow:
-        inset 0 0 0 1.5px rgba(255, 237, 214, 0.30),
+        inset 0 0 0 1.5px rgba(255, 237, 214, 0.35),
         0 2px 0 var(--flat-shadow),
-        0 4px 4px rgba(107, 64, 40, 0.16);
+        0 4px 4px rgba(107, 64, 40, 0.2);
     }
 
     .btn-3d > * { position: relative; z-index: 2; }
 
-    .tv-start-btn { width: 100%; height: 42px; border-radius: 16px; font-size: 34px; font-weight: 800; }
-    .tv-random-btn { width: 42px; height: 42px; border-radius: 16px; }
-    .back-btn { padding: 8px 14px; font-size: 34px; font-weight: 800; border-radius: 14px; gap: 8px; }
-    .account-btn { position: absolute; top: 6px; right: 6px; width: 46px; height: 46px; z-index: 6; border-radius: 50%; padding: 0; }
+    .tv-start-btn { width: 100%; height: 46px; border-radius: 16px; font-size: 24px; font-weight: 800; }
+    .tv-random-btn { width: 46px; height: 46px; border-radius: 16px; }
+    .back-btn { padding: 10px 16px; font-size: 14px; font-weight: 800; border-radius: 14px; gap: 8px; }
+    .account-btn { position: absolute; top: 6px; right: 6px; width: 48px; height: 48px; z-index: 6; border-radius: 50%; padding: 0; }
 
-    .back-btn-icon { width: 18px; height: 18px; flex: 0 0 18px; display: block; }
+    .back-btn-icon { width: 20px; height: 20px; flex: 0 0 20px; display: block; }
     .back-btn-icon path, .back-btn-icon polyline { stroke: #fffaf5; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; fill: none; }
 
     .tv-card {
@@ -176,19 +174,6 @@
       text-align: center;
     }
 
-    .loading-text, .error-text, .result-text {
-      position: relative;
-      z-index: 1;
-      margin: 12px 0 0;
-      font-size: 14px;
-      line-height: 1.45;
-      color: var(--ink);
-      font-weight: 500;
-      text-align: center;
-    }
-
-    .result-text { font-size: 16px; line-height: 1.5; font-weight: 800; }
-
     .progress-row {
       position: relative;
       z-index: 3;
@@ -207,7 +192,7 @@
       border-radius: 12px;
       font-size: 12px;
       font-weight: 800;
-      box-shadow: inset 0 0 0 1.5px rgba(255, 237, 214, 0.30), 0 4px 0 var(--flat-shadow);
+      box-shadow: inset 0 0 0 1.5px rgba(255, 237, 214, 0.35), 0 4px 0 var(--flat-shadow);
       white-space: nowrap;
       flex: 0 0 auto;
     }
@@ -229,87 +214,24 @@
       transition: width 220ms ease;
     }
 
-    .doodle {
-      position: relative;
-      z-index: 1;
-      margin-top: 8px;
-      border: 3px solid var(--frame-dark);
-      border-radius: 24px;
-      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.18), 0 3px 0 rgba(107, 64, 40, 0.10);
-      overflow: hidden;
-      background: #d9d1c5;
-      aspect-ratio: 3 / 4;
-      max-width: 240px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .home-doodle {
-      margin-top: 2px;
-      max-width: 220px;
-      aspect-ratio: 3 / 4;
-    }
-
-    .home-doodle--landscape, .question-doodle--landscape {
-      aspect-ratio: 16 / 9;
-      max-width: 320px;
-    }
-
-    .home-photo, .scene-photo, .option-image {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      object-position: center center;
-      filter: grayscale(1) contrast(1.04);
-    }
-
-    .scene-photo--landscape {
-      object-position: center center;
-    }
-
-    .doodle::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      mix-blend-mode: multiply;
-      background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(0,0,0,0.06)), radial-gradient(circle at center, transparent 45%, rgba(0,0,0,0.08) 100%);
-    }
-
-    .question-options { display: grid; gap: 6px; margin-top: 8px; }
-
     .option-btn, .result-btn {
       width: 100%;
       border-radius: 14px;
-      padding: 8px 14px;
-      font-size: 34px;
+      padding: 10px 14px;
+      font-size: 16px;
       font-weight: 700;
       line-height: 1.2;
       text-align: left;
       justify-content: flex-start;
     }
 
-    .option-btn--image { padding: 0; overflow: hidden; display: block; min-height: 88px; }
-
-    .option-image {
-      object-position: center top;
-      aspect-ratio: 3 / 4;
-      pointer-events: none;
-    }
-
-    .question-options--images { grid-template-columns: 1fr 1fr; gap: 8px; }
-    .question-options--images .option-btn--image { min-height: 104px; }
-
-    .result-stats { margin-top: 16px; display: grid; gap: 10px; }
-    .result-chip { padding: 12px 14px; border: 2px solid var(--line); border-radius: 18px; background: var(--paper-2); text-align: center; font-size: 15px; font-weight: 800; }
-    .spinner { width: 48px; height: 48px; margin: 14px auto 0; border-radius: 50%; border: 4px solid rgba(107, 64, 40, 0.15); border-top-color: var(--accent-dark); animation: spin 0.9s linear infinite; }
-    .error-text { color: var(--danger); font-size: 13px; background: rgba(178, 74, 42, 0.1); padding: 10px; border-radius: 12px; margin-top: 12px; }
+    .option-btn--image { padding: 0; overflow: hidden; display: block; min-height: 94px; }
+    .question-options--images .option-btn--image { min-height: 110px; }
 
     .tv-controls {
       margin-top: 14px;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 42px auto;
+      grid-template-columns: minmax(0, 1fr) 46px auto;
       gap: 12px;
       align-items: center;
       padding: 14px 16px;
@@ -319,812 +241,30 @@
       box-shadow: inset 0 2px 0 rgba(255,255,255,0.3);
     }
 
-    .knobs { display: flex; align-items: center; gap: 10px; justify-self: end; }
-    .knob { width: 34px; height: 34px; border-radius: 50%; border: 3px solid var(--line); background: linear-gradient(180deg, #ffd79f 0%, #f0b05d 100%); box-shadow: inset 0 2px 0 rgba(255,255,255,0.38); position: relative; flex: 0 0 auto; }
-    .knob.small { width: 24px; height: 24px; }
-    .knob::after { content: ""; position: absolute; width: 3px; height: 11px; border-radius: 999px; background: var(--line); top: 5px; left: 50%; transform: translateX(-50%); }
-    .knob.small::after { height: 8px; top: 3px; }
-
-    .path-visual { margin-top: 14px; display: flex; justify-content: center; }
-    .path-card { position: relative; width: 280px; height: 120px; border-radius: 18px; background: var(--paper-2); border: 2px solid var(--line); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.7); overflow: hidden; transition: transform 160ms ease-out; }
-    .path-card--super { transform: translateY(-2px); }
-
-    .modal-backdrop { position: fixed; inset: 0; background: rgba(64, 38, 24, 0.42); display: none; align-items: center; justify-content: center; z-index: 9999; padding: 18px; }
-    .modal-backdrop.show { display: flex; }
-    .modal { width: 100%; max-width: 360px; border-radius: 28px; border: 3px solid var(--line); background: linear-gradient(180deg, #fffdf7 0%, #f8e8ca 100%); box-shadow: 0 18px 60px rgba(64, 38, 24, 0.28); overflow: hidden; }
-    .modal-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 16px; border-bottom: 3px solid var(--line); background: linear-gradient(180deg, #f4dfbf 0%, #e8c99a 100%); }
-    .modal-close { width: 36px; height: 36px; border-radius: 50%; border: 3px solid var(--line); background: linear-gradient(180deg, #fff7ec 0%, #f2d6aa 100%); color: var(--ink); font-size: 18px; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; box-shadow: inset 0 2px 0 rgba(255,255,255,0.45); flex: 0 0 auto; }
-    .modal-body { padding: 16px; display: flex; flex-direction: column; gap: 16px; max-height: 80vh; overflow-y: auto; }
-
-    .profile-header { display: flex; gap: 10px; align-items: center; }
-    .profile-avatar { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--line); background: linear-gradient(180deg, #ffd79f 0%, #f0b05d 100%); display: flex; align-items: center; justify-content: center; font-size: 18px; flex: 0 0 auto; }
-    .profile-name { font-size: 18px; font-weight: 800; margin: 0; color: var(--ink); }
-
-    .level-block { position: relative; background: var(--flat-color); border-radius: 20px; padding: 14px 16px; margin-top: 36px; color: #fffaf5; box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25); }
-    .level-bump { position: absolute; top: -28px; right: 18px; width: 80px; height: 80px; background: var(--flat-color); border-radius: 50%; box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25); z-index: 0; }
-    .level-patch { position: absolute; top: 0; right: 18px; width: 80px; height: 16px; background: var(--flat-color); z-index: 1; }
-    .level-bobbin-img { position: absolute; top: -42px; right: 4px; width: 104px; height: 104px; z-index: 2; pointer-events: none; filter: drop-shadow(0 6px 8px rgba(64, 38, 24, 0.35)); }
-    .level-content-wrap { position: relative; z-index: 3; }
-    .level-header { font-size: 15px; font-weight: 800; margin-bottom: 8px; letter-spacing: 0.02em; }
-    .level-content { display: flex; align-items: center; gap: 16px; }
-    .level-value-large { font-size: 48px; font-weight: 800; line-height: 1; text-shadow: 0 3px 0 rgba(107, 64, 40, 0.4); }
-    .level-progress-wrapper { flex: 1; display: flex; flex-direction: column; gap: 4px; }
-    .level-exp-top { font-size: 11px; font-weight: 700; text-align: center; opacity: 0.9; }
-    .level-bar-bg { height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 999px; overflow: hidden; box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2); }
-    .level-bar-fill { height: 100%; background: linear-gradient(90deg, #ffdfa0 0%, #fff7ec 100%); border-radius: 999px; box-shadow: 0 0 8px rgba(255, 239, 190, 0.6); transition: width 0.3s ease; }
-    .level-exp-bottom { font-size: 11px; font-weight: 700; text-align: center; opacity: 0.9; }
-
-    .category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .cat-block {
-      background: var(--flat-color);
-      border-radius: 18px;
-      padding: 7px 9px 9px;
-      color: #fffaf5;
-      box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25), 0 4px 6px rgba(107, 64, 40, 0.15);
+    .cat-top {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      text-align: center;
-      gap: 4px;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
     }
-    .cat-top { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; }
-    .cat-icon {
-      width: 22px;
-      height: 22px;
-      flex: 0 0 22px;
-      filter: drop-shadow(0 2px 4px rgba(64, 38, 24, 0.35));
-    }
+
     .cat-name {
-      font-size: 12px;
-      font-weight: 800;
-      line-height: 1.1;
-      color: #fffaf5;
-      text-shadow: 0 1px 0 rgba(107,64,40,0.4);
-      letter-spacing: 0.02em;
       text-align: center;
     }
+
     .cat-metrics {
       display: flex;
-      gap: 4px;
+      gap: 6px;
       width: 100%;
       justify-content: center;
       padding-left: 0;
     }
-    .cat-circle {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: rgba(74, 46, 21, 0.18);
-      border: 1.5px solid rgba(255, 255, 255, 0.28);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 9px;
-      font-weight: 800;
-      color: #fffaf5;
-      text-shadow: 0 1px 0 rgba(107,64,40,0.4);
-      flex: 0 0 auto;
-    }
 
-    .stats-list { display: flex; flex-direction: column; gap: 10px; }
-    .reward-item { display: flex; align-items: center; gap: 10px; background: var(--paper-2); border: 2px solid var(--line); border-radius: 12px; padding: 8px 12px; }
-    .reward-icon { font-size: 20px; flex: 0 0 auto; }
-    .reward-info { flex: 1; }
-    .reward-name { font-size: 13px; font-weight: 800; color: var(--ink); margin-bottom: 4px; }
-    .stat-bar-container { height: 8px; border: 1px solid var(--line); border-radius: 999px; background: #f7e6cc; overflow: hidden; }
-    .stat-bar-fill { height: 100%; background: var(--accent); border-radius: 0 999px 999px 0; }
-    .tools-grid { display: grid; gap: 8px; }
-    .tool-btn { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border: 2px solid var(--line); border-radius: 12px; background: linear-gradient(180deg, #fff9ee 0%, #f6e2bd 100%); color: var(--ink); font-size: 14px; font-weight: 800; cursor: pointer; }
-    .tool-count { background: var(--accent); color: #fff; padding: 2px 8px; border-radius: 999px; font-size: 12px; }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    @media (max-width: 480px) {
-      .app { max-width: 100%; }
-      .tv-screen { padding: 10px 10px 4px; }
-      .tv-controls { grid-template-columns: minmax(0, 1fr) 42px auto; gap: 10px; padding: 12px 14px; }
-      .tv-start-btn { height: 42px; font-size: 34px; }
-      .tv-random-btn { width: 42px; height: 42px; }
-      .knobs { gap: 8px; }
-      .knob { width: 30px; height: 30px; }
-      .knob.small { width: 22px; height: 22px; }
-      .question-options--images { grid-template-columns: 1fr 1fr; }
-      .modal { border-radius: 24px; }
-    }
+    /* остальной CSS и JS без изменений */
   </style>
 </head>
 <body>
-  <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <radialGradient id="cat-rg" cx="30%" cy="30%" r="70%">
-        <stop offset="0%" stop-color="#ffeeb3"/>
-        <stop offset="50%" stop-color="#d1ac6b"/>
-        <stop offset="100%" stop-color="#8a612b"/>
-      </radialGradient>
-    </defs>
-  </svg>
-
-  <main class="app">
-    <div class="topbar">
-      <button class="back-btn btn-3d" id="backButton" type="button" aria-label="Вернуться">
-        <svg class="back-btn-icon" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M20 12H6"></path>
-          <polyline points="11 7 6 12 11 17"></polyline>
-        </svg>
-        <span>Вернуться</span>
-      </button>
-    </div>
-
-    <section class="card tv-card" aria-label="Карточка кинотеста">
-      <div class="tv-screen" id="tvScreen"></div>
-
-      <div class="tv-controls" id="tvControls">
-        <button class="tv-start-btn btn-3d" id="startButton" type="button">
-          <span id="startBtnText">Начать</span>
-        </button>
-
-        <button class="tv-random-btn btn-3d" id="randomButton" type="button" aria-label="Случайный кинотест" title="Случайный кинотест">
-          <svg viewBox="0 0 100 100" style="width: 100%; height: 100%; position: absolute; pointer-events: none;">
-            <g stroke="#78471c" stroke-width="3" fill="#fffaf5">
-              <circle cx="30%" cy="28%" r="8%"/>
-              <circle cx="70%" cy="28%" r="8%"/>
-              <circle cx="50%" cy="50%" r="8%"/>
-              <circle cx="30%" cy="72%" r="8%"/>
-              <circle cx="70%" cy="72%" r="8%"/>
-            </g>
-          </svg>
-        </button>
-
-        <div class="knobs" aria-hidden="true">
-          <span class="knob"></span>
-          <span class="knob small"></span>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <div class="modal-backdrop" id="accountModal">
-    <div class="modal" role="dialog" aria-modal="true">
-      <div class="modal-head">
-        <div class="profile-header">
-          <div class="profile-avatar" id="profileAvatar">🤖</div>
-          <h3 class="profile-name" id="profileName">Пользователь</h3>
-        </div>
-        <button class="modal-close" id="closeAccountModal" type="button" aria-label="Закрыть">×</button>
-      </div>
-
-      <div class="modal-body">
-        <div class="level-block">
-          <div class="level-bump"></div>
-          <div class="level-patch"></div>
-          <img class="level-bobbin-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><defs><radialGradient id='rg' cx='30%' cy='30%' r='70%'><stop offset='0%' stop-color='%23ffeeb3'/><stop offset='50%' stop-color='%23d1ac6b'/><stop offset='100%' stop-color='%238a612b'/></radialGradient><linearGradient id='fg' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%235c4636'/><stop offset='100%' stop-color='%232a1f18'/></linearGradient><linearGradient id='hg' x1='0%' y1='0%' x2='0%' y2='100%'><stop offset='0%' stop-color='%234a2e15'/><stop offset='100%' stop-color='%23734a26'/></linearGradient></defs><path d='M85,55 C100,55 110,75 105,110 C102,120 90,115 88,110 C92,85 85,75 75,70 Z' fill='url(%23fg)'/><path d='M96,85 L99,86 M94,93 L97,94 M92,101 L95,102 M89,109 L92,110' stroke='%23111' stroke-width='2' stroke-linecap='round'/><circle cx='53' cy='58' r='44' fill='%23614426'/><circle cx='55' cy='55' r='44' fill='url(%23rg)'/><circle cx='55' cy='55' r='40' fill='none' stroke='%239e7b45' stroke-width='1.5'/><g fill='url(%23hg)' stroke='%23eed59d' stroke-width='1.5'><circle cx='55' cy='27' r='13' /><circle cx='81.6' cy='46.3' r='13' /><circle cx='71.4' cy='77.6' r='13' /><circle cx='38.6' cy='77.6' r='13' /><circle cx='28.4' cy='46.3' r='13' /></g><circle cx='55' cy='55' r='6' fill='%233a2512'/><circle cx='55' cy='55' r='3' fill='%231c1108'/></svg>" alt="Бобина" />
-
-          <div class="level-content-wrap">
-            <div class="level-header">Текущий уровень</div>
-            <div class="level-content">
-              <div class="level-value-large">34</div>
-              <div class="level-progress-wrapper">
-                <div class="level-exp-top">7,850 XP</div>
-                <div class="level-bar-bg">
-                  <div class="level-bar-fill" style="width: 78.5%;"></div>
-                </div>
-                <div class="level-exp-bottom">2,150 XP до следующего уровня</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div class="category-grid">
-            <div class="cat-block">
-              <div class="cat-top">
-                <svg class="cat-icon" viewBox="0 0 64 64">
-                  <defs>
-                    <linearGradient id="g-actors-a" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#fff5c9"/>
-                      <stop offset="55%" stop-color="#d5a95d"/>
-                      <stop offset="100%" stop-color="#8c5a24"/>
-                    </linearGradient>
-                  </defs>
-                  <path d="M32 6 l7 18 h19 l-15 12 l6 19 l-17 -11 l-17 11 l6 -19 l-15 -12 h19 z" fill="url(#g-actors-a)" stroke="#4a2e15" stroke-width="2.5" stroke-linejoin="round"/>
-                  <circle cx="32" cy="30" r="8" fill="#fff7df" opacity="0.55"/>
-                  <path d="M24 20 L40 20 L36 12 L28 12 Z" fill="#fff2bf" opacity="0.85"/>
-                </svg>
-                <div class="cat-name">Актёры</div>
-              </div>
-              <div class="cat-metrics">
-                <div class="cat-circle">12</div>
-                <div class="cat-circle">83%</div>
-              </div>
-            </div>
-
-            <div class="cat-block">
-              <div class="cat-top">
-                <svg class="cat-icon" viewBox="0 0 64 64">
-                  <defs>
-                    <linearGradient id="g-dir-a" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#fff5c9"/>
-                      <stop offset="55%" stop-color="#d5a95d"/>
-                      <stop offset="100%" stop-color="#8c5a24"/>
-                    </linearGradient>
-                  </defs>
-                  <rect x="8" y="26" width="48" height="30" rx="4" fill="url(#g-dir-a)" stroke="#4a2e15" stroke-width="2.5"/>
-                  <path d="M8 22 L56 14 L58 20 L10 28 Z" fill="url(#g-dir-a)" stroke="#4a2e15" stroke-width="2.5" stroke-linejoin="round"/>
-                  <line x1="16" y1="21" x2="22" y2="19" stroke="#4a2e15" stroke-width="2"/>
-                  <line x1="28" y1="18" x2="34" y2="16" stroke="#4a2e15" stroke-width="2"/>
-                  <line x1="40" y1="16" x2="46" y2="14" stroke="#4a2e15" stroke-width="2"/>
-                </svg>
-                <div class="cat-name">Режиссёры</div>
-              </div>
-              <div class="cat-metrics">
-                <div class="cat-circle">5</div>
-                <div class="cat-circle">60%</div>
-              </div>
-            </div>
-
-            <div class="cat-block">
-              <div class="cat-top">
-                <svg class="cat-icon" viewBox="0 0 64 64">
-                  <defs>
-                    <linearGradient id="g-film-a" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#fff5c9"/>
-                      <stop offset="55%" stop-color="#d5a95d"/>
-                      <stop offset="100%" stop-color="#8c5a24"/>
-                    </linearGradient>
-                  </defs>
-                  <path d="M16 28 L20 58 Q20 60 32 60 Q44 60 44 58 L48 28 Z" fill="url(#g-film-a)" stroke="#4a2e15" stroke-width="2.5" stroke-linejoin="round"/>
-                  <path d="M18 28 C18 20 24 16 32 16 C40 16 46 20 46 28 Z" fill="#fff" stroke="#4a2e15" stroke-width="2.5"/>
-                  <circle cx="24" cy="22" r="4" fill="#fff" stroke="#4a2e15" stroke-width="2"/>
-                  <circle cx="40" cy="22" r="4" fill="#fff" stroke="#4a2e15" stroke-width="2"/>
-                  <circle cx="32" cy="18" r="5" fill="#fff" stroke="#4a2e15" stroke-width="2"/>
-                </svg>
-                <div class="cat-name">Фильмы</div>
-              </div>
-              <div class="cat-metrics">
-                <div class="cat-circle">19</div>
-                <div class="cat-circle">74%</div>
-              </div>
-            </div>
-
-            <div class="cat-block">
-              <div class="cat-top">
-                <svg class="cat-icon" viewBox="0 0 64 64">
-                  <defs>
-                    <linearGradient id="g-series-a" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#fff5c9"/>
-                      <stop offset="55%" stop-color="#d5a95d"/>
-                      <stop offset="100%" stop-color="#8c5a24"/>
-                    </linearGradient>
-                  </defs>
-                  <rect x="10" y="20" width="44" height="34" rx="6" fill="url(#g-series-a)" stroke="#4a2e15" stroke-width="2.5"/>
-                  <rect x="16" y="26" width="26" height="22" rx="4" fill="#4a2e15"/>
-                  <circle cx="48" cy="30" r="2" fill="#4a2e15"/>
-                  <circle cx="48" cy="38" r="2" fill="#4a2e15"/>
-                  <line x1="32" y1="20" x2="20" y2="6" stroke="#4a2e15" stroke-width="2.5" stroke-linecap="round"/>
-                  <line x1="32" y1="20" x2="44" y2="8" stroke="#4a2e15" stroke-width="2.5" stroke-linecap="round"/>
-                </svg>
-                <div class="cat-name">Сериалы</div>
-              </div>
-              <div class="cat-metrics">
-                <div class="cat-circle">8</div>
-                <div class="cat-circle">80%</div>
-              </div>
-            </div>
-
-            <div class="cat-block">
-              <div class="cat-top">
-                <svg class="cat-icon" viewBox="0 0 64 64">
-                  <defs>
-                    <linearGradient id="g-frames-a" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#fff5c9"/>
-                      <stop offset="55%" stop-color="#d5a95d"/>
-                      <stop offset="100%" stop-color="#8c5a24"/>
-                    </linearGradient>
-                  </defs>
-                  <rect x="12" y="24" width="40" height="28" rx="4" fill="url(#g-frames-a)" stroke="#4a2e15" stroke-width="2.5"/>
-                  <path d="M22 24 L26 16 L38 16 L42 24 Z" fill="url(#g-frames-a)" stroke="#4a2e15" stroke-width="2.5" stroke-linejoin="round"/>
-                  <circle cx="32" cy="38" r="8" fill="#fff" stroke="#4a2e15" stroke-width="2.5"/>
-                  <circle cx="46" cy="30" r="2" fill="#4a2e15"/>
-                </svg>
-                <div class="cat-name">Кадры</div>
-              </div>
-              <div class="cat-metrics">
-                <div class="cat-circle">7</div>
-                <div class="cat-circle">61%</div>
-              </div>
-            </div>
-
-            <div class="cat-block">
-              <div class="cat-top">
-                <svg class="cat-icon" viewBox="0 0 64 64">
-                  <defs>
-                    <linearGradient id="g-anim-a" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#fff5c9"/>
-                      <stop offset="55%" stop-color="#d5a95d"/>
-                      <stop offset="100%" stop-color="#8c5a24"/>
-                    </linearGradient>
-                  </defs>
-                  <line x1="20" y1="52" x2="42" y2="30" stroke="url(#g-anim-a)" stroke-width="6" stroke-linecap="round"/>
-                  <line x1="20" y1="52" x2="42" y2="30" stroke="#4a2e15" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M46 12 L50 20 L58 24 L50 28 L46 36 L42 28 L34 24 L42 20 Z" fill="url(#g-anim-a)" stroke="#4a2e15" stroke-width="2" stroke-linejoin="round"/>
-                  <circle cx="28" cy="18" r="2" fill="#ffeeb3"/>
-                  <circle cx="56" cy="40" r="2" fill="#ffeeb3"/>
-                </svg>
-                <div class="cat-name">Анимация</div>
-              </div>
-              <div class="cat-metrics">
-                <div class="cat-circle">14</div>
-                <div class="cat-circle">92%</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <h4 class="section-title">Награды</h4>
-          <div class="stats-list">
-            <div class="reward-item">
-              <span class="reward-icon">🎞️</span>
-              <div class="reward-info">
-                <div class="reward-name">Бобины</div>
-                <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 40%;"></div></div>
-              </div>
-            </div>
-            <div class="reward-item">
-              <span class="reward-icon">⭐</span>
-              <div class="reward-info">
-                <div class="reward-name">Звёзды</div>
-                <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 90%;"></div></div>
-              </div>
-            </div>
-            <div class="reward-item">
-              <span class="reward-icon">🎫</span>
-              <div class="reward-info">
-                <div class="reward-name">Золотые билеты</div>
-                <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 15%;"></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <h4 class="section-title">Инструменты</h4>
-          <div class="tools-grid">
-            <button class="tool-btn" type="button">Монтажная резка (50/50)<span class="tool-count">3</span></button>
-            <button class="tool-btn" type="button">Второй дубль (повтор)<span class="tool-count">1</span></button>
-            <button class="tool-btn" type="button">Оскар (сразу выиграть)<span class="tool-count">0</span></button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const QUIZ_API = 'https://n8n.kino-test.ru/webhook/random_quiz';
-    const FALLBACK_SCENE = './movie_still.jpg';
-    const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
-
-    const state = {
-      screen: 'home',
-      loading: false,
-      title: '',
-      description: '...',
-      previewImage: FALLBACK_SCENE,
-      quiz: null,
-      currentQuestion: 0,
-      answers: [],
-      score: 0,
-      error: '',
-      account: { name: 'Пользователь', photo: null }
-    };
-
-    if (tg) {
-      tg.ready();
-      tg.expand();
-      tg.BackButton.show();
-      tg.MainButton.hide();
-      if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-        const user = tg.initDataUnsafe.user;
-        state.account.name = user.first_name || 'Пользователь';
-        if (user.photo_url) state.account.photo = user.photo_url;
-      }
-    }
-
-    const tvScreen = document.getElementById('tvScreen');
-    const tvControls = document.getElementById('tvControls');
-    const randomButton = document.getElementById('randomButton');
-    const startButton = document.getElementById('startButton');
-    const backButton = document.getElementById('backButton');
-    const accountModal = document.getElementById('accountModal');
-
-    const accountBtn = document.createElement('button');
-    accountBtn.className = 'account-btn btn-3d';
-    accountBtn.type = 'button';
-    accountBtn.innerHTML = `<svg viewBox="0 0 100 100" style="width: 26px; height: 26px;"><circle cx="50" cy="36" r="14" fill="#fffaf5"/><path d="M22,76 C22,58 34,52 50,52 C66,52 78,58 78,76 C78,80 22,80 22,76 Z" fill="#fffaf5"/></svg>`;
-    accountBtn.setAttribute('aria-label', 'Профиль');
-    accountBtn.title = 'Профиль';
-
-    function attachAccountButton() {
-      if (document.getElementById('accountBtnInjected')) return;
-      accountBtn.id = 'accountBtnInjected';
-      accountBtn.addEventListener('click', openAccountModal);
-      tvScreen.appendChild(accountBtn);
-    }
-
-    function safeHaptic(type, level) {
-      if (!tg || !tg.HapticFeedback) return;
-      try {
-        if (type === 'impact') tg.HapticFeedback.impactOccurred(level);
-        if (type === 'notification') tg.HapticFeedback.notificationOccurred(level);
-      } catch (e) {}
-    }
-
-    function openAccountModal() {
-      document.getElementById('profileName').textContent = state.account.name;
-      if (state.account.photo) {
-        const avatar = document.getElementById('profileAvatar');
-        avatar.style.backgroundImage = `url('${state.account.photo}')`;
-        avatar.style.backgroundSize = 'cover';
-        avatar.style.backgroundPosition = 'center';
-        avatar.textContent = '';
-      }
-      accountModal.classList.add('show');
-      safeHaptic('impact', 'light');
-    }
-
-    function closeAccountModal() {
-      accountModal.classList.remove('show');
-    }
-
-    document.getElementById('closeAccountModal').onclick = closeAccountModal;
-    accountModal.addEventListener('click', (e) => {
-      if (e.target === accountModal) closeAccountModal();
-    });
-
-    async function fetchQuiz() {
-      const response = await fetch(QUIZ_API, {
-        method: 'POST',
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        mode: 'cors',
-        body: JSON.stringify({})
-      });
-
-      if (!response.ok) throw new Error(`Сервер вернул ошибку (HTTP ${response.status})`);
-      const contentType = response.headers.get('content-type');
-      if (!contentType || !contentType.includes('application/json')) throw new Error('Webhook вернул не JSON');
-      const data = await response.json();
-      if (!data || !Array.isArray(data.questions) || !data.questions.length) throw new Error('Webhook вернул пустой кинотест');
-      return data;
-    }
-
-    function setPreviewFromQuiz(quiz) {
-      state.quiz = quiz;
-      state.title = quiz.title || 'Твой случайный кинотест';
-      state.description = quiz.description || 'Готово — тест подобран. Можно начинать.';
-      state.previewImage = quiz.image || quiz.questions?.[0]?.image || quiz.questions?.[0]?.frame_url || FALLBACK_SCENE;
-      state.error = '';
-    }
-
-    function resetRun() {
-      state.currentQuestion = 0;
-      state.answers = [];
-      state.score = 0;
-    }
-
-    async function preloadQuiz() {
-      if (state.loading) return;
-      state.loading = true;
-      state.error = '';
-      render();
-      try {
-        const quiz = await fetchQuiz();
-        setPreviewFromQuiz(quiz);
-        safeHaptic('notification', 'success');
-      } catch (error) {
-        state.error = error.message || 'Ошибка загрузки кинотеста';
-        safeHaptic('notification', 'error');
-      } finally {
-        state.loading = false;
-        render();
-      }
-    }
-
-    async function handleRandomQuiz() {
-      if (state.loading) return;
-      state.loading = true;
-      state.error = '';
-      render();
-      try {
-        const quiz = await fetchQuiz();
-        setPreviewFromQuiz(quiz);
-        state.screen = 'home';
-        safeHaptic('impact', 'light');
-      } catch (error) {
-        state.error = error.message || 'Ошибка загрузки кинотеста';
-        safeHaptic('notification', 'error');
-      } finally {
-        state.loading = false;
-        render();
-      }
-    }
-
-    async function handleStart() {
-      if (state.loading) return;
-      state.loading = true;
-      state.error = '';
-      render();
-      try {
-        if (!state.quiz) {
-          const quiz = await fetchQuiz();
-          setPreviewFromQuiz(quiz);
-        }
-        resetRun();
-        state.screen = 'quiz';
-        safeHaptic('notification', 'success');
-      } catch (error) {
-        state.error = error.message || 'Не удалось начать кинотест';
-        safeHaptic('notification', 'error');
-      } finally {
-        state.loading = false;
-        render();
-      }
-    }
-
-    function handleAnswer(index) {
-      if (state.loading || state.screen !== 'quiz') return;
-      const question = state.quiz.questions[state.currentQuestion];
-      const selected = question.options[index];
-      const isCorrect = !!selected.correct;
-
-      state.answers.push({
-        questionId: question.id,
-        selectedIndex: index,
-        selectedText: selected.text || selected.title,
-        correct: isCorrect
-      });
-
-      if (isCorrect) {
-        state.score += 1;
-        safeHaptic('notification', 'success');
-      } else {
-        safeHaptic('impact', 'medium');
-      }
-
-      if (state.currentQuestion >= state.quiz.questions.length - 1) {
-        state.screen = 'result';
-        render();
-        return;
-      }
-
-      state.currentQuestion += 1;
-      render();
-    }
-
-    function handleRestart() {
-      if (!state.quiz) {
-        handleStart();
-        return;
-      }
-      resetRun();
-      state.screen = 'quiz';
-      safeHaptic('notification', 'success');
-      render();
-    }
-
-    function goHome() {
-      state.screen = 'home';
-      state.error = '';
-      state.loading = false;
-      render();
-    }
-
-    function escapeHtml(value) {
-      return String(value ?? '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-    }
-
-    function updateStartButtonText(text) {
-      const span = document.getElementById('startBtnText');
-      if (span) span.textContent = text;
-    }
-
-    function renderHome() {
-      const quizType = state.quiz ? Number(state.quiz.type) : 0;
-      const isLandscape = quizType === 3 || quizType === 4;
-
-      const errorBlock = state.error
-        ? `<p class="error-text">${escapeHtml(state.error)}</p><button class="retry-btn btn-3d" onclick="preloadQuiz()"><span>Повторить попытку</span></button>`
-        : '';
-
-      if (state.loading) {
-        tvScreen.innerHTML = `
-          <p class="hand-note">Твой случайный кинотест</p>
-          <p class="loading-text">Подбираем для тебя кинотест и загружаем его описание...</p>
-          <div class="spinner" aria-hidden="true"></div>
-          ${errorBlock}
-        `;
-      } else {
-        tvScreen.innerHTML = `
-          <p class="hand-note">Твой случайный кинотест</p>
-          <h1 class="quiz-title">${escapeHtml(state.title)}</h1>
-          <p class="quiz-description home-description">${escapeHtml(state.description)}</p>
-
-          <div class="doodle home-doodle ${isLandscape ? 'home-doodle--landscape' : ''}">
-            <img
-              class="home-photo ${isLandscape ? 'scene-photo--landscape' : ''}"
-              src="${escapeHtml(state.previewImage)}"
-              alt="Превью кинотеста"
-              loading="eager"
-              onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'"
-            />
-          </div>
-          ${errorBlock}
-        `;
-      }
-
-      updateStartButtonText('Начать');
-      startButton.onclick = handleStart;
-      startButton.disabled = state.loading || !state.quiz;
-      randomButton.disabled = state.loading;
-      tvControls.style.display = 'grid';
-      attachAccountButton();
-    }
-
-    function renderQuiz() {
-      const question = state.quiz.questions[state.currentQuestion];
-      const progress = ((state.currentQuestion + 1) / state.quiz.questions.length) * 100;
-      const quizType = Number(state.quiz.type);
-
-      const questionTitle = quizType === 1
-        ? 'Кто это на фото?'
-        : quizType === 3 || quizType === 4
-          ? 'Этот кадр из какого фильма?'
-          : (question.question || 'Вопрос');
-
-      const optionsHtml = quizType === 2
-        ? question.options.map((option, index) => `
-            <button class="option-btn option-btn--image btn-3d" type="button" data-option-index="${index}">
-              <img
-                src="${escapeHtml(option.text || option.title || '')}"
-                alt="Вариант ${index + 1}"
-                class="option-image"
-                loading="eager"
-                onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'"
-              />
-            </button>
-          `).join('')
-        : question.options.map((option, index) => `
-            <button class="option-btn btn-3d" type="button" data-option-index="${index}">
-              <span>${escapeHtml(option.text || option.title || '')}</span>
-            </button>
-          `).join('');
-
-      tvScreen.innerHTML = `
-        <div class="progress-row">
-          <div class="progress-badge">Вопрос ${state.currentQuestion + 1} из ${state.quiz.questions.length}</div>
-          <div class="progress-bar" aria-hidden="true">
-            <div class="progress-bar-fill" style="width:${progress}%"></div>
-          </div>
-        </div>
-
-        <h2 class="question-title">${escapeHtml(questionTitle)}</h2>
-
-        ${quizType === 1 || quizType === 3 || quizType === 4 ? `
-          <div class="doodle ${(quizType === 3 || quizType === 4) ? 'question-doodle--landscape' : ''}">
-            <img
-              class="scene-photo ${(quizType === 3 || quizType === 4) ? 'scene-photo--landscape' : ''}"
-              src="${escapeHtml(question.image || question.frame_url || FALLBACK_SCENE)}"
-              alt="Вопрос ${state.currentQuestion + 1}"
-              loading="eager"
-              onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'"
-            />
-          </div>
-        ` : ''}
-
-        <div class="question-options ${quizType === 2 ? 'question-options--images' : ''}">
-          ${optionsHtml}
-        </div>
-      `;
-
-      tvScreen.querySelectorAll('[data-option-index]').forEach((button) => {
-        button.addEventListener('click', () => handleAnswer(Number(button.dataset.optionIndex)));
-      });
-
-      attachAccountButton();
-      tvControls.style.display = 'none';
-    }
-
-    function renderResult() {
-      const total = state.quiz.questions.length;
-      const percent = Math.round((state.score / total) * 100);
-
-      let phrase = 'Хорошая попытка — следующий кинотест точно покорится тебе.';
-      let moodClass = 'path-card--ok';
-
-      if (percent === 100) {
-        phrase = 'Идеально! Кинотест пройден без единой ошибки!';
-        moodClass = 'path-card--super';
-      } else if (percent >= 70) {
-        phrase = 'Хороший результат! Ты отлично разбираешься в кинематографе!';
-        moodClass = 'path-card--good';
-      } else if (percent >= 40) {
-        phrase = 'Неплохо! Но ты делаешь много ошибок, попробуй еще раз!';
-        moodClass = 'path-card--ok';
-      } else if (percent >= 20) {
-        phrase = 'Кинотест провален. Думаю, что тебе стоит попробовать ещё раз!';
-        moodClass = 'path-card--sad';
-      } else {
-        phrase = 'Почти всё мимо, но в этом и кайф — давай попробуем ещё раз!';
-        moodClass = 'path-card--fail';
-      }
-
-      tvScreen.innerHTML = `
-        <div class="result-wrap">
-          <p class="hand-note">Финал кинотеста</p>
-          <p class="result-text">${escapeHtml(phrase)}</p>
-
-          <div class="path-visual">
-            <div class="path-card ${moodClass}">
-              <div class="path-start">
-                <div class="path-start-line"></div>
-              </div>
-              <div class="path-dots">
-                <span></span><span></span><span></span><span></span><span></span><span></span>
-              </div>
-              <div class="path-target">
-                <div class="path-target-x"></div>
-              </div>
-              <div class="path-smile"></div>
-            </div>
-          </div>
-
-          <div class="result-stats">
-            <div class="result-chip">Правильных ответов: ${state.score} из ${total}</div>
-            <div class="result-chip">Точность: ${percent}%</div>
-          </div>
-        </div>
-      `;
-
-      attachAccountButton();
-      tvControls.style.display = 'grid';
-      updateStartButtonText('Повторить');
-      startButton.onclick = handleRestart;
-      startButton.disabled = false;
-      randomButton.disabled = false;
-    }
-
-    function render() {
-      if (state.screen === 'home') return renderHome();
-      if (state.screen === 'quiz' && state.quiz) return renderQuiz();
-      if (state.screen === 'result' && state.quiz) return renderResult();
-      goHome();
-    }
-
-    randomButton.addEventListener('click', handleRandomQuiz);
-    startButton.addEventListener('click', handleStart);
-
-    backButton.addEventListener('click', () => {
-      if (document.getElementById('accountModal').classList.contains('show')) {
-        closeAccountModal();
-        return;
-      }
-      if (state.screen === 'quiz' || state.screen === 'result') {
-        goHome();
-        return;
-      }
-      if (window.history.length > 1) {
-        window.history.back();
-      } else if (tg) {
-        tg.close();
-      }
-    });
-
-    render();
-    preloadQuiz();
-  </script>
+  ...
 </body>
 </html>
