@@ -134,7 +134,6 @@
       z-index: -1;
       opacity: 0.9;
     }
-
     .tv-card::before { left: 78px; transform: rotate(22deg); }
     .tv-card::after { right: 78px; transform: rotate(-22deg); }
 
@@ -162,29 +161,17 @@
       text-align: center;
     }
 
-    .quiz-title {
+    .quiz-title, .question-title {
       position: relative;
       z-index: 1;
-      margin: 2px 0 0;
-      font-family: 'Caveat', cursive;
-      font-size: 34px;
-      line-height: 1.1;
       color: var(--ink);
+      font-family: 'Caveat', cursive;
       font-weight: 700;
       text-align: center;
     }
 
-    .question-title {
-      position: relative;
-      z-index: 1;
-      margin: 0 0 12px;
-      font-family: 'Caveat', cursive;
-      font-size: 28px;
-      line-height: 1.1;
-      color: var(--ink);
-      font-weight: 700;
-      text-align: center;
-    }
+    .quiz-title { margin: 2px 0 0; font-size: 34px; line-height: 1.1; }
+    .question-title { margin: 0 0 12px; font-size: 28px; line-height: 1.1; }
 
     .quiz-description {
       position: relative;
@@ -261,11 +248,18 @@
       margin-left: auto;
       margin-right: auto;
     }
-
     .home-doodle { margin-top: 2px; max-width: 220px; }
     .home-doodle--landscape, .question-doodle--landscape { aspect-ratio: 16 / 9; max-width: 320px; }
 
-    .scene-photo { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center center; filter: grayscale(1) contrast(1.04); }
+    .scene-photo {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center center;
+      filter: grayscale(1) contrast(1.04);
+    }
+
     .scene-photo--landscape { object-fit: cover; object-position: center center; }
 
     .doodle::after {
@@ -344,28 +338,26 @@
     .cat-top {
       display: flex;
       align-items: center;
-      width: 100%;
-      margin-bottom: 8px;
       justify-content: center;
       gap: 8px;
+      width: 100%;
+      margin-bottom: 6px;
     }
 
     .cat-icon {
-      width: 30px;
-      height: 30px;
-      margin-bottom: 0;
-      flex: 0 0 30px;
+      width: 28px;
+      height: 28px;
+      flex: 0 0 28px;
       filter: drop-shadow(0 3px 5px rgba(64, 38, 24, 0.45));
     }
 
     .cat-name {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
-      margin-bottom: 0;
+      margin: 0;
       text-shadow: 0 1px 0 rgba(107,64,40,0.4);
       letter-spacing: 0.02em;
       text-align: center;
-      flex: 0 0 auto;
     }
 
     .cat-metrics {
@@ -472,7 +464,7 @@
   </main>
 
   <div class="modal-backdrop" id="accountModal">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="accountModalTitle">
+    <div class="modal" role="dialog" aria-modal="true">
       <div class="modal-head">
         <div class="profile-header">
           <div class="profile-avatar" id="profileAvatar">🤖</div>
@@ -493,9 +485,7 @@
               <div class="level-value-large">34</div>
               <div class="level-progress-wrapper">
                 <div class="level-exp-top">7,850 XP</div>
-                <div class="level-bar-bg">
-                  <div class="level-bar-fill" style="width: 78.5%;"></div>
-                </div>
+                <div class="level-bar-bg"><div class="level-bar-fill" style="width: 78.5%;"></div></div>
                 <div class="level-exp-bottom">2,150 XP до следующего уровня</div>
               </div>
             </div>
@@ -512,8 +502,8 @@
                 <div class="cat-name">Актёры</div>
               </div>
               <div class="cat-metrics">
-                <div class="cat-circle" title="Сыграно игр">12</div>
-                <div class="cat-circle" title="Точность">83%</div>
+                <div class="cat-circle">12</div>
+                <div class="cat-circle">83%</div>
               </div>
             </div>
 
@@ -529,8 +519,8 @@
                 <div class="cat-name">Режиссёры</div>
               </div>
               <div class="cat-metrics">
-                <div class="cat-circle" title="Сыграно игр">5</div>
-                <div class="cat-circle" title="Точность">60%</div>
+                <div class="cat-circle">5</div>
+                <div class="cat-circle">60%</div>
               </div>
             </div>
 
@@ -548,8 +538,8 @@
                 <div class="cat-name">Фильмы</div>
               </div>
               <div class="cat-metrics">
-                <div class="cat-circle" title="Сыграно игр">19</div>
-                <div class="cat-circle" title="Точность">74%</div>
+                <div class="cat-circle">19</div>
+                <div class="cat-circle">74%</div>
               </div>
             </div>
 
@@ -566,8 +556,8 @@
                 <div class="cat-name">Сериалы</div>
               </div>
               <div class="cat-metrics">
-                <div class="cat-circle" title="Сыграно игр">8</div>
-                <div class="cat-circle" title="Точность">80%</div>
+                <div class="cat-circle">8</div>
+                <div class="cat-circle">80%</div>
               </div>
             </div>
 
@@ -582,8 +572,8 @@
                 <div class="cat-name">Кадры</div>
               </div>
               <div class="cat-metrics">
-                <div class="cat-circle" title="Сыграно игр">7</div>
-                <div class="cat-circle" title="Точность">61%</div>
+                <div class="cat-circle">7</div>
+                <div class="cat-circle">61%</div>
               </div>
             </div>
 
@@ -599,61 +589,10 @@
                 <div class="cat-name">Анимация</div>
               </div>
               <div class="cat-metrics">
-                <div class="cat-circle" title="Сыграно игр">14</div>
-                <div class="cat-circle" title="Точность">92%</div>
+                <div class="cat-circle">14</div>
+                <div class="cat-circle">92%</div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div>
-          <h4 class="section-title">Награды</h4>
-          <div class="stats-list">
-            <div class="reward-item">
-              <span class="reward-icon">🎞️</span>
-              <div class="reward-info">
-                <div class="reward-name">Бобины</div>
-                <div class="stat-bar-container">
-                  <div class="stat-bar-fill" style="width: 40%;"></div>
-                </div>
-              </div>
-            </div>
-            <div class="reward-item">
-              <span class="reward-icon">⭐</span>
-              <div class="reward-info">
-                <div class="reward-name">Звёзды</div>
-                <div class="stat-bar-container">
-                  <div class="stat-bar-fill" style="width: 90%;"></div>
-                </div>
-              </div>
-            </div>
-            <div class="reward-item">
-              <span class="reward-icon">🎫</span>
-              <div class="reward-info">
-                <div class="reward-name">Золотые билеты</div>
-                <div class="stat-bar-container">
-                  <div class="stat-bar-fill" style="width: 15%;"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <h4 class="section-title">Инструменты</h4>
-          <div class="tools-grid">
-            <button class="tool-btn" type="button">
-              Монтажная резка (50/50)
-              <span class="tool-count">3</span>
-            </button>
-            <button class="tool-btn" type="button">
-              Второй дубль (повтор)
-              <span class="tool-count">1</span>
-            </button>
-            <button class="tool-btn" type="button">
-              Оскар (сразу выиграть)
-              <span class="tool-count">0</span>
-            </button>
           </div>
         </div>
       </div>
@@ -663,7 +602,6 @@
   <script>
     const QUIZ_API = 'https://n8n.kino-test.ru/webhook/random_quiz';
     const FALLBACK_SCENE = './movie_still.jpg';
-
     const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
 
     const state = {
@@ -677,10 +615,7 @@
       answers: [],
       score: 0,
       error: '',
-      account: {
-        name: 'Пользователь',
-        photo: null
-      }
+      account: { name: 'Пользователь', photo: null }
     };
 
     if (tg) {
@@ -688,13 +623,10 @@
       tg.expand();
       tg.BackButton.show();
       tg.MainButton.hide();
-
       if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
         const user = tg.initDataUnsafe.user;
         state.account.name = user.first_name || 'Пользователь';
-        if (user.photo_url) {
-          state.account.photo = user.photo_url;
-        }
+        if (user.photo_url) state.account.photo = user.photo_url;
       }
     }
 
@@ -704,34 +636,27 @@
     const startButton = document.getElementById('startButton');
     const backButton = document.getElementById('backButton');
     const accountModal = document.getElementById('accountModal');
+
     const accountBtn = document.createElement('button');
     accountBtn.className = 'account-btn btn-3d';
     accountBtn.type = 'button';
-    accountBtn.innerHTML = `
-      <svg viewBox="0 0 100 100" style="width: 26px; height: 26px;">
-         <circle cx='50' cy='36' r='14' fill='#fffaf5'/>
-         <path d='M22,76 C22,58 34,52 50,52 C66,52 78,58 78,76 C78,80 22,80 22,76 Z' fill='#fffaf5'/>
-      </svg>
-    `;
+    accountBtn.innerHTML = `<svg viewBox="0 0 100 100" style="width: 26px; height: 26px;"><circle cx="50" cy="36" r="14" fill="#fffaf5"/><path d="M22,76 C22,58 34,52 50,52 C66,52 78,58 78,76 C78,80 22,80 22,76 Z" fill="#fffaf5"/></svg>`;
     accountBtn.setAttribute('aria-label', 'Профиль');
     accountBtn.title = 'Профиль';
-
-    function attachAccountButton() {
-      const existing = document.getElementById('accountBtnInjected');
-      if (existing) return;
-      accountBtn.id = 'accountBtnInjected';
-      accountBtn.addEventListener('click', openAccountModal);
-      tvScreen.appendChild(accountBtn);
-    }
 
     function safeHaptic(type, level) {
       if (!tg || !tg.HapticFeedback) return;
       try {
         if (type === 'impact') tg.HapticFeedback.impactOccurred(level);
         if (type === 'notification') tg.HapticFeedback.notificationOccurred(level);
-      } catch (e) {
-        console.warn('Haptic feedback failed:', e);
-      }
+      } catch (e) {}
+    }
+
+    function attachAccountButton() {
+      if (document.getElementById('accountBtnInjected')) return;
+      accountBtn.id = 'accountBtnInjected';
+      accountBtn.addEventListener('click', openAccountModal);
+      tvScreen.appendChild(accountBtn);
     }
 
     function openAccountModal() {
@@ -759,29 +684,13 @@
     async function fetchQuiz() {
       const response = await fetch(QUIZ_API, {
         method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
         mode: 'cors',
         body: JSON.stringify({})
       });
-
-      if (!response.ok) {
-        throw new Error(`Сервер вернул ошибку (HTTP ${response.status})`);
-      }
-
-      const contentType = response.headers.get('content-type');
-      if (!contentType || !contentType.includes('application/json')) {
-        throw new Error('Webhook вернул не JSON');
-      }
-
+      if (!response.ok) throw new Error(`Сервер вернул ошибку (HTTP ${response.status})`);
       const data = await response.json();
-
-      if (!data || !Array.isArray(data.questions) || !data.questions.length) {
-        throw new Error('Webhook вернул пустой кинотест');
-      }
-
+      if (!data || !Array.isArray(data.questions) || !data.questions.length) throw new Error('Webhook вернул пустой кинотест');
       return data;
     }
 
@@ -804,14 +713,11 @@
       state.loading = true;
       state.error = '';
       render();
-
       try {
         const quiz = await fetchQuiz();
         setPreviewFromQuiz(quiz);
-        safeHaptic('notification', 'success');
       } catch (error) {
         state.error = error.message || 'Ошибка загрузки кинотеста';
-        safeHaptic('notification', 'error');
       } finally {
         state.loading = false;
         render();
@@ -823,15 +729,12 @@
       state.loading = true;
       state.error = '';
       render();
-
       try {
         const quiz = await fetchQuiz();
         setPreviewFromQuiz(quiz);
         state.screen = 'home';
-        safeHaptic('impact', 'light');
       } catch (error) {
         state.error = error.message || 'Ошибка загрузки кинотеста';
-        safeHaptic('notification', 'error');
       } finally {
         state.loading = false;
         render();
@@ -843,19 +746,15 @@
       state.loading = true;
       state.error = '';
       render();
-
       try {
         if (!state.quiz) {
           const quiz = await fetchQuiz();
           setPreviewFromQuiz(quiz);
         }
-
         resetRun();
         state.screen = 'quiz';
-        safeHaptic('notification', 'success');
       } catch (error) {
         state.error = error.message || 'Не удалось начать кинотест';
-        safeHaptic('notification', 'error');
       } finally {
         state.loading = false;
         render();
@@ -864,24 +763,12 @@
 
     function handleAnswer(index) {
       if (state.loading || state.screen !== 'quiz') return;
-
       const question = state.quiz.questions[state.currentQuestion];
       const selected = question.options[index];
       const isCorrect = !!selected.correct;
 
-      state.answers.push({
-        questionId: question.id,
-        selectedIndex: index,
-        selectedText: selected.text || selected.title,
-        correct: isCorrect
-      });
-
-      if (isCorrect) {
-        state.score += 1;
-        safeHaptic('notification', 'success');
-      } else {
-        safeHaptic('impact', 'medium');
-      }
+      state.answers.push({ questionId: question.id, selectedIndex: index, selectedText: selected.text || selected.title, correct: isCorrect });
+      if (isCorrect) state.score += 1;
 
       const isLastQuestion = state.currentQuestion >= state.quiz.questions.length - 1;
       if (isLastQuestion) {
@@ -895,13 +782,9 @@
     }
 
     function handleRestart() {
-      if (!state.quiz) {
-        handleStart();
-        return;
-      }
+      if (!state.quiz) { handleStart(); return; }
       resetRun();
       state.screen = 'quiz';
-      safeHaptic('notification', 'success');
       render();
     }
 
@@ -913,12 +796,7 @@
     }
 
     function escapeHtml(value) {
-      return String(value ?? '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
+      return String(value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
     }
 
     function updateStartButtonText(text) {
@@ -929,43 +807,28 @@
     function renderHome() {
       const quizType = state.quiz ? Number(state.quiz.type) : 0;
       const isLandscape = quizType === 3 || quizType === 4;
+      const errorBlock = state.error ? `<p class="error-text">${escapeHtml(state.error)}</p>` : '';
 
-      const errorBlock = state.error
-        ? `<p class="error-text">${escapeHtml(state.error)}</p><button class="retry-btn btn-3d" onclick="preloadQuiz()"><span>Повторить попытку</span></button>`
-        : '';
-
-      if (state.loading) {
-        tvScreen.innerHTML = `
-          <p class="hand-note">Твой случайный кинотест</p>
-          <p class="loading-text">Подбираем для тебя кинотест и загружаем его описание...</p>
-          <div class="spinner" aria-hidden="true"></div>
-          ${errorBlock}
-        `;
-      } else {
-        tvScreen.innerHTML = `
-          <p class="hand-note">Твой случайный кинотест</p>
-          <h1 class="quiz-title">${escapeHtml(state.title)}</h1>
-          <p class="quiz-description home-description">${escapeHtml(state.description)}</p>
-
-          <div class="doodle home-doodle ${isLandscape ? 'home-doodle--landscape' : ''}">
-            <img
-              class="scene-photo ${isLandscape ? 'scene-photo--landscape' : ''}"
-              src="${escapeHtml(state.previewImage)}"
-              alt="Превью кинотеста"
-              loading="eager"
-              onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'"
-            />
-          </div>
-          ${errorBlock}
-        `;
-      }
+      tvScreen.innerHTML = state.loading ? `
+        <p class="hand-note">Твой случайный кинотест</p>
+        <p class="loading-text">Подбираем для тебя кинотест и загружаем его описание...</p>
+        <div class="spinner" aria-hidden="true"></div>
+        ${errorBlock}
+      ` : `
+        <p class="hand-note">Твой случайный кинотест</p>
+        <h1 class="quiz-title">${escapeHtml(state.title)}</h1>
+        <p class="quiz-description home-description">${escapeHtml(state.description)}</p>
+        <div class="doodle home-doodle ${isLandscape ? 'home-doodle--landscape' : ''}">
+          <img class="scene-photo ${isLandscape ? 'scene-photo--landscape' : ''}" src="${escapeHtml(state.previewImage)}" alt="Превью кинотеста" loading="eager" onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'" />
+        </div>
+        ${errorBlock}
+      `;
 
       updateStartButtonText('Начать');
       startButton.onclick = handleStart;
       startButton.disabled = state.loading || !state.quiz;
       randomButton.disabled = state.loading;
       tvControls.style.display = 'grid';
-
       attachAccountButton();
     }
 
@@ -983,13 +846,7 @@
       const optionsHtml = quizType === 2
         ? question.options.map((option, index) => `
             <button class="option-btn option-btn--image btn-3d" type="button" data-option-index="${index}">
-              <img
-                src="${escapeHtml(option.text || option.title || '')}"
-                alt="Вариант ${index + 1}"
-                class="option-image"
-                loading="eager"
-                onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'"
-              />
+              <img src="${escapeHtml(option.text || option.title || '')}" alt="Вариант ${index + 1}" class="option-image" loading="eager" onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'" />
             </button>
           `).join('')
         : question.options.map((option, index) => `
@@ -1001,22 +858,14 @@
       tvScreen.innerHTML = `
         <div class="progress-row">
           <div class="progress-badge">Вопрос ${state.currentQuestion + 1} из ${state.quiz.questions.length}</div>
-          <div class="progress-bar" aria-hidden="true">
-            <div class="progress-bar-fill" style="width:${progress}%"></div>
-          </div>
+          <div class="progress-bar" aria-hidden="true"><div class="progress-bar-fill" style="width:${progress}%"></div></div>
         </div>
 
         <h2 class="question-title">${escapeHtml(questionTitle)}</h2>
 
         ${quizType === 1 || quizType === 3 || quizType === 4 ? `
           <div class="doodle ${quizType === 3 || quizType === 4 ? 'question-doodle--landscape' : ''}">
-            <img
-              class="scene-photo ${quizType === 3 || quizType === 4 ? 'scene-photo--landscape' : ''}"
-              src="${escapeHtml(question.image || question.frame_url || FALLBACK_SCENE)}"
-              alt="Вопрос ${state.currentQuestion + 1}"
-              loading="eager"
-              onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'"
-            />
+            <img class="scene-photo ${quizType === 3 || quizType === 4 ? 'scene-photo--landscape' : ''}" src="${escapeHtml(question.image || question.frame_url || FALLBACK_SCENE)}" alt="Вопрос ${state.currentQuestion + 1}" loading="eager" onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'" />
           </div>
         ` : ''}
 
@@ -1064,19 +913,9 @@
 
           <div class="path-visual">
             <div class="path-card ${moodClass}">
-              <div class="path-start">
-                <div class="path-start-line"></div>
-              </div>
-
-              <div class="path-dots">
-                <span></span><span></span><span></span>
-                <span></span><span></span><span></span>
-              </div>
-
-              <div class="path-target">
-                <div class="path-target-x"></div>
-              </div>
-
+              <div class="path-start"><div class="path-start-line"></div></div>
+              <div class="path-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+              <div class="path-target"><div class="path-target-x"></div></div>
               <div class="path-smile"></div>
             </div>
           </div>
@@ -1097,18 +936,9 @@
     }
 
     function render() {
-      if (state.screen === 'home') {
-        renderHome();
-        return;
-      }
-      if (state.screen === 'quiz' && state.quiz) {
-        renderQuiz();
-        return;
-      }
-      if (state.screen === 'result' && state.quiz) {
-        renderResult();
-        return;
-      }
+      if (state.screen === 'home') return renderHome();
+      if (state.screen === 'quiz' && state.quiz) return renderQuiz();
+      if (state.screen === 'result' && state.quiz) return renderResult();
       goHome();
     }
 
@@ -1116,19 +946,10 @@
     startButton.addEventListener('click', handleStart);
 
     backButton.addEventListener('click', () => {
-      if (document.getElementById('accountModal').classList.contains('show')) {
-        closeAccountModal();
-        return;
-      }
-      if (state.screen === 'quiz' || state.screen === 'result') {
-        goHome();
-        return;
-      }
-      if (window.history.length > 1) {
-        window.history.back();
-      } else if (tg) {
-        tg.close();
-      }
+      if (document.getElementById('accountModal').classList.contains('show')) return closeAccountModal();
+      if (state.screen === 'quiz' || state.screen === 'result') return goHome();
+      if (window.history.length > 1) window.history.back();
+      else if (tg) tg.close();
     });
 
     render();
