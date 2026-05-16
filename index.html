@@ -784,10 +784,7 @@
     async function fetchQuiz() {
       const response = await fetch(QUIZ_API, {
         method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         mode: 'cors',
         body: JSON.stringify({})
       });
@@ -965,7 +962,6 @@
               onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'"
             />
           </div>
-
           ${errorBlock}
         `;
       }
