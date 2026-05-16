@@ -211,17 +211,20 @@
     }
 
     .btn-text {
-      position: relative;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 12%; /* Отсекаем нижнюю 3D-грань для идеального центрирования текста по верхней крышке */
       z-index: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 100%;
-      height: 88%; /* Центруем ровно по высоте верхней грани 3D-кнопки */
       color: #fffaf5;
-      font-size: 22px;
+      font-size: 28px;
       font-weight: 800;
-      text-shadow: 0 2px 2px rgba(107, 64, 40, 0.4);
+      text-shadow: 0 3px 0 rgba(107, 64, 40, 0.4); /* Тень как у цифры 34 в профиле */
+      letter-spacing: 0.02em;
     }
 
     .hand-note {
@@ -240,11 +243,11 @@
       position: relative;
       z-index: 1;
       margin: 2px 0 0;
-      font-size: 24px;
+      font-family: 'Caveat', cursive; /* Рукописный шрифт как у верхней надписи */
+      font-size: 34px; /* Сделали крупнее для баланса */
       line-height: 1.1;
       color: var(--ink);
-      font-weight: 800;
-      letter-spacing: -0.03em;
+      font-weight: 700;
       text-align: center;
     }
 
@@ -1054,14 +1057,12 @@
       .home-doodle--landscape,
       .question-doodle--landscape { max-width: 100%; }
       
-      /* Адаптация сетки для мобилок */
       .tv-controls {
         grid-template-columns: minmax(0, 1fr) 52px auto;
         gap: 10px;
         padding: 12px 14px;
       }
       
-      /* Жестко фиксируем высоты кнопок, чтобы они оставались одинаковыми */
       .tv-start-btn {
         height: 52px;
       }
@@ -1070,7 +1071,7 @@
         height: 52px;
       }
       .btn-text {
-        font-size: 20px;
+        font-size: 24px;
       }
       
       .knobs { gap: 8px; }
@@ -1098,7 +1099,6 @@
 
       <div class="tv-controls" id="tvControls">
         
-        <!-- НОВАЯ КНОПКА "НАЧАТЬ" БЕЗ РИСУНКА, ОТЦЕНТРИРОВАННАЯ И ТОЧНОГО РАЗМЕРА -->
         <button class="tv-start-btn" id="startButton" type="button">
           <svg class="btn-bg-svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
             <defs>
@@ -1121,7 +1121,6 @@
           <span class="btn-text" id="startBtnText">Начать</span>
         </button>
 
-        <!-- НОВАЯ КНОПКА "КУБИК" С ИДЕНТИЧНЫМИ ПРОПОРЦИЯМИ -->
         <button class="tv-random-btn" id="randomButton" type="button" aria-label="Случайный кинотест" title="Случайный кинотест">
           <svg class="btn-bg-svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
             <defs>
@@ -1174,7 +1173,6 @@
           </div>
         </div>
 
-        <!-- Блок уровня с выступом и нарисованной бобиной -->
         <div class="level-block">
           <div class="level-bump"></div>
           <div class="level-patch"></div>
@@ -1327,7 +1325,6 @@
     const backButton = document.getElementById('backButton');
     const accountModal = document.getElementById('accountModal');
 
-    /* Создаем векторную 3D кнопку аккаунта */
     const accountBtn = document.createElement('button');
     accountBtn.className = 'account-btn';
     accountBtn.type = 'button';
