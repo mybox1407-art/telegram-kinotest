@@ -161,23 +161,12 @@
       flex-direction: column;
     }
 
-    .tv-topbar {
-      position: relative;
-      height: 26px;
-      margin-bottom: 10px;
-      border: 3px solid var(--line);
-      border-radius: 18px;
-      background: linear-gradient(180deg, #f8e5c8 0%, #edd1a4 100%);
-      box-shadow: inset 0 2px 0 rgba(255,255,255,0.35);
-    }
-
     .account-btn {
       position: absolute;
-      right: 4px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 28px;
-      height: 28px;
+      top: 8px;
+      right: 8px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       border: 3px solid var(--frame-dark);
       background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
@@ -187,7 +176,7 @@
       justify-content: center;
       cursor: pointer;
       z-index: 6;
-      font-size: 15px;
+      font-size: 18px;
       box-shadow: inset 0 2px 0 rgba(255,255,255,0.18);
       pointer-events: auto;
       padding: 0;
@@ -269,7 +258,7 @@
       justify-content: space-between;
       gap: 6px;
       margin-bottom: 6px;
-      padding-right: 2px;
+      padding-right: 40px;
     }
 
     .progress-badge {
@@ -1247,6 +1236,21 @@
     const backButton = document.getElementById('backButton');
     const accountModal = document.getElementById('accountModal');
 
+    const accountBtn = document.createElement('button');
+    accountBtn.className = 'account-btn';
+    accountBtn.type = 'button';
+    accountBtn.innerHTML = '<span>🤖</span>';
+    accountBtn.setAttribute('aria-label', 'Аккаунт');
+    accountBtn.title = 'Аккаунт';
+
+    function attachAccountButton() {
+      const existing = document.getElementById('accountBtnInjected');
+      if (existing) return;
+      accountBtn.id = 'accountBtnInjected';
+      accountBtn.addEventListener('click', openAccountModal);
+      tvScreen.appendChild(accountBtn);
+    }
+
     function safeHaptic(type, level) {
       if (!tg || !tg.HapticFeedback) return;
       try {
@@ -1444,22 +1448,6 @@
         .replace(/'/g, '&#39;');
     }
 
-    function attachAccountButton(container) {
-      // Ищем старую кнопку, если есть — удаляем, чтобы не плодить дубликаты
-      const existing = document.getElementById('accountBtnInjected');
-      if (existing) existing.remove();
-
-      const btn = document.createElement('button');
-      btn.id = 'accountBtnInjected';
-      btn.className = 'account-btn';
-      btn.type = 'button';
-      btn.innerHTML = '<span>👤</span>';
-      btn.setAttribute('aria-label', 'Аккаунт');
-      btn.title = 'Аккаунт';
-      btn.addEventListener('click', openAccountModal);
-      container.appendChild(btn);
-    }
-
     function renderHome() {
       const quizType = state.quiz ? Number(state.quiz.type) : 0;
       const isLandscape = quizType === 3 || quizType === 4;
@@ -1470,7 +1458,6 @@
 
       if (state.loading) {
         tvScreen.innerHTML = `
-          <div class="tv-topbar" id="tvTopbar"></div>
           <p class="hand-note">Твой случайный кинотест</p>
           <p class="loading-text">Подбираем для тебя кинотест и загружаем его описание...</p>
           <div class="spinner" aria-hidden="true"></div>
@@ -1478,7 +1465,6 @@
         `;
       } else {
         tvScreen.innerHTML = `
-          <div class="tv-topbar" id="tvTopbar"></div>
           <p class="hand-note">Твой случайный кинотест</p>
           <h1 class="quiz-title">${escapeHtml(state.title)}</h1>
           <p class="quiz-description home-description">${escapeHtml(state.description)}</p>
@@ -1502,7 +1488,7 @@
       randomButton.disabled = state.loading;
       tvControls.style.display = 'grid';
       
-      attachAccountButton(document.getElementById('tvTopbar'));
+      attachAccountButton();
     }
 
     function renderQuiz() {
@@ -1535,8 +1521,6 @@
           `).join('');
 
       tvScreen.innerHTML = `
-        <div class="tv-topbar" id="tvTopbar"></div>
-
         <div class="progress-row">
           <div class="progress-badge">Вопрос ${state.currentQuestion + 1} из ${state.quiz.questions.length}</div>
           <div class="progress-bar" aria-hidden="true">
@@ -1567,7 +1551,7 @@
         button.addEventListener('click', () => handleAnswer(Number(button.dataset.optionIndex)));
       });
 
-      attachAccountButton(document.getElementById('tvTopbar'));
+      attachAccountButton();
       tvControls.style.display = 'none';
     }
 
@@ -1596,8 +1580,6 @@
       }
 
       tvScreen.innerHTML = `
-        <div class="tv-topbar" id="tvTopbar"></div>
-
         <div class="result-wrap">
           <p class="hand-note">Финал кинотеста</p>
           <p class="result-text">${escapeHtml(phrase)}</p>
@@ -1628,7 +1610,7 @@
         </div>
       `;
 
-      attachAccountButton(document.getElementById('tvTopbar'));
+      attachAccountButton();
       tvControls.style.display = 'grid';
       startButton.textContent = 'Пройти ещё раз';
       startButton.onclick = handleRestart;
