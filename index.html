@@ -29,6 +29,7 @@
       --danger: #b24a2a;
       --shadow: 0 10px 0 rgba(107, 64, 40, 0.12);
       --radius: 24px;
+      --flat-color: #d39c65; /* Ровный цвет для кнопок и блоков */
     }
 
     * { box-sizing: border-box; }
@@ -71,36 +72,25 @@
       padding-top: max(0px, env(safe-area-inset-top));
     }
 
-    /* ===== УНИВЕРСАЛЬНЫЙ 3D-СТИЛЬ ДЛЯ ВСЕХ КНОПОК И БЕЙДЖЕЙ ===== */
+    /* ===== УНИВЕРСАЛЬНЫЙ 3D-СТИЛЬ ДЛЯ ВСЕХ КНОПОК И БЕЙДЖЕЙ (БЕЗ ГРАДИЕНТА) ===== */
     .btn-3d {
       position: relative;
-      background: linear-gradient(180deg, #d39c65 0%, #d39c65 15%, #b27339 100%);
+      background: var(--flat-color);
       border: none;
       color: #fffaf5;
       text-shadow: 0 2px 0 rgba(107, 64, 40, 0.4);
       cursor: pointer;
       overflow: visible;
       box-shadow:
-        inset 0 0 0 1.5px rgba(255, 237, 214, 0.5), /* Внутренний светлый контур */
+        inset 0 0 0 1.5px rgba(255, 237, 214, 0.5), /* Внутренний контур */
         0 6px 0 #855424,                            /* 3D-грань (низ) */
         0 10px 8px rgba(107, 64, 40, 0.2);          /* Падающая тень */
-      margin-bottom: 6px;                           /* Отступ для 3D-грани */
+      margin-bottom: 6px;                           
       display: flex;
       align-items: center;
       justify-content: center;
       transition: transform 0.1s, box-shadow 0.1s;
       outline: none;
-    }
-
-    .btn-3d::before {
-      content: "";
-      position: absolute;
-      top: 1.5px; left: 1.5px; right: 1.5px;
-      height: 35%;
-      background: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 100%);
-      border-radius: inherit;
-      pointer-events: none;
-      z-index: 1;
     }
 
     .btn-3d:active {
@@ -116,7 +106,6 @@
       z-index: 2;
     }
 
-    /* Настройка конкретных кнопок поверх btn-3d */
     .tv-start-btn { width: 100%; height: 56px; border-radius: 16px; font-family: 'Nunito'; font-size: 24px; font-weight: 800; }
     .tv-random-btn { width: 56px; height: 56px; border-radius: 16px; }
     .back-btn { padding: 10px 16px; font-family: 'Nunito'; font-size: 14px; font-weight: 800; border-radius: 14px; gap: 8px;}
@@ -150,12 +139,18 @@
 
     .hand-note {
       position: relative; z-index: 1; font-family: 'Caveat', cursive; font-size: 24px;
-      line-height: 1; color: #b27339; margin: 12px 0 10px; transform: rotate(-2deg); text-align: center;
+      line-height: 1; color: var(--flat-color); margin: 12px 0 10px; transform: rotate(-2deg); text-align: center;
     }
 
     .quiz-title {
       position: relative; z-index: 1; margin: 2px 0 0; font-family: 'Caveat', cursive;
       font-size: 34px; line-height: 1.1; color: var(--ink); font-weight: 700; text-align: center;
+    }
+
+    /* Уменьшенный шрифт для самого вопроса в тесте */
+    .question-title {
+      position: relative; z-index: 1; margin: 0 0 12px; font-family: 'Caveat', cursive;
+      font-size: 28px; line-height: 1.1; color: var(--ink); font-weight: 700; text-align: center;
     }
 
     .quiz-description {
@@ -171,24 +166,29 @@
     .result-text { font-size: 16px; line-height: 1.5; font-weight: 800; }
     .home-description { margin-bottom: 6px; }
 
-    .progress-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; padding-right: 50px; margin-bottom: 12px; }
+    /* Шкала прогресса и бейдж (ровный цвет) */
+    .progress-row { 
+      display: flex; align-items: center; gap: 12px; 
+      margin-bottom: 22px; /* сместили линию вниз (отступ больше) */
+    }
 
-    /* Бейдж 3D, но без реакции на нажатие */
     .progress-badge {
-      background: linear-gradient(180deg, #d39c65 0%, #d39c65 15%, #b27339 100%);
+      background: var(--flat-color);
       color: #fffaf5; text-shadow: 0 2px 0 rgba(107, 64, 40, 0.4);
-      padding: 8px 14px; border-radius: 12px; font-size: 12px; font-weight: 800;
+      padding: 6px 14px; border-radius: 12px; font-size: 12px; font-weight: 800;
       box-shadow: inset 0 0 0 1.5px rgba(255, 237, 214, 0.5), 0 4px 0 #855424;
-      position: relative; margin-bottom: 4px; border: none; overflow: hidden;
-    }
-    .progress-badge::before {
-      content: ""; position: absolute; top: 1px; left: 1px; right: 1px; height: 35%;
-      background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 100%);
-      border-radius: inherit; pointer-events: none;
+      white-space: nowrap;
     }
 
-    .progress-bar { flex: 1; height: 12px; border: 2px solid var(--line); border-radius: 999px; background: #f7e6cc; overflow: hidden; margin-bottom: 4px; }
-    .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%); transition: width 220ms ease; }
+    .progress-bar { 
+      flex: 1; height: 10px; border: 2px solid var(--line); 
+      border-radius: 999px; background: #f7e6cc; overflow: hidden; 
+    }
+    .progress-bar-fill { 
+      height: 100%; width: 0%; 
+      background: var(--flat-color); 
+      transition: width 220ms ease; 
+    }
 
     .doodle {
       position: relative; z-index: 1; margin-top: 8px; border: 3px solid var(--frame-dark);
@@ -208,7 +208,6 @@
 
     .question-options { display: grid; gap: 6px; margin-top: 8px; }
 
-    /* Кнопки ответов используют 3D стиль */
     .option-btn, .result-btn {
       width: 100%; border-radius: 16px; padding: 14px 16px; font-family: 'Nunito', system-ui, sans-serif;
       font-size: 16px; font-weight: 700; line-height: 1.2; text-align: left; justify-content: flex-start;
@@ -240,7 +239,6 @@
     .knob::after { content: ""; position: absolute; width: 3px; height: 11px; border-radius: 999px; background: var(--line); top: 5px; left: 50%; transform: translateX(-50%); }
     .knob.small::after { height: 8px; top: 3px; }
 
-    /* Путь успеха */
     .path-visual { margin-top: 14px; display: flex; justify-content: center; }
     .path-card { position: relative; width: 280px; height: 120px; border-radius: 18px; background: var(--paper-2); border: 2px solid var(--line); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.7); overflow: hidden; transition: transform 160ms ease-out; }
     .path-card--super { transform: translateY(-2px); }
@@ -279,10 +277,10 @@
     .profile-avatar { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--line); background: linear-gradient(180deg, #ffd79f 0%, #f0b05d 100%); display: flex; align-items: center; justify-content: center; font-size: 18px; flex: 0 0 auto; }
     .profile-name { font-size: 18px; font-weight: 800; margin: 0; color: var(--ink); }
 
-    /* Блок уровня */
-    .level-block { position: relative; background: linear-gradient(180deg, #d39c65 0%, #d39c65 15%, #b27339 100%); border-radius: 20px; padding: 14px 16px; margin-top: 10px; color: #fffaf5; box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25); }
-    .level-bump { position: absolute; top: -28px; right: 18px; width: 80px; height: 80px; background: #d39c65; border-radius: 50%; box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25); z-index: 0; }
-    .level-patch { position: absolute; top: 0; right: 18px; width: 80px; height: 16px; background: #d39c65; z-index: 1; }
+    /* Блок уровня (смещен ниже: margin-top 36px) и ровный цвет */
+    .level-block { position: relative; background: var(--flat-color); border-radius: 20px; padding: 14px 16px; margin-top: 36px; color: #fffaf5; box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25); }
+    .level-bump { position: absolute; top: -28px; right: 18px; width: 80px; height: 80px; background: var(--flat-color); border-radius: 50%; box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25); z-index: 0; }
+    .level-patch { position: absolute; top: 0; right: 18px; width: 80px; height: 16px; background: var(--flat-color); z-index: 1; }
     .level-bobbin-img { position: absolute; top: -42px; right: 4px; width: 104px; height: 104px; z-index: 2; pointer-events: none; filter: drop-shadow(0 6px 8px rgba(64, 38, 24, 0.35)); }
     .level-content-wrap { position: relative; z-index: 3; }
     .level-header { font-size: 15px; font-weight: 800; margin-bottom: 8px; letter-spacing: 0.02em; }
@@ -296,18 +294,27 @@
 
     .section-title { font-size: 15px; font-weight: 800; color: var(--ink); margin: 0 0 10px; text-transform: uppercase; letter-spacing: 0.02em; }
 
-    /* Сетка категорий (вместо старых шкал) */
+    /* Сетка категорий (ровный цвет) */
     .category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .cat-block {
-      background: linear-gradient(180deg, #d39c65 0%, #d39c65 15%, #b27339 100%);
-      border-radius: 18px; padding: 14px 10px; color: #fffaf5;
+      background: var(--flat-color);
+      border-radius: 18px; padding: 12px 10px 14px; color: #fffaf5;
       box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25), 0 4px 6px rgba(107, 64, 40, 0.15);
       display: flex; flex-direction: column; align-items: center; text-align: center; position: relative;
     }
-    .cat-icon { width: 44px; height: 44px; margin-bottom: 8px; filter: drop-shadow(0 2px 4px rgba(64, 38, 24, 0.35)); }
-    .cat-name { font-size: 14px; font-weight: 800; margin-bottom: 2px; text-shadow: 0 1px 0 rgba(107,64,40,0.4); letter-spacing: 0.02em;}
-    .cat-stats { font-size: 11px; font-weight: 700; opacity: 0.9; margin-bottom: 6px;}
-    .cat-accuracy { font-size: 22px; font-weight: 800; line-height: 1; text-shadow: 0 2px 0 rgba(107, 64, 40, 0.4); }
+    .cat-icon { width: 36px; height: 36px; margin-bottom: 6px; filter: drop-shadow(0 2px 4px rgba(64, 38, 24, 0.35)); }
+    .cat-name { font-size: 14px; font-weight: 800; margin-bottom: 8px; text-shadow: 0 1px 0 rgba(107,64,40,0.4); letter-spacing: 0.02em;}
+    
+    /* Кружки статистики */
+    .cat-metrics { display: flex; gap: 6px; justify-content: center; width: 100%; }
+    .cat-circle {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(74, 46, 21, 0.15);
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800; color: #fffaf5;
+      text-shadow: 0 1px 0 rgba(107,64,40,0.4);
+    }
 
     .stats-list { display: flex; flex-direction: column; gap: 10px; }
     .reward-item { display: flex; align-items: center; gap: 10px; background: var(--paper-2); border: 2px solid var(--line); border-radius: 12px; padding: 8px 12px; }
@@ -337,7 +344,6 @@
   </style>
 </head>
 <body>
-  <!-- ГЛОБАЛЬНЫЕ SVG ГРАДИЕНТЫ ДЛЯ ИКОНОК -->
   <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <radialGradient id='cat-rg' cx='30%' cy='30%' r='70%'>
@@ -350,7 +356,6 @@
 
   <main class="app">
     <div class="topbar">
-      <!-- Кнопка ВЕРНУТЬСЯ в стиле 3D -->
       <button class="back-btn btn-3d" id="backButton" type="button" aria-label="Вернуться">
         <svg class="back-btn-icon" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M20 12H6"></path>
@@ -364,12 +369,10 @@
       <div class="tv-screen" id="tvScreen"></div>
 
       <div class="tv-controls" id="tvControls">
-        <!-- Главная кнопка НАЧАТЬ (чистый CSS) -->
         <button class="tv-start-btn btn-3d" id="startButton" type="button">
           <span id="startBtnText">Начать</span>
         </button>
 
-        <!-- Кнопка СЛУЧАЙНЫЙ КИНОТЕСТ (чистый CSS + SVG иконка) -->
         <button class="tv-random-btn btn-3d" id="randomButton" type="button" aria-label="Случайный кинотест" title="Случайный кинотест">
           <svg viewBox="0 0 100 100" style="width: 100%; height: 100%; position: absolute; pointer-events: none;">
             <g stroke='#855424' stroke-width='3' fill='#fffaf5'>
@@ -393,7 +396,6 @@
   <div class="modal-backdrop" id="accountModal">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="accountModalTitle">
       <div class="modal-head">
-        <!-- Шапка профиля с аватаром и именем -->
         <div class="profile-header">
           <div class="profile-avatar" id="profileAvatar">🤖</div>
           <h3 class="profile-name" id="profileName">Пользователь</h3>
@@ -402,7 +404,6 @@
       </div>
       
       <div class="modal-body">
-        <!-- Блок Текущий уровень -->
         <div class="level-block">
           <div class="level-bump"></div>
           <div class="level-patch"></div>
@@ -424,8 +425,7 @@
         </div>
 
         <div>
-          <h4 class="section-title">Точность по категориям</h4>
-          <!-- Сетка категорий в стиле бобины -->
+          <!-- Обновленная сетка с кружками метрик -->
           <div class="category-grid">
             
             <div class="cat-block">
@@ -433,8 +433,10 @@
                  <path d="M32 6 l7 18 h19 l-15 12 l6 19 l-17 -11 l-17 11 l6 -19 l-15 -12 h19 z" fill="url(#cat-rg)" stroke="#4a2e15" stroke-width="2.5" stroke-linejoin="round"/>
               </svg>
               <div class="cat-name">Актёры</div>
-              <div class="cat-stats">12 игр</div>
-              <div class="cat-accuracy">83%</div>
+              <div class="cat-metrics">
+                <div class="cat-circle" title="Сыграно игр">12</div>
+                <div class="cat-circle" title="Точность">83%</div>
+              </div>
             </div>
 
             <div class="cat-block">
@@ -446,8 +448,10 @@
                  <line x1="40" y1="16" x2="46" y2="14" stroke="#4a2e15" stroke-width="2"/>
               </svg>
               <div class="cat-name">Режиссёры</div>
-              <div class="cat-stats">5 игр</div>
-              <div class="cat-accuracy">60%</div>
+              <div class="cat-metrics">
+                <div class="cat-circle" title="Сыграно игр">5</div>
+                <div class="cat-circle" title="Точность">60%</div>
+              </div>
             </div>
 
             <div class="cat-block">
@@ -461,8 +465,10 @@
                  <line x1="40" y1="28" x2="38" y2="58" stroke="#4a2e15" stroke-width="2"/>
               </svg>
               <div class="cat-name">Фильмы</div>
-              <div class="cat-stats">19 игр</div>
-              <div class="cat-accuracy">74%</div>
+              <div class="cat-metrics">
+                <div class="cat-circle" title="Сыграно игр">19</div>
+                <div class="cat-circle" title="Точность">74%</div>
+              </div>
             </div>
 
             <div class="cat-block">
@@ -475,8 +481,10 @@
                  <line x1="32" y1="20" x2="44" y2="8" stroke="#4a2e15" stroke-width="2.5" stroke-linecap="round"/>
               </svg>
               <div class="cat-name">Сериалы</div>
-              <div class="cat-stats">8 игр</div>
-              <div class="cat-accuracy">80%</div>
+              <div class="cat-metrics">
+                <div class="cat-circle" title="Сыграно игр">8</div>
+                <div class="cat-circle" title="Точность">80%</div>
+              </div>
             </div>
 
             <div class="cat-block">
@@ -487,8 +495,10 @@
                  <circle cx="46" cy="30" r="2" fill="#4a2e15"/>
               </svg>
               <div class="cat-name">Кадры</div>
-              <div class="cat-stats">7 игр</div>
-              <div class="cat-accuracy">61%</div>
+              <div class="cat-metrics">
+                <div class="cat-circle" title="Сыграно игр">7</div>
+                <div class="cat-circle" title="Точность">61%</div>
+              </div>
             </div>
 
             <div class="cat-block">
@@ -500,8 +510,10 @@
                  <circle cx="56" cy="40" r="2" fill="#ffeeb3"/>
               </svg>
               <div class="cat-name">Анимация</div>
-              <div class="cat-stats">14 игр</div>
-              <div class="cat-accuracy">92%</div>
+              <div class="cat-metrics">
+                <div class="cat-circle" title="Сыграно игр">14</div>
+                <div class="cat-circle" title="Точность">92%</div>
+              </div>
             </div>
 
           </div>
@@ -606,7 +618,6 @@
     const backButton = document.getElementById('backButton');
     const accountModal = document.getElementById('accountModal');
 
-    // Кнопка профиля теперь тоже использует универсальный btn-3d
     const accountBtn = document.createElement('button');
     accountBtn.className = 'account-btn btn-3d';
     accountBtn.type = 'button';
@@ -883,7 +894,6 @@
           ? 'Этот кадр из какого фильма?'
           : (question.question || 'Вопрос');
 
-      // Кнопки ответов теперь с 3D классом
       const optionsHtml = quizType === 2
         ? question.options.map((option, index) => `
             <button class="option-btn option-btn--image btn-3d" type="button" data-option-index="${index}">
@@ -905,12 +915,12 @@
       tvScreen.innerHTML = `
         <div class="progress-row">
           <div class="progress-badge">Вопрос ${state.currentQuestion + 1} из ${state.quiz.questions.length}</div>
-        </div>
-        <div class="progress-bar" aria-hidden="true">
-          <div class="progress-bar-fill" style="width:${progress}%"></div>
+          <div class="progress-bar" aria-hidden="true">
+            <div class="progress-bar-fill" style="width:${progress}%"></div>
+          </div>
         </div>
 
-        <h2 class="quiz-title">${escapeHtml(questionTitle)}</h2>
+        <h2 class="question-title">${escapeHtml(questionTitle)}</h2>
 
         ${quizType === 1 || quizType === 3 || quizType === 4 ? `
           <div class="doodle ${(quizType === 3 || quizType === 4) ? 'question-doodle--landscape' : ''}">
@@ -994,7 +1004,7 @@
 
       attachAccountButton();
       tvControls.style.display = 'grid';
-      updateStartButtonText('Пройти ещё раз');
+      updateStartButtonText('Повторить');
       startButton.onclick = handleRestart;
       startButton.disabled = false;
       randomButton.disabled = false;
