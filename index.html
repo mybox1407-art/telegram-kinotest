@@ -318,17 +318,58 @@
       min-width: 34px;
     }
 
-    .stats-list { display: flex; flex-direction: column; gap: 10px; }
-    .reward-item { display: flex; align-items: center; gap: 10px; background: var(--paper-2); border: 2px solid var(--line); border-radius: 12px; padding: 8px 12px; }
-    .reward-icon { font-size: 20px; flex: 0 0 auto; }
-    .reward-info { flex: 1; }
-    .reward-name { font-size: 13px; font-weight: 800; color: var(--ink); margin-bottom: 4px; }
-    .stat-bar-container { height: 8px; border: 1px solid var(--line); border-radius: 999px; background: #f7e6cc; overflow: hidden; }
-    .stat-bar-fill { height: 100%; background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%); border-radius: 0 999px 999px 0; }
-
     .tools-grid { display: grid; gap: 8px; }
     .tool-btn { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border: 2px solid var(--line); border-radius: 12px; background: linear-gradient(180deg, #fff9ee 0%, #f6e2bd 100%); color: var(--ink); font-size: 14px; font-weight: 800; cursor: pointer; }
     .tool-count { background: var(--accent); color: #fff; padding: 2px 8px; border-radius: 999px; font-size: 12px; }
+
+    .hints-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .hint-card {
+      background: #9e6127;
+      border-radius: 14px;
+      border: 1.5px solid rgba(255,245,225,0.45);
+      padding: 7px 9px 8px;
+      color: #fffaf5;
+      box-shadow: inset 0 2px 0 rgba(255,255,255,0.18), 0 4px 6px rgba(107, 64, 40, 0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-width: 0;
+    }
+
+    .hint-icon {
+      width: 42px;
+      height: 42px;
+      display: block;
+      margin-bottom: 6px;
+      filter: drop-shadow(0 3px 4px rgba(64, 38, 24, 0.30));
+    }
+
+    .hint-name {
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 6px;
+      white-space: nowrap;
+    }
+
+    .hint-count {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.10);
+      border: 1.5px solid rgba(255,255,255,0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+    }
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -343,6 +384,10 @@
       .knob.small { width: 22px; height: 22px; }
       .question-options--images { grid-template-columns: 1fr 1fr; }
       .modal { border-radius: 24px; }
+      .hints-grid { gap: 6px; }
+      .hint-name { font-size: 10px; }
+      .hint-icon { width: 36px; height: 36px; }
+      .hint-count { width: 24px; height: 24px; font-size: 9px; }
     }
   </style>
 </head>
@@ -529,6 +574,92 @@
                   <div class="cat-circle" title="Сыграно игр">14</div>
                   <div class="cat-circle" title="Точность">92%</div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:8px;">
+          <div class="reward-panel reward-panel--stacked">
+            <div class="level-header" style="margin: 0 0 6px; color: #fffaf5;">Подсказки</div>
+            <div class="hints-grid">
+              <div class="hint-card">
+                <svg class="hint-icon" viewBox="0 0 128 128" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="hint50g" x1="0" y1="0" x2="0" y2="128" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#FFF5C9"/>
+                      <stop offset="28%" stop-color="#E7C56A"/>
+                      <stop offset="62%" stop-color="#B77A2A"/>
+                      <stop offset="100%" stop-color="#7B4B1A"/>
+                    </linearGradient>
+                    <filter id="hint50s" x="-20%" y="-20%" width="140%" height="140%">
+                      <feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#3E220C" flood-opacity=".45"/>
+                    </filter>
+                  </defs>
+                  <g filter="url(#hint50s)">
+                    <rect x="16" y="16" width="96" height="96" rx="22" fill="url(#hint50g)" stroke="#4A2A0F" stroke-width="2.6"/>
+                    <rect x="26" y="26" width="76" height="76" rx="18" fill="none" stroke="#FFFBEA" stroke-opacity=".25" stroke-width="2.2"/>
+                    <text x="64" y="73" text-anchor="middle" font-family="Nunito, Arial, sans-serif" font-size="29" font-weight="900" fill="#fff8ef" stroke="#4A2A0F" stroke-width=".9">50%</text>
+                  </g>
+                </svg>
+                <div class="hint-name">50% на 50%</div>
+                <div class="hint-count">3</div>
+              </div>
+
+              <div class="hint-card">
+                <svg class="hint-icon" viewBox="0 0 128 128" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="horng" x1="20" y1="10" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#FFF5C9"/>
+                      <stop offset="28%" stop-color="#E7C56A"/>
+                      <stop offset="62%" stop-color="#B77A2A"/>
+                      <stop offset="100%" stop-color="#7B4B1A"/>
+                    </linearGradient>
+                    <linearGradient id="horns" x1="20" y1="10" x2="80" y2="90" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#FFFBEA" stop-opacity=".95"/>
+                      <stop offset="100%" stop-color="#FFFBEA" stop-opacity="0"/>
+                    </linearGradient>
+                    <filter id="hornsh" x="-20%" y="-20%" width="140%" height="140%">
+                      <feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#3E220C" flood-opacity=".45"/>
+                    </filter>
+                  </defs>
+                  <g filter="url(#hornsh)" stroke="#FFFBEA" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="16" y="16" width="96" height="96" rx="22" fill="url(#horng)" stroke="#4A2A0F" stroke-width="2.6"/>
+                    <rect x="26" y="26" width="76" height="76" rx="18" fill="none" stroke="#FFFBEA" stroke-opacity=".25" stroke-width="2.2"/>
+                    <g transform="translate(30,26) scale(0.58)">
+                      <path d="M24 44C24 38 29 33 35 33H53L78 18C83 15 89 19 89 25V71C89 77 83 81 78 78L53 63H35C29 63 24 58 24 52V44Z" fill="url(#horng)"/>
+                      <path d="M35 37H52L77 22" stroke="url(#horns)" stroke-width="4" opacity=".55"/>
+                      <path d="M48 63L54 84C55 88 53 92 49 94C45 96 40 94 38 90L31 72" fill="url(#horng)"/>
+                      <path d="M78 28L78 68" stroke="#fffbe8" stroke-width="2.2" opacity=".35"/>
+                      <path d="M23 44C18 46 16 50 16 54C16 58 18 62 23 64" fill="none" stroke="#FFFBEA" stroke-width="5.2" opacity=".95"/>
+                    </g>
+                  </g>
+                </svg>
+                <div class="hint-name">Повтор</div>
+                <div class="hint-count">1</div>
+              </div>
+
+              <div class="hint-card">
+                <svg class="hint-icon" viewBox="0 0 128 128" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="wing" x1="0" y1="0" x2="0" y2="128" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#FFF5C9"/>
+                      <stop offset="28%" stop-color="#E7C56A"/>
+                      <stop offset="62%" stop-color="#B77A2A"/>
+                      <stop offset="100%" stop-color="#7B4B1A"/>
+                    </linearGradient>
+                    <filter id="winsh" x="-20%" y="-20%" width="140%" height="140%">
+                      <feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#3E220C" flood-opacity=".45"/>
+                    </filter>
+                  </defs>
+                  <g filter="url(#winsh)">
+                    <rect x="16" y="16" width="96" height="96" rx="22" fill="url(#wing)" stroke="#4A2A0F" stroke-width="2.6"/>
+                    <rect x="26" y="26" width="76" height="76" rx="18" fill="none" stroke="#FFFBEA" stroke-opacity=".25" stroke-width="2.2"/>
+                    <text x="64" y="73" text-anchor="middle" font-family="Nunito, Arial, sans-serif" font-size="29" font-weight="900" fill="#fff8ef" stroke="#4A2A0F" stroke-width=".9">WIN</text>
+                  </g>
+                </svg>
+                <div class="hint-name">Ответ</div>
+                <div class="hint-count">0</div>
               </div>
             </div>
           </div>
