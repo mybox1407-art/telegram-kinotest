@@ -355,7 +355,16 @@
       min-width: 0;
     }
 
-    .hint-top {
+    .hint-name {
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 6px;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .hint-bottom {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -372,20 +381,9 @@
       filter: drop-shadow(0 3px 4px rgba(64, 38, 24, 0.30));
     }
 
-    .hint-name {
-      font-size: 12px;
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 0;
-      white-space: nowrap;
-      flex: 0 0 auto;
-      text-align: left;
-    }
-
     .hint-count {
       width: 28px;
       height: 28px;
-      margin-top: 6px;
       border-radius: 50%;
       background: rgba(255,255,255,0.10);
       border: 1.5px solid rgba(255,255,255,0.22);
@@ -396,8 +394,6 @@
       font-weight: 800;
       flex: 0 0 auto;
     }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
 
     @media (max-width: 480px) {
       .app { max-width: 100%; }
@@ -411,7 +407,6 @@
       .question-options--images { grid-template-columns: 1fr 1fr; }
       .modal { border-radius: 24px; }
       .hints-grid { gap: 6px; }
-      .hint-top { gap: 4px; }
       .hint-name { font-size: 10px; }
       .hint-icon { width: 36px; height: 36px; }
       .hint-count { width: 24px; height: 24px; font-size: 9px; }
@@ -610,7 +605,8 @@
             <div class="level-header" style="margin: 0 0 6px; color: #fffaf5;">Подсказки</div>
             <div class="hints-grid">
               <div class="hint-card">
-                <div class="hint-top">
+                <div class="hint-name">50 на 50</div>
+                <div class="hint-bottom">
                   <svg class="hint-icon" viewBox="0 0 128 128" aria-hidden="true">
                     <defs>
                       <linearGradient id="hint50g" x1="0" y1="0" x2="0" y2="128" gradientUnits="userSpaceOnUse">
@@ -629,13 +625,13 @@
                       <text x="64" y="73" text-anchor="middle" font-family="Nunito, Arial, sans-serif" font-size="29" font-weight="900" fill="#fff8ef" stroke="#4A2A0F" stroke-width=".9">50%</text>
                     </g>
                   </svg>
-                  <div class="hint-name">50/50</div>
+                  <div class="hint-count">3</div>
                 </div>
-                <div class="hint-count">3</div>
               </div>
 
               <div class="hint-card">
-                <div class="hint-top">
+                <div class="hint-name">Повтор вопроса</div>
+                <div class="hint-bottom">
                   <svg class="hint-icon" viewBox="0 0 128 128" aria-hidden="true">
                     <defs>
                       <linearGradient id="horng" x1="20" y1="10" x2="100" y2="100" gradientUnits="userSpaceOnUse">
@@ -664,13 +660,13 @@
                       </g>
                     </g>
                   </svg>
-                  <div class="hint-name">Повтор</div>
+                  <div class="hint-count">1</div>
                 </div>
-                <div class="hint-count">1</div>
               </div>
 
               <div class="hint-card">
-                <div class="hint-top">
+                <div class="hint-name">Верный ответ</div>
+                <div class="hint-bottom">
                   <svg class="hint-icon" viewBox="0 0 128 128" aria-hidden="true">
                     <defs>
                       <linearGradient id="wing" x1="0" y1="0" x2="0" y2="128" gradientUnits="userSpaceOnUse">
@@ -689,9 +685,8 @@
                       <text x="64" y="73" text-anchor="middle" font-family="Nunito, Arial, sans-serif" font-size="29" font-weight="900" fill="#fff8ef" stroke="#4A2A0F" stroke-width=".9">WIN</text>
                     </g>
                   </svg>
-                  <div class="hint-name">Ответ</div>
+                  <div class="hint-count">0</div>
                 </div>
-                <div class="hint-count">0</div>
               </div>
             </div>
           </div>
@@ -801,15 +796,8 @@
       answers: [],
       score: 0,
       error: '',
-      account: {
-        name: 'Пользователь',
-        photo: null
-      },
-      rewards: {
-        bobbin: 4,
-        star: 7,
-        ticket: 2
-      }
+      account: { name: 'Пользователь', photo: null },
+      rewards: { bobbin: 4, star: 7, ticket: 2 }
     };
 
     if (tg) {
@@ -817,13 +805,10 @@
       tg.expand();
       tg.BackButton.show();
       tg.MainButton.hide();
-
       if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
         const user = tg.initDataUnsafe.user;
         state.account.name = user.first_name || 'Пользователь';
-        if (user.photo_url) {
-          state.account.photo = user.photo_url;
-        }
+        if (user.photo_url) state.account.photo = user.photo_url;
       }
     }
 
@@ -841,14 +826,12 @@
       <svg viewBox="0 0 100 100" style="width: 26px; height: 26px;">
          <circle cx='50' cy='36' r='14' fill='#fffaf5'/>
          <path d='M22,76 C22,58 34,52 50,52 C66,52 78,58 78,76 C78,80 22,80 22,76 Z' fill='#fffaf5'/>
-      </svg>
-    `;
+      </svg>`;
     accountBtn.setAttribute('aria-label', 'Профиль');
     accountBtn.title = 'Профиль';
 
     function attachAccountButton() {
-      const existing = document.getElementById('accountBtnInjected');
-      if (existing) return;
+      if (document.getElementById('accountBtnInjected')) return;
       accountBtn.id = 'accountBtnInjected';
       accountBtn.addEventListener('click', openAccountModal);
       tvScreen.appendChild(accountBtn);
@@ -859,9 +842,7 @@
       try {
         if (type === 'impact') tg.HapticFeedback.impactOccurred(level);
         if (type === 'notification') tg.HapticFeedback.notificationOccurred(level);
-      } catch (e) {
-        console.warn('Haptic feedback failed:', e);
-      }
+      } catch (e) {}
     }
 
     function openAccountModal() {
@@ -877,9 +858,7 @@
       safeHaptic('impact', 'light');
     }
 
-    function closeAccountModal() {
-      accountModal.classList.remove('show');
-    }
+    function closeAccountModal() { accountModal.classList.remove('show'); }
 
     document.getElementById('closeAccountModal').onclick = closeAccountModal;
     accountModal.addEventListener('click', e => { if (e.target === accountModal) closeAccountModal(); });
@@ -887,10 +866,7 @@
     async function fetchQuiz() {
       const response = await fetch(QUIZ_API, {
         method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         mode: 'cors',
         body: JSON.stringify({})
       });
@@ -921,15 +897,9 @@
       state.loading = true;
       state.error = '';
       render();
-      try {
-        const quiz = await fetchQuiz();
-        setPreviewFromQuiz(quiz);
-      } catch (error) {
-        state.error = error.message || 'Ошибка загрузки кинотеста';
-      } finally {
-        state.loading = false;
-        render();
-      }
+      try { setPreviewFromQuiz(await fetchQuiz()); }
+      catch (error) { state.error = error.message || 'Ошибка загрузки кинотеста'; }
+      finally { state.loading = false; render(); }
     }
 
     async function handleRandomQuiz() {
@@ -938,8 +908,7 @@
       state.error = '';
       render();
       try {
-        const quiz = await fetchQuiz();
-        setPreviewFromQuiz(quiz);
+        setPreviewFromQuiz(await fetchQuiz());
         state.screen = 'home';
       } catch (error) {
         state.error = error.message || 'Ошибка загрузки кинотеста';
@@ -955,10 +924,7 @@
       state.error = '';
       render();
       try {
-        if (!state.quiz) {
-          const quiz = await fetchQuiz();
-          setPreviewFromQuiz(quiz);
-        }
+        if (!state.quiz) setPreviewFromQuiz(await fetchQuiz());
         resetRun();
         state.screen = 'quiz';
       } catch (error) {
@@ -984,8 +950,7 @@
 
       if (isCorrect) state.score += 1;
 
-      const isLastQuestion = state.currentQuestion >= state.quiz.questions.length - 1;
-      if (isLastQuestion) {
+      if (state.currentQuestion >= state.quiz.questions.length - 1) {
         state.screen = 'result';
         render();
         return;
@@ -996,10 +961,7 @@
     }
 
     function handleRestart() {
-      if (!state.quiz) {
-        handleStart();
-        return;
-      }
+      if (!state.quiz) return handleStart();
       resetRun();
       state.screen = 'quiz';
       render();
@@ -1081,22 +1043,11 @@
       let phrase = 'Хорошая попытка — следующий кинотест точно покорится тебе.';
       let moodClass = 'path-card--ok';
 
-      if (percent === 100) {
-        phrase = 'Идеально! Кинотест пройден без единой ошибки!';
-        moodClass = 'path-card--super';
-      } else if (percent >= 70) {
-        phrase = 'Хороший результат! Ты отлично разбираешься в кинематографе!';
-        moodClass = 'path-card--good';
-      } else if (percent >= 40) {
-        phrase = 'Неплохо! Но ты делаешь много ошибок, попробуй еще раз!';
-        moodClass = 'path-card--ok';
-      } else if (percent >= 20) {
-        phrase = 'Кинотест провален. Думаю, что тебе стоит попробовать ещё раз!';
-        moodClass = 'path-card--sad';
-      } else {
-        phrase = 'Почти всё мимо, но в этом и кайф — давай попробуем ещё раз!';
-        moodClass = 'path-card--fail';
-      }
+      if (percent === 100) { phrase = 'Идеально! Кинотест пройден без единой ошибки!'; moodClass = 'path-card--super'; }
+      else if (percent >= 70) { phrase = 'Хороший результат! Ты отлично разбираешься в кинематографе!'; moodClass = 'path-card--good'; }
+      else if (percent >= 40) { phrase = 'Неплохо! Но ты делаешь много ошибок, попробуй еще раз!'; moodClass = 'path-card--ok'; }
+      else if (percent >= 20) { phrase = 'Кинотест провален. Думаю, что тебе стоит попробовать ещё раз!'; moodClass = 'path-card--sad'; }
+      else { phrase = 'Почти всё мимо, но в этом и кайф — давай попробуем ещё раз!'; moodClass = 'path-card--fail'; }
 
       tvScreen.innerHTML = `<div class="result-wrap"><p class="hand-note">Финал кинотеста</p><p class="result-text">${escapeHtml(phrase)}</p><div class="path-visual"><div class="path-card ${moodClass}"><div class="path-start"><div class="path-start-line"></div></div><div class="path-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="path-target"><div class="path-target-x"></div></div><div class="path-smile"></div></div></div><div class="result-stats"><div class="result-chip">Правильных ответов: ${state.score} из ${total}</div><div class="result-chip">Точность: ${percent}%</div></div></div>`;
 
@@ -1109,33 +1060,17 @@
     }
 
     function render() {
-      if (state.screen === 'home') {
-        renderHome();
-        renderRewards();
-        return;
-      }
-      if (state.screen === 'quiz' && state.quiz) {
-        renderQuiz();
-        return;
-      }
-      if (state.screen === 'result' && state.quiz) {
-        renderResult();
-        return;
-      }
+      if (state.screen === 'home') { renderHome(); renderRewards(); return; }
+      if (state.screen === 'quiz' && state.quiz) { renderQuiz(); return; }
+      if (state.screen === 'result' && state.quiz) { renderResult(); return; }
       goHome();
     }
 
     randomButton.addEventListener('click', handleRandomQuiz);
     startButton.addEventListener('click', handleStart);
     backButton.addEventListener('click', () => {
-      if (document.getElementById('accountModal').classList.contains('show')) {
-        closeAccountModal();
-        return;
-      }
-      if (state.screen === 'quiz' || state.screen === 'result') {
-        goHome();
-        return;
-      }
+      if (document.getElementById('accountModal').classList.contains('show')) { closeAccountModal(); return; }
+      if (state.screen === 'quiz' || state.screen === 'result') { goHome(); return; }
       if (window.history.length > 1) window.history.back();
       else if (tg) tg.close();
     });
