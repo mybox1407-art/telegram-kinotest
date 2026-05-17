@@ -318,10 +318,6 @@
       min-width: 34px;
     }
 
-    .tools-grid { display: grid; gap: 8px; }
-    .tool-btn { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border: 2px solid var(--line); border-radius: 12px; background: linear-gradient(180deg, #fff9ee 0%, #f6e2bd 100%); color: var(--ink); font-size: 14px; font-weight: 800; cursor: pointer; }
-    .tool-count { background: var(--accent); color: #fff; padding: 2px 8px; border-radius: 999px; font-size: 12px; }
-
     .hints-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -748,15 +744,6 @@
             </div>
           </div>
         </div>
-
-        <div>
-          <h4 class="section-title">Инструменты</h4>
-          <div class="tools-grid">
-            <button class="tool-btn" type="button">Монтажная резка (50/50)<span class="tool-count">3</span></button>
-            <button class="tool-btn" type="button">Второй дубль (повтор)<span class="tool-count">1</span></button>
-            <button class="tool-btn" type="button">Оскар (сразу выиграть)<span class="tool-count">0</span></button>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -994,7 +981,7 @@
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
+        .replace(/\"/g, '&quot;')
         .replace(/'/g, '&#39;');
     }
 
