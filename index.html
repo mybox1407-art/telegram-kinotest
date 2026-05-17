@@ -240,11 +240,11 @@
 
     .section-title { font-size: 15px; font-weight: 800; color: var(--ink); margin: 0 0 10px; text-transform: uppercase; letter-spacing: 0.02em; }
 
-    .category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: -8px;}
+    .category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: -8px; }
     .cat-block { background: #9e6127; border-radius: 14px; border: 1.5px solid rgba(255,245,225,0.45); padding: 7px 9px 8px; color: #fffaf5; box-shadow: inset 0 2px 0 rgba(255,255,255,0.18), 0 4px 6px rgba(107, 64, 40, 0.15); display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; }
     .cat-top { display: flex; align-items: center; justify-content: center; width: 100%; margin-bottom: 2px; }
-    .cat-icon { width: 28px; height: 28px; margin-bottom: 0px;; margin-right: 6px; flex: 0 0 28px; filter: drop-shadow(0 3px 5px rgba(64, 38, 24, 0.45)); }
-    .cat-name { font-size: 13px; font-weight: 800; margin-bottom: -1px; text-shadow: 0 1px 0 rgba(107,64,40,0.4); letter-spacing: 0.02em; text-align: left; flex: 0 0 auto; }
+    .cat-icon { width: 28px; height: 28px; margin-right: 6px; flex: 0 0 28px; filter: drop-shadow(0 3px 5px rgba(64, 38, 24, 0.45)); }
+    .cat-name { font-size: 13px; font-weight: 800; margin-bottom: 0; text-shadow: 0 1px 0 rgba(107,64,40,0.4); letter-spacing: 0.02em; text-align: left; flex: 0 0 auto; }
     .cat-metrics { display: flex; gap: 5px; justify-content: center; width: 100%; }
     .cat-circle { width: 32px; height: 32px; border-radius: 50%; background: rgba(255, 255, 255, 0.10); border: 1.5px solid rgba(255, 255, 255, 0.22); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; color: #fffaf5; text-shadow: 0 1px 0 rgba(107,64,40,0.4); }
 
@@ -349,9 +349,11 @@
       color: #fffaf5;
       box-shadow: inset 0 2px 0 rgba(255,255,255,0.18), 0 4px 6px rgba(107, 64, 40, 0.15);
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
+      justify-content: center;
       text-align: center;
+      gap: 6px;
       min-width: 0;
     }
 
@@ -359,7 +361,8 @@
       width: 42px;
       height: 42px;
       display: block;
-      margin-bottom: 6px;
+      margin-bottom: 0;
+      flex: 0 0 auto;
       filter: drop-shadow(0 3px 4px rgba(64, 38, 24, 0.30));
     }
 
@@ -367,8 +370,9 @@
       font-size: 12px;
       font-weight: 800;
       line-height: 1.1;
-      margin-bottom: 6px;
+      margin-bottom: 0;
       white-space: nowrap;
+      flex: 0 0 auto;
     }
 
     .hint-count {
@@ -382,6 +386,7 @@
       justify-content: center;
       font-size: 10px;
       font-weight: 800;
+      flex: 0 0 auto;
     }
 
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -463,7 +468,6 @@
         </div>
         <button class="modal-close" id="closeAccountModal" type="button" aria-label="Закрыть">×</button>
       </div>
-
       <div class="modal-body">
         <div class="level-block">
           <div class="level-bump"></div>
@@ -615,7 +619,7 @@
                     <text x="64" y="73" text-anchor="middle" font-family="Nunito, Arial, sans-serif" font-size="29" font-weight="900" fill="#fff8ef" stroke="#4A2A0F" stroke-width=".9">50%</text>
                   </g>
                 </svg>
-                <div class="hint-name">50% на 50%</div>
+                <div class="hint-name">50/50</div>
                 <div class="hint-count">3</div>
               </div>
 
@@ -763,7 +767,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </main>
 
   <script>
     const QUIZ_API = 'https://n8n.kino-test.ru/webhook/random_quiz';
@@ -998,7 +1002,7 @@
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
-        .replace(/\"/g, '&quot;')
+        .replace(/\\\"/g, '&quot;')
         .replace(/'/g, '&#39;');
     }
 
