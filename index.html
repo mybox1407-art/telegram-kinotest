@@ -355,11 +355,18 @@
       min-width: 0;
     }
 
+    .hint-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+    }
+
     .hint-icon {
       width: 42px;
       height: 42px;
       display: block;
-      margin-bottom: 6px;
       filter: drop-shadow(0 3px 4px rgba(64, 38, 24, 0.30));
     }
 
@@ -596,7 +603,7 @@
             <div class="level-header" style="margin: 0 0 6px; color: #fffaf5;">Подсказки</div>
             <div class="hints-grid">
               <div class="hint-card">
-                <div class="hint-name">50 на 50</div>
+                <div class="hint-name">50% на 50%</div>
                 <div class="hint-bottom">
                   <svg class="hint-icon" viewBox="0 0 128 128" aria-hidden="true">
                     <defs>
@@ -767,8 +774,8 @@
           </div>
         </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </div>
 
   <script>
     const QUIZ_API = 'https://n8n.kino-test.ru/webhook/random_quiz';
@@ -970,7 +977,7 @@
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
-        .replace(/\\\"/g, '&quot;')
+        .replace(/\"/g, '&quot;')
         .replace(/'/g, '&#39;');
     }
 
