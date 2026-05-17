@@ -355,30 +355,20 @@
       min-width: 0;
     }
 
+    .hint-icon {
+      width: 42px;
+      height: 42px;
+      display: block;
+      margin-bottom: 6px;
+      filter: drop-shadow(0 3px 4px rgba(64, 38, 24, 0.30));
+    }
+
     .hint-name {
       font-size: 12px;
       font-weight: 800;
       line-height: 1.1;
       margin-bottom: 6px;
       white-space: nowrap;
-      text-align: center;
-    }
-
-    .hint-bottom {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      width: 100%;
-    }
-
-    .hint-icon {
-      width: 42px;
-      height: 42px;
-      display: block;
-      margin-bottom: 0;
-      flex: 0 0 auto;
-      filter: drop-shadow(0 3px 4px rgba(64, 38, 24, 0.30));
     }
 
     .hint-count {
@@ -392,8 +382,9 @@
       justify-content: center;
       font-size: 10px;
       font-weight: 800;
-      flex: 0 0 auto;
     }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     @media (max-width: 480px) {
       .app { max-width: 100%; }
@@ -630,7 +621,7 @@
               </div>
 
               <div class="hint-card">
-                <div class="hint-name">Повтор вопроса</div>
+                <div class="hint-name">Замена</div>
                 <div class="hint-bottom">
                   <svg class="hint-icon" viewBox="0 0 128 128" aria-hidden="true">
                     <defs>
@@ -665,7 +656,7 @@
               </div>
 
               <div class="hint-card">
-                <div class="hint-name">Верный ответ</div>
+                <div class="hint-name">Ответ</div>
                 <div class="hint-bottom">
                   <svg class="hint-icon" viewBox="0 0 128 128" aria-hidden="true">
                     <defs>
@@ -776,7 +767,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </section>
   </main>
 
   <script>
@@ -1069,8 +1060,14 @@
     randomButton.addEventListener('click', handleRandomQuiz);
     startButton.addEventListener('click', handleStart);
     backButton.addEventListener('click', () => {
-      if (document.getElementById('accountModal').classList.contains('show')) { closeAccountModal(); return; }
-      if (state.screen === 'quiz' || state.screen === 'result') { goHome(); return; }
+      if (document.getElementById('accountModal').classList.contains('show')) {
+        closeAccountModal();
+        return;
+      }
+      if (state.screen === 'quiz' || state.screen === 'result') {
+        goHome();
+        return;
+      }
       if (window.history.length > 1) window.history.back();
       else if (tg) tg.close();
     });
