@@ -725,7 +725,6 @@
               </div>
               <div class="reward-count" data-reward-count="bobbin">0</div>
             </div>
-
             <div class="reward-track-row">
               <div class="reward-figure reward-figure--star">
                 <svg viewBox="0 0 120 120" class="reward-figure-icon" aria-hidden="true">
@@ -746,7 +745,6 @@
               </div>
               <div class="reward-count" data-reward-count="star">0</div>
             </div>
-
             <div class="reward-track-row">
               <div class="reward-figure reward-figure--ticket">
                 <svg viewBox="0 0 120 120" class="reward-figure-icon" aria-hidden="true">
@@ -779,6 +777,7 @@
 
   <script>
     const QUIZ_API = 'https://n8n.kino-test.ru/webhook/random_quiz';
+    const RESULT_WEBHOOK_URL = 'https://n8n.kino-test.ru/webhook/post_result';
     const FALLBACK_SCENE = './movie_still.jpg';
 
     const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
@@ -795,7 +794,8 @@
       score: 0,
       error: '',
       account: { name: 'Пользователь', photo: null },
-      rewards: { bobbin: 4, star: 7, ticket: 2 }
+      rewards: { bobbin: 4, star: 7, ticket: 2 },
+      resultSent: false
     };
 
     if (tg) {
@@ -888,6 +888,50 @@
       state.currentQuestion = 0;
       state.answers = [];
       state.score = 0;
+      state.resultSent = false;
+    }
+
+    function getCategoryMetaByType(type) {
+      const t = Number(type);
+      if (t === 1 || t === 2) return { id: 1, name: 'Актеры' };
+      if (t === 3 || t === 4 || t === 5 || t === 6) return { id: 2, name: 'Кадры' };
+      if (t === 7) return { id: 3, name: 'Фильмы' };
+      if (t === 8) return { id: 4, name: 'Сериалы' };
+      if (t === 9) return { id: 5, name: 'Анимация' };
+      if (t === 10) return { id: 6, name: 'Режиссеры' };
+      return { id: null, name: '' };
+    }
+
+    async function sendTestResultToWebhook() {
+      try {
+        const telegramId = tg?.initDataUnsafe?.user?.id || null;
+        const type = Number(state.quiz?.type || 0);
+        const total = state.quiz?.questions?.length || 0;
+        const countCorrect = Number(state.score || 0);
+        const accuracy = total > 0 ? Math.round((countCorrect / total) * 100) : 0;
+        const experience = countCorrect * 5;
+        const category = getCategoryMetaByType(type);
+
+        const payload = {
+          telegram_id: telegramId,
+          category_id: category.id,
+          category: category.name,
+          count_correct: countCorrect,
+          accuracy: accuracy,
+          experience: experience
+        };
+
+        await fetch(RESULT_WEBHOOK_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+      } catch (error) {
+        console.error('Webhook result send failed:', error);
+      }
     }
 
     async function preloadQuiz() {
@@ -977,7 +1021,7 @@
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
-        .replace(/\"/g, '&quot;')
+        .replace(/\\"/g, '&quot;')
         .replace(/'/g, '&#39;');
     }
 
@@ -1035,7 +1079,7 @@
       tvControls.style.display = 'none';
     }
 
-    function renderResult() {
+    async function renderResult() {
       const total = state.quiz.questions.length;
       const percent = Math.round((state.score / total) * 100);
       let phrase = 'Хорошая попытка — следующий кинотест точно покорится тебе.';
@@ -1048,6 +1092,11 @@
       else { phrase = 'Почти всё мимо, но в этом и кайф — давай попробуем ещё раз!'; moodClass = 'path-card--fail'; }
 
       tvScreen.innerHTML = `<div class="result-wrap"><p class="hand-note">Финал кинотеста</p><p class="result-text">${escapeHtml(phrase)}</p><div class="path-visual"><div class="path-card ${moodClass}"><div class="path-start"><div class="path-start-line"></div></div><div class="path-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="path-target"><div class="path-target-x"></div></div><div class="path-smile"></div></div></div><div class="result-stats"><div class="result-chip">Правильных ответов: ${state.score} из ${total}</div><div class="result-chip">Точность: ${percent}%</div></div></div>`;
+
+      if (!state.resultSent) {
+        state.resultSent = true;
+        sendTestResultToWebhook();
+      }
 
       attachAccountButton();
       tvControls.style.display = 'grid';
