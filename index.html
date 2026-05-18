@@ -157,6 +157,9 @@
     .question-options--images { grid-template-columns: 1fr 1fr; gap: 8px; }
     .question-options--images .option-btn--image { min-height: 128px; }
 
+    .result-stats { margin-top: 16px; display: grid; gap: 10px; }
+    .result-chip { padding: 12px 14px; border: 2px solid var(--line); border-radius: 18px; background: var(--paper-2); text-align: center; font-size: 15px; font-weight: 800; }
+
     .loading-wrap, .error-wrap, .result-wrap { display: flex; flex-direction: column; justify-content: center; min-height: 100%; }
     .spinner { width: 48px; height: 48px; margin: 14px auto 0; border-radius: 50%; border: 4px solid rgba(107, 64, 40, 0.15); border-top-color: var(--accent-dark); animation: spin 0.9s linear infinite; }
 
@@ -170,6 +173,63 @@
     .knob.small { width: 24px; height: 24px; }
     .knob::after { content: ""; position: absolute; width: 3px; height: 11px; border-radius: 999px; background: var(--line); top: 5px; left: 50%; transform: translateX(-50%); }
     .knob.small::after { height: 8px; top: 3px; }
+
+    .path-visual { margin-top: 14px; display: flex; justify-content: center; }
+    .path-card { position: relative; width: 280px; height: 120px; border-radius: 18px; background: var(--paper-2); border: 2px solid var(--line); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.7); overflow: hidden; transition: transform 160ms ease-out; }
+    .path-card--super { transform: translateY(-2px); }
+    .path-start { position: absolute; left: 26px; top: 34px; width: 64px; height: 40px; border-radius: 14px; background: #f4c28f; border: 3px solid #6b4028; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.4); }
+    .path-start-line { position: absolute; top: 50%; left: 20%; right: 20%; height: 0; border-top: 3px solid #6b4028; transform: translateY(-50%); }
+    .path-start-line::before, .path-start-line::after { content: ""; position: absolute; top: -16px; bottom: -16px; width: 0; border-left: 3px solid #6b4028; }
+    .path-start-line::before { left: 34%; }
+    .path-start-line::after { right: 34%; }
+    .path-target { position: absolute; right: 32px; top: 26px; width: 52px; height: 52px; border-radius: 50%; background: #fff7ee; border: 3px solid #6b4028; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; }
+    .path-target-x { position: relative; width: 24px; height: 24px; }
+    .path-target-x::before, .path-target-x::after { content: ""; position: absolute; left: 50%; top: 50%; width: 100%; height: 3px; background: #f48a2a; border-radius: 999px; transform-origin: center; }
+    .path-target-x::before { transform: translate(-50%, -50%) rotate(45deg); }
+    .path-target-x::after { transform: translate(-50%, -50%) rotate(-45deg); }
+    .path-dots { position: absolute; left: 80px; right: 90px; top: 48px; height: 40px; pointer-events: none; }
+    .path-dots span { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #6b4028; opacity: 0.9; }
+    .path-dots span:nth-child(1) { left: 0%; top: 18px; }
+    .path-dots span:nth-child(2) { left: 18%; top: 12px; }
+    .path-dots span:nth-child(3) { left: 36%; top: 8px; }
+    .path-dots span:nth-child(4) { left: 54%; top: 10px; }
+    .path-dots span:nth-child(5) { left: 72%; top: 16px; }
+    .path-dots span:nth-child(6) { left: 90%; top: 22px; }
+    .path-smile { position: absolute; left: 50%; bottom: 20px; width: 120px; height: 28px; border-radius: 0 0 80px 80px; border-bottom: 3px solid #6b4028; transform: translateX(-50%); }
+    .path-card--super .path-smile { width: 140px; height: 34px; bottom: 18px; border-radius: 0 0 90px 90px; }
+    .path-card--good .path-smile { width: 125px; height: 26px; bottom: 20px; }
+    .path-card--ok .path-smile { width: 110px; height: 10px; bottom: 24px; border-radius: 0 0 40px 40px; }
+    .path-card--sad .path-smile { top: 74px; bottom: auto; width: 110px; height: 20px; border-radius: 80px 80px 0 0; border-bottom: none; border-top: 3px solid #6b4028; }
+    .path-card--fail .path-smile { top: 72px; bottom: auto; width: 130px; height: 26px; border-radius: 90px 90px 0 0; border-bottom: none; border-top: 3px solid #6b4028; }
+
+    .result-media {
+      margin: 10px auto 0;
+      width: 100%;
+      max-width: 230px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1.5px rgba(255, 237, 214, 0.35), 0 6px 0 var(--flat-shadow), 0 10px 8px rgba(107, 64, 40, 0.2);
+    }
+
+    .result-gif {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .result-levelup {
+      margin: 12px auto 0;
+      width: 100%;
+      max-width: 240px;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1.5px rgba(255, 237, 214, 0.35), 0 6px 0 var(--flat-shadow), 0 10px 8px rgba(107, 64, 40, 0.2);
+    }
+
+    .result-levelup img {
+      width: 100%;
+      display: block;
+    }
 
     .modal-backdrop { position: fixed; inset: 0; background: rgba(64, 38, 24, 0.42); display: none; align-items: center; justify-content: center; z-index: 9999; padding: 18px; }
     .modal-backdrop.show { display: flex; }
@@ -211,6 +271,16 @@
     .level-bar-bg { height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 999px; overflow: hidden; box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2); }
     .level-bar-fill { height: 100%; background: linear-gradient(90deg, #ffdfa0 0%, #fff7ec 100%); border-radius: 999px; box-shadow: 0 0 8px rgba(255, 239, 190, 0.6); transition: width 0.3s ease; }
     .level-exp-bottom { font-size: 11px; font-weight: 700; text-align: center; opacity: 0.9; }
+
+    .section-title { font-size: 15px; font-weight: 800; color: var(--ink); margin: 0 0 10px; text-transform: uppercase; letter-spacing: 0.02em; }
+
+    .category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: -8px; }
+    .cat-block { background: #9e6127; border-radius: 14px; border: 1.5px solid rgba(255,245,225,0.45); padding: 7px 9px 8px; color: #fffaf5; box-shadow: inset 0 2px 0 rgba(255,255,255,0.18), 0 4px 6px rgba(107, 64, 40, 0.15); display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; }
+    .cat-top { display: flex; align-items: center; justify-content: center; width: 100%; margin-bottom: 2px; }
+    .cat-icon { width: 28px; height: 28px; margin-right: 6px; flex: 0 0 28px; filter: drop-shadow(0 3px 5px rgba(64, 38, 24, 0.45)); }
+    .cat-name { font-size: 13px; font-weight: 800; margin-bottom: 0; text-shadow: 0 1px 0 rgba(107,64,40,0.4); letter-spacing: 0.02em; text-align: left; flex: 0 0 auto; }
+    .cat-metrics { display: flex; gap: 5px; justify-content: center; width: 100%; }
+    .cat-circle { width: 32px; height: 32px; border-radius: 50%; background: rgba(255, 255, 255, 0.10); border: 1.5px solid rgba(255, 255, 255, 0.22); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; color: #fffaf5; text-shadow: 0 1px 0 rgba(107,64,40,0.4); }
 
     .reward-panel {
       background: var(--flat-color);
@@ -290,143 +360,61 @@
       min-width: 34px;
     }
 
-    .result-wrap {
+    .hints-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: -8px;
+    }
+
+    .hint-card {
+      background: #9e6127;
+      border-radius: 14px;
+      border: 1.5px solid rgba(255,245,225,0.45);
+      padding: 7px 9px 8px;
+      color: #fffaf5;
+      box-shadow: inset 0 2px 0 rgba(255,255,255,0.18), 0 4px 6px rgba(107, 64, 40, 0.15);
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      min-height: 100%;
-      gap: 10px;
-    }
-
-    .result-score {
-      font-family: 'Caveat', cursive;
-      font-size: 38px;
-      line-height: 1;
-      font-weight: 700;
-      text-align: center;
-      color: var(--ink);
-      margin: 10px 0 0;
-    }
-
-    .result-gif-wrap {
-      margin-top: 4px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .result-gif-frame {
-      position: relative;
-      width: 100%;
-      max-width: 250px;
-      aspect-ratio: 1 / 1;
-      border-radius: 24px;
-      background: var(--flat-color);
-      box-shadow:
-        inset 0 0 0 1.5px rgba(255, 237, 214, 0.35),
-        0 6px 0 var(--flat-shadow),
-        0 10px 8px rgba(107, 64, 40, 0.2);
-      padding: 10px;
-      overflow: hidden;
-    }
-
-    .result-gif-inner {
-      width: 100%;
-      height: 100%;
-      border: 3px solid var(--line);
-      border-radius: 18px;
-      background: var(--paper-2);
-      box-shadow: inset 0 2px 0 rgba(255,255,255,0.35);
-      overflow: hidden;
-    }
-
-    .result-gif {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .result-awards {
-      position: relative;
-      background: var(--flat-color);
-      border-radius: 20px;
-      padding: 14px 16px 12px;
-      margin-top: 14px;
-      color: #fffaf5;
-      box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25);
-    }
-
-    .result-awards-title {
-      font-size: 15px;
-      font-weight: 800;
-      margin-bottom: 10px;
-      letter-spacing: 0.02em;
-    }
-
-    .result-awards-top {
-      font-size: 12px;
-      font-weight: 700;
-      text-align: center;
-      opacity: 0.92;
-      margin-bottom: 6px;
-    }
-
-    .result-awards-row {
-      display: grid;
-      grid-template-columns: 46px 1fr auto;
-      gap: 10px;
       align-items: center;
-    }
-
-    .result-awards-level {
-      font-size: 38px;
-      line-height: 1;
-      font-weight: 800;
-      text-shadow: 0 3px 0 rgba(107, 64, 40, 0.4);
       text-align: center;
+      min-width: 0;
     }
 
-    .result-awards-scale {
-      height: 10px;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 999px;
-      overflow: hidden;
-      box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+    .hint-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
     }
 
-    .result-awards-fill {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #ffdfa0 0%, #fff7ec 100%);
-      border-radius: 999px;
-      box-shadow: 0 0 8px rgba(255, 239, 190, 0.6);
+    .hint-icon {
+      width: 42px;
+      height: 42px;
+      display: block;
+      filter: drop-shadow(0 3px 4px rgba(64, 38, 24, 0.30));
     }
 
-    .result-awards-next {
-      font-size: 13px;
+    .hint-name {
+      font-size: 12px;
       font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 6px;
       white-space: nowrap;
     }
 
-    .result-awards-bottom {
-      margin-top: 8px;
-      font-size: 12px;
-      font-weight: 700;
-      text-align: center;
-      opacity: 0.95;
-    }
-
-    .level-up-wrap {
-      margin-top: 12px;
+    .hint-count {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.10);
+      border: 1.5px solid rgba(255,255,255,0.22);
       display: flex;
+      align-items: center;
       justify-content: center;
-    }
-
-    .level-up-gif {
-      display: block;
-      width: min(100%, 240px);
-      max-width: 240px;
-      border-radius: 18px;
+      font-size: 10px;
+      font-weight: 800;
     }
 
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -442,16 +430,24 @@
       .knob.small { width: 22px; height: 22px; }
       .question-options--images { grid-template-columns: 1fr 1fr; }
       .modal { border-radius: 24px; }
-      .result-score { font-size: 34px; }
-      .result-gif-frame { max-width: 220px; padding: 8px; border-radius: 22px; }
-      .result-gif-inner { border-radius: 16px; }
-      .result-awards-row { grid-template-columns: 42px 1fr auto; gap: 8px; }
-      .result-awards-level { font-size: 34px; }
-      .result-awards-next { font-size: 12px; }
+      .hints-grid { gap: 6px; }
+      .hint-name { font-size: 10px; }
+      .hint-icon { width: 36px; height: 36px; }
+      .hint-count { width: 24px; height: 24px; font-size: 9px; }
     }
   </style>
 </head>
 <body>
+  <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="cat-rg" cx="30%" cy="30%" r="70%">
+        <stop offset="0%" stop-color="#ffeeb3"/>
+        <stop offset="50%" stop-color="#d1ac6b"/>
+        <stop offset="100%" stop-color="#8a612b"/>
+      </radialGradient>
+    </defs>
+  </svg>
+
   <main class="app">
     <div class="topbar">
       <button class="back-btn btn-3d" id="backButton" type="button" aria-label="Вернуться">
@@ -500,22 +496,226 @@
         </div>
         <button class="modal-close" id="closeAccountModal" type="button" aria-label="Закрыть">×</button>
       </div>
+
       <div class="modal-body">
         <div class="level-block">
           <div class="level-bump"></div>
           <div class="level-patch"></div>
-          <img class="level-bobbin-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><defs><radialGradient id='rg' cx='30%' cy='30%' r='70%'><stop offset='0%' stop-color='%23ffeeb3'/><stop offset='50%' stop-color='%23d1ac6b'/><stop offset='100%' stop-color='%238a612b'/></radialGradient><linearGradient id='fg' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%235c4636'/><stop offset='100%' stop-color='%232a1f18'/></linearGradient><linearGradient id='hg' x1='0%' y1='0%' x2='0%' y2='100%'><stop offset='0%' stop-color='%234a2e15'/><stop offset='100%' stop-color='%23734a26'/></linearGradient></defs><path d='M85,55 C100,55 110,75 105,110 C102,120 90,115 88,110 C92,85 85,75 75,70 Z' fill='url(%23fg)'/><path d='M96,85 L99,86 M94,93 L97,94 M92,101 L95,102 M89,109 L92,110' stroke='%23111' stroke-width='2' stroke-linecap='round'/><circle cx='53' cy='58' r='44' fill='%23614426'/><circle cx='55' cy='55' r='44' fill='url(%23rg)'/><circle cx='55' cy='55' r='40' fill='none' stroke='%239e7b45' stroke-width='1.5'/><g fill='url(%23hg)' stroke='%23eed59d' stroke-width='1.5'><circle cx='55' cy='27' r='13' /><circle cx='81.6' cy='46.3' r='13' /><circle cx='71.4' cy='77.6' r='13' /><circle cx='38.6' cy='77.6' r='13' /><circle cx='28.4' cy='46.3' r='13' /></g><circle cx='55' cy='55' r='6' fill='%233a2512'/><circle cx='55' cy='55' r='3' fill='%231c1108'/></svg>" alt="Бобина" />
+          <img
+            class="level-bobbin-img"
+            src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><defs><radialGradient id='rg' cx='30%' cy='30%' r='70%'><stop offset='0%' stop-color='%23ffeeb3'/><stop offset='50%' stop-color='%23d1ac6b'/><stop offset='100%' stop-color='%238a612b'/></radialGradient><linearGradient id='fg' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%235c4636'/><stop offset='100%' stop-color='%232a1f18'/></linearGradient><linearGradient id='hg' x1='0%' y1='0%' x2='0%' y2='100%'><stop offset='0%' stop-color='%234a2e15'/><stop offset='100%' stop-color='%23734a26'/></linearGradient></defs><path d='M85,55 C100,55 110,75 105,110 C102,120 90,115 88,110 C92,85 85,75 75,70 Z' fill='url(%23fg)'/><path d='M96,85 L99,86 M94,93 L97,94 M92,101 L95,102 M89,109 L92,110' stroke='%23111' stroke-width='2' stroke-linecap='round'/><circle cx='53' cy='58' r='44' fill='%23614426'/><circle cx='55' cy='55' r='44' fill='url(%23rg)'/><circle cx='55' cy='55' r='40' fill='none' stroke='%239e7b45' stroke-width='1.5'/><g fill='url(%23hg)' stroke='%23eed59d' stroke-width='1.5'><circle cx='55' cy='27' r='13' /><circle cx='81.6' cy='46.3' r='13' /><circle cx='71.4' cy='77.6' r='13' /><circle cx='38.6' cy='77.6' r='13' /><circle cx='28.4' cy='46.3' r='13' /></g><circle cx='55' cy='55' r='6' fill='%233a2512'/><circle cx='55' cy='55' r='3' fill='%231c1108'/></svg>"
+            alt="Бобина"
+          />
 
           <div class="level-content-wrap">
             <div class="level-header">Текущий уровень</div>
             <div class="level-content">
-              <div class="level-value-large" id="modalLevelValue">0</div>
+              <div class="level-value-large" id="modalLevelValue">34</div>
               <div class="level-progress-wrapper">
-                <div class="level-exp-top" id="modalLevelTop">0 XP</div>
+                <div class="level-exp-top" id="modalLevelTop">7,850 XP</div>
                 <div class="level-bar-bg">
-                  <div class="level-bar-fill" id="modalLevelFill" style="width: 0%;"></div>
+                  <div class="level-bar-fill" id="modalLevelFill" style="width: 78.5%;"></div>
                 </div>
-                <div class="level-exp-bottom" id="modalLevelBottom">0 XP до следующего уровня</div>
+                <div class="level-exp-bottom" id="modalLevelBottom">2,150 XP до следующего уровня</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="reward-panel reward-panel--stacked">
+            <div class="level-header" style="margin: 0 0 6px; color: #fffaf5;">Статистика по категориям</div>
+            <div class="category-grid">
+              <div class="cat-block cat-block--mini">
+                <div class="cat-top">
+                  <svg class="cat-icon" viewBox="0 0 64 64">
+                    <path d="M32 6 l7 18 h19 l-15 12 l6 19 l-17 -11 l-17 11 l6 -19 l-15 -12 h19 z" fill="url(#cat-rg)" stroke="#4a2e15" stroke-width="2.5" stroke-linejoin="round"/>
+                  </svg>
+                  <div class="cat-name">Актёры</div>
+                </div>
+                <div class="cat-metrics">
+                  <div class="cat-circle" title="Сыграно игр">12</div>
+                  <div class="cat-circle" title="Точность">83%</div>
+                </div>
+              </div>
+
+              <div class="cat-block cat-block--mini">
+                <div class="cat-top">
+                  <svg class="cat-icon" viewBox="0 0 64 64">
+                    <rect x="8" y="26" width="48" height="30" rx="4" fill="url(#cat-rg)" stroke="#4a2e15" stroke-width="2.5"/>
+                    <path d="M8 22 L56 14 L58 20 L10 28 Z" fill="url(#cat-rg)" stroke="#4a2e15" stroke-width="2.5" stroke-linejoin="round"/>
+                    <line x1="16" y1="21" x2="22" y2="19" stroke="#4a2e15" stroke-width="2"/>
+                    <line x1="28" y1="18" x2="34" y2="16" stroke="#4a2e15" stroke-width="2"/>
+                    <line x1="40" y1="16" x2="46" y2="14" stroke="#4a2e15" stroke-width="2"/>
+                  </svg>
+                  <div class="cat-name">Режиссёры</div>
+                </div>
+                <div class="cat-metrics">
+                  <div class="cat-circle" title="Сыграно игр">5</div>
+                  <div class="cat-circle" title="Точность">60%</div>
+                </div>
+              </div>
+
+              <div class="cat-block cat-block--mini">
+                <div class="cat-top">
+                  <svg class="cat-icon" viewBox="0 0 64 64">
+                    <path d="M16 28 L20 58 Q20 60 32 60 Q44 60 44 58 L48 28 Z" fill="url(#cat-rg)" stroke="#4a2e15" stroke-width="2.5" stroke-linejoin="round"/>
+                    <path d="M18 28 C18 20 24 16 32 16 C40 16 46 20 46 28 Z" fill="#fff" stroke="#4a2e15" stroke-width="2.5"/>
+                    <circle cx="24" cy="22" r="4" fill="#fff" stroke="#4a2e15" stroke-width="2"/>
+                    <circle cx="40" cy="22" r="4" fill="#fff" stroke="#4a2e15" stroke-width="2"/>
+                    <circle cx="32" cy="18" r="5" fill="#fff" stroke="#4a2e15" stroke-width="2"/>
+                    <line x1="24" y1="28" x2="26" y2="58" stroke="#4a2e15" stroke-width="2"/>
+                    <line x1="40" y1="28" x2="38" y2="58" stroke="#4a2e15" stroke-width="2"/>
+                  </svg>
+                  <div class="cat-name">Фильмы</div>
+                </div>
+                <div class="cat-metrics">
+                  <div class="cat-circle" title="Сыграно игр">19</div>
+                  <div class="cat-circle" title="Точность">74%</div>
+                </div>
+              </div>
+
+              <div class="cat-block cat-block--mini">
+                <div class="cat-top">
+                  <svg class="cat-icon" viewBox="0 0 64 64">
+                    <rect x="10" y="20" width="44" height="34" rx="6" fill="url(#cat-rg)" stroke="#4a2e15" stroke-width="2.5"/>
+                    <rect x="16" y="26" width="26" height="22" rx="4" fill="#4a2e15"/>
+                    <circle cx="48" cy="30" r="2" fill="#4a2e15"/>
+                    <circle cx="48" cy="38" r="2" fill="#4a2e15"/>
+                    <line x1="32" y1="20" x2="20" y2="6" stroke="#4a2e15" stroke-width="2.5" stroke-linecap="round"/>
+                    <line x1="32" y1="20" x2="44" y2="8" stroke="#4a2e15" stroke-width="2.5" stroke-linecap="round"/>
+                  </svg>
+                  <div class="cat-name">Сериалы</div>
+                </div>
+                <div class="cat-metrics">
+                  <div class="cat-circle" title="Сыграно игр">8</div>
+                  <div class="cat-circle" title="Точность">80%</div>
+                </div>
+              </div>
+
+              <div class="cat-block cat-block--mini">
+                <div class="cat-top">
+                  <svg class="cat-icon" viewBox="0 0 64 64">
+                    <rect x="12" y="24" width="40" height="28" rx="4" fill="url(#cat-rg)" stroke="#4a2e15" stroke-width="2.5"/>
+                    <path d="M22 24 L26 16 L38 16 L42 24 Z" fill="url(#cat-rg)" stroke="#4a2e15" stroke-width="2.5" stroke-linejoin="round"/>
+                    <circle cx="32" cy="38" r="8" fill="#fff" stroke="#4a2e15" stroke-width="2.5"/>
+                    <circle cx="46" cy="30" r="2" fill="#4a2e15"/>
+                  </svg>
+                  <div class="cat-name">Кадры</div>
+                </div>
+                <div class="cat-metrics">
+                  <div class="cat-circle" title="Сыграно игр">7</div>
+                  <div class="cat-circle" title="Точность">61%</div>
+                </div>
+              </div>
+
+              <div class="cat-block cat-block--mini">
+                <div class="cat-top">
+                  <svg class="cat-icon" viewBox="0 0 64 64">
+                    <line x1="20" y1="52" x2="42" y2="30" stroke="url(#cat-rg)" stroke-width="6" stroke-linecap="round"/>
+                    <line x1="20" y1="52" x2="42" y2="30" stroke="#4a2e15" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M46 12 L50 20 L58 24 L50 28 L46 36 L42 28 L34 24 L42 20 Z" fill="url(#cat-rg)" stroke="#4a2e15" stroke-width="2" stroke-linejoin="round"/>
+                    <circle cx="28" cy="18" r="2" fill="#ffeeb3"/>
+                    <circle cx="56" cy="40" r="2" fill="#ffeeb3"/>
+                  </svg>
+                  <div class="cat-name">Анимация</div>
+                </div>
+                <div class="cat-metrics">
+                  <div class="cat-circle" title="Сыграно игр">14</div>
+                  <div class="cat-circle" title="Точность">92%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="reward-panel reward-panel--stacked">
+            <div class="level-header" style="margin: 0 0 6px; color: #fffaf5;">Подсказки</div>
+            <div class="hints-grid">
+              <div class="hint-card">
+                <div class="hint-name">50% на 50%</div>
+                <div class="hint-bottom">
+                  <svg class="hint-icon" viewBox="0 0 128 128" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="hint50g" x1="0" y1="0" x2="0" y2="128" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#FFF5C9"/>
+                        <stop offset="28%" stop-color="#E7C56A"/>
+                        <stop offset="62%" stop-color="#B77A2A"/>
+                        <stop offset="100%" stop-color="#7B4B1A"/>
+                      </linearGradient>
+                      <filter id="hint50s" x="-20%" y="-20%" width="140%" height="140%">
+                        <feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#3E220C" flood-opacity=".45"/>
+                      </filter>
+                    </defs>
+                    <g filter="url(#hint50s)">
+                      <rect x="16" y="16" width="96" height="96" rx="22" fill="url(#hint50g)" stroke="#4A2A0F" stroke-width="2.6"/>
+                      <rect x="26" y="26" width="76" height="76" rx="18" fill="none" stroke="#FFFBEA" stroke-opacity=".25" stroke-width="2.2"/>
+                      <text x="64" y="73" text-anchor="middle" font-family="Nunito, Arial, sans-serif" font-size="29" font-weight="900" fill="#fff8ef" stroke="#4A2A0F" stroke-width=".9">50%</text>
+                    </g>
+                  </svg>
+                  <div class="hint-count">3</div>
+                </div>
+              </div>
+
+              <div class="hint-card">
+                <div class="hint-name">Замена</div>
+                <div class="hint-bottom">
+                  <svg class="hint-icon" viewBox="0 0 128 128" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="horng" x1="20" y1="10" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#FFF5C9"/>
+                        <stop offset="28%" stop-color="#E7C56A"/>
+                        <stop offset="62%" stop-color="#B77A2A"/>
+                        <stop offset="100%" stop-color="#7B4B1A"/>
+                      </linearGradient>
+                      <linearGradient id="horns" x1="20" y1="10" x2="80" y2="90" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#FFFBEA" stop-opacity=".95"/>
+                        <stop offset="100%" stop-color="#FFFBEA" stop-opacity="0"/>
+                      </linearGradient>
+                      <filter id="hornsh" x="-20%" y="-20%" width="140%" height="140%">
+                        <feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#3E220C" flood-opacity=".45"/>
+                      </filter>
+                    </defs>
+                    <g filter="url(#hornsh)" stroke="#FFFBEA" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="16" y="16" width="96" height="96" rx="22" fill="url(#horng)" stroke="#4A2A0F" stroke-width="2.6"/>
+                      <rect x="26" y="26" width="76" height="76" rx="18" fill="none" stroke="#FFFBEA" stroke-opacity=".25" stroke-width="2.2"/>
+                      <g transform="translate(30,26) scale(0.58)">
+                        <path d="M24 44C24 38 29 33 35 33H53L78 18C83 15 89 19 89 25V71C89 77 83 81 78 78L53 63H35C29 63 24 58 24 52V44Z" fill="url(#horng)"/>
+                        <path d="M35 37H52L77 22" stroke="url(#horns)" stroke-width="4" opacity=".55"/>
+                        <path d="M48 63L54 84C55 88 53 92 49 94C45 96 40 94 38 90L31 72" fill="url(#horng)"/>
+                        <path d="M78 28L78 68" stroke="#fffbe8" stroke-width="2.2" opacity=".35"/>
+                        <path d="M23 44C18 46 16 50 16 54C16 58 18 62 23 64" fill="none" stroke="#FFFBEA" stroke-width="5.2" opacity=".95"/>
+                      </g>
+                    </g>
+                  </svg>
+                  <div class="hint-count">1</div>
+                </div>
+              </div>
+
+              <div class="hint-card">
+                <div class="hint-name">Ответ</div>
+                <div class="hint-bottom">
+                  <svg class="hint-icon" viewBox="0 0 128 128" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="wing" x1="0" y1="0" x2="0" y2="128" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#FFF5C9"/>
+                        <stop offset="28%" stop-color="#E7C56A"/>
+                        <stop offset="62%" stop-color="#B77A2A"/>
+                        <stop offset="100%" stop-color="#7B4B1A"/>
+                      </linearGradient>
+                      <filter id="winsh" x="-20%" y="-20%" width="140%" height="140%">
+                        <feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#3E220C" flood-opacity=".45"/>
+                      </filter>
+                    </defs>
+                    <g filter="url(#winsh)">
+                      <rect x="16" y="16" width="96" height="96" rx="22" fill="url(#wing)" stroke="#4A2A0F" stroke-width="2.6"/>
+                      <rect x="26" y="26" width="76" height="76" rx="18" fill="none" stroke="#FFFBEA" stroke-opacity=".25" stroke-width="2.2"/>
+                      <text x="64" y="73" text-anchor="middle" font-family="Nunito, Arial, sans-serif" font-size="29" font-weight="900" fill="#fff8ef" stroke="#4A2A0F" stroke-width=".9">WIN</text>
+                    </g>
+                  </svg>
+                  <div class="hint-count">0</div>
+                </div>
               </div>
             </div>
           </div>
@@ -526,7 +726,7 @@
             <div class="level-header" style="margin: 0 0 6px; color: #fffaf5;">Награды</div>
 
             <div class="reward-track-row">
-              <div class="reward-figure">
+              <div class="reward-figure reward-figure--bobbin">
                 <svg viewBox="0 0 120 120" class="reward-figure-icon" aria-hidden="true">
                   <defs>
                     <radialGradient id="rewardBobbinGrad" cx="30%" cy="30%" r="70%">
@@ -559,7 +759,7 @@
             </div>
 
             <div class="reward-track-row">
-              <div class="reward-figure">
+              <div class="reward-figure reward-figure--star">
                 <svg viewBox="0 0 120 120" class="reward-figure-icon" aria-hidden="true">
                   <defs>
                     <radialGradient id="rewardStarGrad" cx="30%" cy="30%" r="70%">
@@ -580,7 +780,7 @@
             </div>
 
             <div class="reward-track-row">
-              <div class="reward-figure">
+              <div class="reward-figure reward-figure--ticket">
                 <svg viewBox="0 0 120 120" class="reward-figure-icon" aria-hidden="true">
                   <defs>
                     <linearGradient id="rewardTicketGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -627,9 +827,9 @@
       answers: [],
       score: 0,
       error: '',
-      lastResult: null,
-      account: { name: 'Пользователь', photo: null, telegramId: null },
-      rewards: { bobbin: 4, star: 7, ticket: 2 }
+      account: { name: 'Пользователь', photo: null },
+      rewards: { bobbin: 4, star: 7, ticket: 2 },
+      lastResult: null
     };
 
     if (tg) {
@@ -640,7 +840,6 @@
       if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
         const user = tg.initDataUnsafe.user;
         state.account.name = user.first_name || 'Пользователь';
-        state.account.telegramId = user.id || null;
         if (user.photo_url) state.account.photo = user.photo_url;
       }
     }
@@ -657,8 +856,8 @@
     accountBtn.type = 'button';
     accountBtn.innerHTML = `
       <svg viewBox="0 0 100 100" style="width: 26px; height: 26px;">
-        <circle cx='50' cy='36' r='14' fill='#fffaf5'/>
-        <path d='M22,76 C22,58 34,52 50,52 C66,52 78,58 78,76 C78,80 22,80 22,76 Z' fill='#fffaf5'/>
+        <circle cx="50" cy="36" r="14" fill="#fffaf5"/>
+        <path d="M22,76 C22,58 34,52 50,52 C66,52 78,58 78,76 C78,80 22,80 22,76 Z" fill="#fffaf5"/>
       </svg>`;
     accountBtn.setAttribute('aria-label', 'Профиль');
     accountBtn.title = 'Профиль';
@@ -678,39 +877,47 @@
       } catch (e) {}
     }
 
-    function openAccountModal() {
-      document.getElementById('profileName').textContent = state.account.name;
-
-      const avatar = document.getElementById('profileAvatar');
-      if (state.account.photo) {
-        avatar.style.backgroundImage = `url('${state.account.photo}')`;
-        avatar.style.backgroundSize = 'cover';
-        avatar.style.backgroundPosition = 'center';
-        avatar.textContent = '';
-      }
-
-      const level = Number(state.lastResult?.level ?? 0);
-      const experience = Number(state.lastResult?.experience ?? 0);
-      const experienceNext = Number(state.lastResult?.experience_next ?? 100);
-      const modalProgress = experienceNext > 0 ? Math.max(0, Math.min(100, (experience / experienceNext) * 100)) : 0;
-
-      document.getElementById('modalLevelValue').textContent = level;
-      document.getElementById('modalLevelTop').textContent = `${experience} XP`;
-      document.getElementById('modalLevelFill').style.width = `${modalProgress}%`;
-      document.getElementById('modalLevelBottom').textContent = `${experienceNext} XP до следующего уровня`;
-
-      accountModal.classList.add('show');
-      safeHaptic('impact', 'light');
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
     }
 
-    function closeAccountModal() {
-      accountModal.classList.remove('show');
+    function updateStartButtonText(text) {
+      const span = document.getElementById('startBtnText');
+      if (span) span.textContent = text;
     }
 
-    document.getElementById('closeAccountModal').onclick = closeAccountModal;
-    accountModal.addEventListener('click', e => {
-      if (e.target === accountModal) closeAccountModal();
-    });
+    function formatNum(value) {
+      return Number(value || 0).toLocaleString('ru-RU');
+    }
+
+    function getTelegramId() {
+      return tg?.initDataUnsafe?.user?.id || null;
+    }
+
+    function getResultGif(score, total) {
+      if (!total) return './bad_result.gif';
+      const percent = Math.round((score / total) * 100);
+      if (percent === 100) return './great_result.gif';
+      if (percent >= 70) return './good_result.gif';
+      return './bad_result.gif';
+    }
+
+    function getResultPhrase(score, total) {
+      if (!total) return 'Кинотест завершён.';
+      const percent = Math.round((score / total) * 100);
+      if (percent === 100) return 'Идеально! Кинотест пройден без единой ошибки!';
+      if (percent >= 70) return 'Хороший результат! Ты отлично разбираешься в кинематографе!';
+      return 'Есть куда расти — попробуй ещё один кинотест!';
+    }
+
+    function getEarnedExperience(score, total) {
+      return Number(score || 0) * 10;
+    }
 
     async function fetchQuiz() {
       const response = await fetch(QUIZ_API, {
@@ -719,43 +926,65 @@
         mode: 'cors',
         body: JSON.stringify({})
       });
-
       if (!response.ok) throw new Error(`Сервер вернул ошибку (HTTP ${response.status})`);
-
       const contentType = response.headers.get('content-type');
       if (!contentType || !contentType.includes('application/json')) throw new Error('Webhook вернул не JSON');
-
       const data = await response.json();
-      if (!data || !Array.isArray(data.questions) || !data.questions.length) {
-        throw new Error('Webhook вернул пустой кинотест');
-      }
-
+      if (!data || !Array.isArray(data.questions) || !data.questions.length) throw new Error('Webhook вернул пустой кинотест');
       return data;
     }
 
     async function sendResultToWebhook() {
-      if (!state.account.telegramId) return null;
+      const telegramId = getTelegramId();
+      const total = state.quiz?.questions?.length || 0;
+      const experience = getEarnedExperience(state.score, total);
 
-      const experience = Number(state.quiz?.experience ?? 0);
+      if (!telegramId) {
+        state.lastResult = {
+          next_level: false,
+          level: 34,
+          experience: 7850 + experience,
+          experience_next: 10000
+        };
+        return;
+      }
 
-      const response = await fetch(RESULT_API, {
-        method: 'POST',
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        mode: 'cors',
-        body: JSON.stringify({
-          telegram_id: state.account.telegramId,
-          experience
-        })
-      });
+      const payload = {
+        telegram_id: telegramId,
+        experience,
+        score: state.score,
+        total
+      };
 
-      if (!response.ok) throw new Error(`Не удалось обновить XP (HTTP ${response.status})`);
+      try {
+        const response = await fetch(RESULT_API, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          mode: 'cors',
+          body: JSON.stringify(payload)
+        });
 
-      const contentType = response.headers.get('content-type') || '';
-      if (!contentType.includes('application/json')) throw new Error('Webhook результата вернул не JSON');
+        if (!response.ok) throw new Error(`Result webhook HTTP ${response.status}`);
 
-      const data = await response.json();
-      state.lastResult = data;
-      return data;
+        const contentType = response.headers.get('content-type') || '';
+        if (!contentType.includes('application/json')) throw new Error('Result webhook вернул не JSON');
+
+        const data = await response.json();
+
+        state.lastResult = {
+          next_level: !!data.next_level,
+          level: Number(data.level ?? 34),
+          experience: Number(data.experience ?? experience),
+          experience_next: Number(data.experience_next ?? 10000)
+        };
+      } catch (e) {
+        state.lastResult = {
+          next_level: false,
+          level: 34,
+          experience: 7850 + experience,
+          experience_next: 10000
+        };
+      }
     }
 
     function setPreviewFromQuiz(quiz) {
@@ -770,7 +999,6 @@
       state.currentQuestion = 0;
       state.answers = [];
       state.score = 0;
-      state.lastResult = null;
     }
 
     async function preloadQuiz() {
@@ -793,7 +1021,6 @@
       state.loading = true;
       state.error = '';
       render();
-
       try {
         setPreviewFromQuiz(await fetchQuiz());
         state.screen = 'home';
@@ -810,7 +1037,6 @@
       state.loading = true;
       state.error = '';
       render();
-
       try {
         if (!state.quiz) setPreviewFromQuiz(await fetchQuiz());
         resetRun();
@@ -823,24 +1049,8 @@
       }
     }
 
-    async function finishQuiz() {
-      state.loading = true;
-      render();
-
-      try {
-        await sendResultToWebhook();
-      } catch (error) {
-        state.error = error.message || 'Не удалось сохранить результат';
-      } finally {
-        state.loading = false;
-        state.screen = 'result';
-        render();
-      }
-    }
-
-    function handleAnswer(index) {
+    async function handleAnswer(index) {
       if (state.loading || state.screen !== 'quiz') return;
-
       const question = state.quiz.questions[state.currentQuestion];
       const selected = question.options[index];
       const isCorrect = !!selected.correct;
@@ -855,7 +1065,12 @@
       if (isCorrect) state.score += 1;
 
       if (state.currentQuestion >= state.quiz.questions.length - 1) {
-        finishQuiz();
+        state.loading = true;
+        render();
+        await sendResultToWebhook();
+        state.loading = false;
+        state.screen = 'result';
+        render();
         return;
       }
 
@@ -877,19 +1092,50 @@
       render();
     }
 
-    function escapeHtml(value) {
-      return String(value ?? '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
+    function openAccountModal() {
+      document.getElementById('profileName').textContent = state.account.name || 'Пользователь';
+
+      const avatar = document.getElementById('profileAvatar');
+      avatar.style.backgroundImage = '';
+      avatar.style.backgroundSize = '';
+      avatar.style.backgroundPosition = '';
+      avatar.textContent = '🤖';
+
+      if (state.account.photo) {
+        avatar.style.backgroundImage = `url('${state.account.photo}')`;
+        avatar.style.backgroundSize = 'cover';
+        avatar.style.backgroundPosition = 'center';
+        avatar.textContent = '';
+      }
+
+      const level = Number(state.lastResult?.level ?? 34);
+      const experience = Number(state.lastResult?.experience ?? 7850);
+      const experienceNext = Number(state.lastResult?.experience_next ?? 10000);
+      const percent = experienceNext > 0 ? Math.max(0, Math.min(100, (experience / experienceNext) * 100)) : 0;
+      const remain = Math.max(0, experienceNext - experience);
+
+      const modalLevelValue = document.getElementById('modalLevelValue');
+      const modalLevelTop = document.getElementById('modalLevelTop');
+      const modalLevelFill = document.getElementById('modalLevelFill');
+      const modalLevelBottom = document.getElementById('modalLevelBottom');
+
+      if (modalLevelValue) modalLevelValue.textContent = level;
+      if (modalLevelTop) modalLevelTop.textContent = `${formatNum(experience)} XP`;
+      if (modalLevelFill) modalLevelFill.style.width = `${percent}%`;
+      if (modalLevelBottom) modalLevelBottom.textContent = `${formatNum(remain)} XP до следующего уровня`;
+
+      accountModal.classList.add('show');
+      safeHaptic('impact', 'light');
     }
 
-    function updateStartButtonText(text) {
-      const span = document.getElementById('startBtnText');
-      if (span) span.textContent = text;
+    function closeAccountModal() {
+      accountModal.classList.remove('show');
     }
+
+    document.getElementById('closeAccountModal').onclick = closeAccountModal;
+    accountModal.addEventListener('click', e => {
+      if (e.target === accountModal) closeAccountModal();
+    });
 
     function renderHome() {
       const quizType = state.quiz ? Number(state.quiz.type) : 0;
@@ -925,7 +1171,6 @@
       const question = state.quiz.questions[state.currentQuestion];
       const progress = ((state.currentQuestion + 1) / state.quiz.questions.length) * 100;
       const quizType = Number(state.quiz.type);
-
       const questionTitle = quizType === 1
         ? 'Кто это на фото?'
         : (quizType === 3 || quizType === 4)
@@ -951,15 +1196,12 @@
             <div class="progress-bar-fill" style="width:${progress}%"></div>
           </div>
         </div>
-
         <h2 class="question-title">${escapeHtml(questionTitle)}</h2>
-
         ${(quizType === 1 || quizType === 3 || quizType === 4)
           ? `<div class="doodle question-doodle ${(quizType === 3 || quizType === 4) ? 'question-doodle--landscape' : ''}">
               <img class="scene-photo ${(quizType === 3 || quizType === 4) ? 'scene-photo--landscape' : ''}" src="${escapeHtml(question.image || question.frame_url || FALLBACK_SCENE)}" alt="Вопрос ${state.currentQuestion + 1}" loading="eager" onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'" />
             </div>`
           : ''}
-
         <div class="question-options ${quizType === 2 ? 'question-options--images' : ''}">
           ${optionsHtml}
         </div>
@@ -976,98 +1218,37 @@
 
     function renderResult() {
       const total = state.quiz.questions.length;
-      const percent = Math.round((state.score / total) * 100);
+      const gifUrl = getResultGif(state.score, total);
+      const phrase = getResultPhrase(state.score, total);
+      const earnedExp = getEarnedExperience(state.score, total);
 
-      const webhookResult = state.lastResult || {};
-      const gainedXp = Number(
-        webhookResult.gained_experience ??
-        webhookResult.experience_gained ??
-        webhookResult.add_experience ??
-        state.quiz?.experience ??
-        0
-      );
-
-      const userLevel = Number(webhookResult.level ?? 0);
-      const userExperience = Number(webhookResult.experience ?? 0);
-      const experienceNext = Number(webhookResult.experience_next ?? 100);
-      const isNextLevel = webhookResult.next_level === true || webhookResult.next_level === 'true';
-
-      let phrase = 'Хорошая попытка — следующий кинотест точно покорится тебе.';
-      let resultGif = './Not_bad.gif';
-
-      if (percent === 100) {
-        phrase = 'Идеально! Кинотест пройден без единой ошибки!';
-        resultGif = './Excellent.gif';
-      } else if (percent >= 70) {
-        phrase = 'Хороший результат! Ты отлично разбираешься в кинематографе!';
-        resultGif = './Nice.gif';
-      } else if (percent >= 40) {
-        phrase = 'Неплохо! Но ты делаешь много ошибок, попробуй еще раз!';
-        resultGif = './Not_bad.gif';
-      } else if (percent >= 20) {
-        phrase = 'Кинотест провален. Думаю, что тебе стоит попробовать ещё раз!';
-        resultGif = './Bad.gif';
-      } else {
-        phrase = 'Почти всё мимо, но в этом и кайф — давай попробуем ещё раз!';
-        resultGif = './Failure.gif';
-      }
-
-      const progressPercent = experienceNext > 0
-        ? Math.max(0, Math.min(100, (userExperience / experienceNext) * 100))
-        : 0;
-
-      const levelUpHtml = isNextLevel
-        ? `
-          <div class="level-up-wrap">
-            <img
-              class="level-up-gif"
-              src="./level_up.gif"
-              alt="Повышение уровня"
-              loading="eager"
-            />
-          </div>
-        `
-        : '';
+      const currentLevel = Number(state.lastResult?.level ?? 34);
+      const currentExperience = Number(state.lastResult?.experience ?? 7850);
+      const currentExperienceNext = Number(state.lastResult?.experience_next ?? 10000);
+      const levelUp = !!state.lastResult?.next_level;
 
       tvScreen.innerHTML = `
         <div class="result-wrap">
           <p class="hand-note">Финал кинотеста</p>
 
-          <div class="result-score">${state.score} из ${total}, ${percent}%</div>
-
-          <div class="result-gif-wrap">
-            <div class="result-gif-frame">
-              <div class="result-gif-inner">
-                <img
-                  class="result-gif"
-                  src="${resultGif}"
-                  alt="Результат кинотеста"
-                  loading="eager"
-                />
-              </div>
-            </div>
+          <div class="result-media">
+            <img class="result-gif" src="${escapeHtml(gifUrl)}" alt="Результат кинотеста" onerror="this.onerror=null;this.src='${FALLBACK_SCENE}'" />
           </div>
 
           <p class="result-text">${escapeHtml(phrase)}</p>
 
-          <div class="result-awards">
-            <div class="result-awards-title">Награды</div>
-            <div class="result-awards-top">${userExperience} XP</div>
-
-            <div class="result-awards-row">
-              <div class="result-awards-level">${userLevel}</div>
-
-              <div class="result-awards-scale">
-                <div class="result-awards-fill" style="width: ${progressPercent}%;"></div>
-              </div>
-
-              <div class="result-awards-next">${experienceNext} XP</div>
-            </div>
-
-            <div class="result-awards-bottom">+${gainedXp} XP</div>
+          <div class="result-stats">
+            <div class="result-chip">Правильных ответов: ${state.score} из ${total}</div>
+            <div class="result-chip">Получено XP: ${earnedExp}</div>
+            <div class="result-chip">Текущий уровень: ${currentLevel}</div>
+            <div class="result-chip">Текущий опыт: ${formatNum(currentExperience)} / ${formatNum(currentExperienceNext)} XP</div>
           </div>
 
-          ${levelUpHtml}
+          ${levelUp ? `
+            <div class="result-levelup">
+              <img src="./level_up.gif" alt="Новый уровень" onerror="this.style.display='none'" />
+            </div>
+          ` : ''}
         </div>
       `;
 
@@ -1085,28 +1266,34 @@
         renderRewards();
         return;
       }
+
       if (state.screen === 'quiz' && state.quiz) {
         renderQuiz();
         return;
       }
+
       if (state.screen === 'result' && state.quiz) {
         renderResult();
         return;
       }
+
       goHome();
     }
 
     randomButton.addEventListener('click', handleRandomQuiz);
     startButton.addEventListener('click', handleStart);
+
     backButton.addEventListener('click', () => {
       if (document.getElementById('accountModal').classList.contains('show')) {
         closeAccountModal();
         return;
       }
+
       if (state.screen === 'quiz' || state.screen === 'result') {
         goHome();
         return;
       }
+
       if (window.history.length > 1) window.history.back();
       else if (tg) tg.close();
     });
